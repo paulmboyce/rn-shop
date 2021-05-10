@@ -7,9 +7,13 @@ import {
 	Button,
 } from "react-native";
 
+import MaterialHeaderButtons from "../navigation/HeaderButtons";
+import { Item } from "react-navigation-header-buttons";
+import { ThemeStyles } from "../styles/Theme";
+
 const ShopScreen = (props) => {
 	return (
-		<View style={styles.screen}>
+		<View style={ThemeStyles.screen}>
 			<Text>This is Shop Screen</Text>
 			<Button
 				title="Product"
@@ -33,16 +37,35 @@ const ShopScreen = (props) => {
 	);
 };
 
-const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-	},
-});
+const styles = StyleSheet.create({});
 
-ShopScreen.navigationOptions = {
-	title: "Browse Shop",
+ShopScreen.navigationOptions = ({ navigation }) => {
+	return {
+		title: "Browse Shop",
+		headerLeft: () => (
+			<MaterialHeaderButtons>
+				<Item
+					title="Menu"
+					iconName="menu"
+					onPress={() => {
+						navigation.toggleDrawer();
+					}}
+				/>
+			</MaterialHeaderButtons>
+		),
+		headerRight: () => (
+			<MaterialHeaderButtons>
+				<Item
+					title="Cart"
+					iconName="shopping-cart"
+					onPress={() => {
+						console.log("GO To CART...");
+						navigation.navigate("Cart");
+					}}
+				/>
+			</MaterialHeaderButtons>
+		),
+	};
 };
 
 export default ShopScreen;

@@ -17,4 +17,8 @@ const styles = StyleSheet.create({
 	},
 });
 
+CartScreen.navigationOptions = {
+	title: "Shopping Cart",
+};
+
 export default CartScreen;

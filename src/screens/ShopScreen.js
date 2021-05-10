@@ -41,4 +41,8 @@ const styles = StyleSheet.create({
 	},
 });
 
+ShopScreen.navigationOptions = {
+	title: "Browse Shop",
+};
+
 export default ShopScreen;

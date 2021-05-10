@@ -17,4 +17,7 @@ const styles = StyleSheet.create({
 	},
 });
 
+OrdersScreen.navigationOptions = {
+	title: "Order History",
+};
 export default OrdersScreen;

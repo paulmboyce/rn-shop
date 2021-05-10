@@ -17,4 +17,8 @@ const styles = StyleSheet.create({
 	},
 });
 
+ProductScreen.navigationOptions = {
+	title: "Product Details",
+};
+
 export default ProductScreen;

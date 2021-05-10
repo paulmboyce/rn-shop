@@ -47,7 +47,6 @@ OrdersScreen.navigationOptions = ({ navigation }) => {
 					title="Cart"
 					iconName="shopping-cart"
 					onPress={() => {
-						console.log("GO To CART...");
 						navigation.navigate("Cart");
 					}}
 				/>

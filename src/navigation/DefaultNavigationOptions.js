@@ -4,9 +4,9 @@ import { Theme } from "../styles/Theme";
 
 const defaultNavigationOptions = {
 	headerStyle: {
-		backgroundColor: Platform.OS === "android" ? Theme.primaryColor : "",
+		backgroundColor: Platform.OS === "android" ? Theme.primaryColor : "white",
 	},
-	headerTintColor: Platform.OS === "android" ? "" : Theme.primaryColor,
+	headerTintColor: Platform.OS === "android" ? "white" : Theme.primaryColor,
 	headerTitleStyle: {
 		fontWeight: "bold",
 	},

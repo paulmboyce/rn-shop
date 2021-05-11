@@ -16,9 +16,9 @@ const OrdersScreen = (props) => {
 		<View style={ThemeStyles.screen}>
 			<Text>This is Orders Screen</Text>
 			<Button
-				title="Back"
+				title="Continue Shopping"
 				onPress={() => {
-					props.navigation.goBack();
+					props.navigation.navigate("Home");
 				}}
 			/>
 		</View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({});
 
 OrdersScreen.navigationOptions = ({ navigation }) => {
 	return {
-		title: "My Order History",
+		title: "Order History",
 		headerLeft: () => (
 			<MaterialHeaderButtons>
 				<Item
@@ -37,17 +37,6 @@ OrdersScreen.navigationOptions = ({ navigation }) => {
 					iconName="menu"
 					onPress={() => {
 						navigation.toggleDrawer();
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
-		headerRight: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Cart"
-					iconName="shopping-cart"
-					onPress={() => {
-						navigation.navigate("Cart");
 					}}
 				/>
 			</MaterialHeaderButtons>

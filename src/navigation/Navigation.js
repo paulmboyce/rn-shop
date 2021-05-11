@@ -48,8 +48,18 @@ const settingsNavigator = createStackNavigator(
 
 const drawerNavigator = createDrawerNavigator(
 	{
-		Shop: { screen: appNavigator },
-		Settings: { screen: settingsNavigator },
+		Shop: {
+			screen: appNavigator,
+			navigationOptions: {
+				drawerLabel: "Main Shop",
+			},
+		},
+		Settings: {
+			screen: settingsNavigator,
+			navigationOptions: {
+				drawerLabel: "My Orders",
+			},
+		},
 	},
 	{
 		contentOptions: {

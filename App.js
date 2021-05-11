@@ -14,7 +14,7 @@ const reduxStore = createStore(
 );
 
 export default function App() {
-	console.log("Loading app... (no pre-caching)");
+	console.log("Loading app...");
 	const [isCacheLoaded, setIsCacheLoaded] = useState(false);
 
 	if (!isCacheLoaded) {

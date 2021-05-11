@@ -8,7 +8,7 @@ const Colors = {
 	primaryColor80Transparent: "#e91e63" + "CC",
 	secondaryColor: "#a41ee9",
 	secondaryColor80Transparent: "#a41ee9" + "CC",
-	backgroundColor: "linen",
+	backgroundColor: "white",
 	cancelColor: "#ccc",
 };
 

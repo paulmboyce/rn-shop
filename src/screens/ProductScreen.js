@@ -5,42 +5,68 @@ import {
 	Text,
 	Button,
 	useWindowDimensions,
+	Image,
+	ScrollView,
 } from "react-native";
+import { useSelector } from "react-redux";
 
 import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
-import { ThemeStyles } from "../styles/Theme";
+import { ThemeStyles, Theme } from "../styles/Theme";
 
 const ProductScreen = (props) => {
+	const productId = props.navigation.getParam("productId");
+	const product = useSelector((state) =>
+		state.products.find((p) => p.id === productId)
+	);
+
+	const window = useWindowDimensions();
+
+	const styles = StyleSheet.create({
+		productDetailImage: {
+			width: window.width,
+			height: window.width,
+		},
+		addCartButtonContainer: {
+			marginTop: 130,
+		},
+	});
+
 	return (
-		<View style={ThemeStyles.screen}>
-			<Text>This is Product Screen</Text>
-			<Button
-				title="Back"
-				onPress={() => {
-					props.navigation.goBack();
-				}}
-			/>
-		</View>
+		<ScrollView style={{ backgroundColor: Theme.backgroundColor }}>
+			<View style={ThemeStyles.screen}>
+				<View style={ThemeStyles.box2}>
+					<Image
+						style={styles.productDetailImage}
+						source={{
+							uri: "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
+						}}
+					/>
+					<Text>
+						This is Product Screen for {productId} {product.title}
+					</Text>
+					<Text>${product.price}</Text>
+					<Text>{product.description}</Text>
+				</View>
+				<View style={ThemeStyles.box1}>
+					<View style={styles.addCartButtonContainer}>
+						<Button
+							title="ADD TO CART"
+							onPress={() => {
+								console.log(`ACTION: addToCartAction(${productId})`);
+							}}
+						/>
+					</View>
+				</View>
+			</View>
+		</ScrollView>
 	);
 };
-
-const styles = StyleSheet.create({});
 
 ProductScreen.navigationOptions = ({ navigation }) => {
 	return {
 		title: "Product Details",
-		headerLeft: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Menu"
-					iconName="menu"
-					onPress={() => {
-						navigation.toggleDrawer();
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
+
 		headerRight: () => (
 			<MaterialHeaderButtons>
 				<Item

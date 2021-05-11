@@ -42,7 +42,6 @@ const ShopScreen = (props) => {
 	});
 
 	const renderProduct = ({ index, item }) => {
-		console.log("Render ITEM: ", index, item.image);
 		return (
 			<Card
 				key={String(index)}
@@ -72,7 +71,8 @@ const ShopScreen = (props) => {
 						<Button
 							title="VIEW"
 							onPress={() => {
-								console.log(`ACTION: addToCartAction(${item.id})`);
+								console.log(`ACTION: viewProductAction(${item.id})`);
+								props.navigation.navigate("Product", { productId: item.id });
 							}}
 						/>
 					</View>
@@ -81,31 +81,18 @@ const ShopScreen = (props) => {
 		);
 	};
 	const renderFlatList = () => {
-		return <FlatList data={products} renderItem={renderProduct} />;
+		return (
+			<FlatList
+				data={products}
+				keyExtractor={(item) => String(item.id)}
+				renderItem={renderProduct}
+			/>
+		);
 	};
 
 	return (
 		<View style={ThemeStyles.screen}>
 			<View style={ThemeStyles.box1}>{renderFlatList()}</View>
-
-			<Button
-				title="Product"
-				onPress={() => {
-					props.navigation.navigate("Product");
-				}}
-			/>
-			<Button
-				title="Orders"
-				onPress={() => {
-					props.navigation.navigate("Orders");
-				}}
-			/>
-			<Button
-				title="Cart"
-				onPress={() => {
-					props.navigation.navigate("Cart");
-				}}
-			/>
 		</View>
 	);
 };

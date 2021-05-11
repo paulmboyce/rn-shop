@@ -40,6 +40,11 @@ const ThemeStyles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
+	box1end: {
+		flex: 1,
+		justifyContent: "flex-end",
+		alignItems: "center",
+	},
 	box2: {
 		flex: 2,
 		justifyContent: "center",

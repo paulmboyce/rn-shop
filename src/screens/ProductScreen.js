@@ -24,29 +24,33 @@ const ProductScreen = (props) => {
 
 	const styles = StyleSheet.create({
 		productDetailImage: {
-			width: window.width,
-			height: window.width,
+			width: window.width * 0.99,
+			height: window.width * 0.99,
+			marginBottom: 20,
 		},
 		addCartButtonContainer: {
-			marginTop: 130,
+			marginTop: 30,
 		},
 	});
 
 	return (
-		<ScrollView style={{ backgroundColor: Theme.backgroundColor }}>
+		<ScrollView
+			style={{ backgroundColor: Theme.backgroundColor, paddingHorizontal: 20 }}
+		>
 			<View style={ThemeStyles.screen}>
 				<View style={ThemeStyles.box2}>
 					<Image
 						style={styles.productDetailImage}
 						source={{
-							uri: "https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg",
+							uri: product.image,
 						}}
 					/>
-					<Text>
-						This is Product Screen for {productId} {product.title}
+					<Text style={ThemeStyles.textTitle}>{product.title}</Text>
+					<Text style={ThemeStyles.text}>
+						{product.description}
+						{"  "}
+						<Text style={ThemeStyles.textBold}>Price: ${product.price}</Text>
 					</Text>
-					<Text>${product.price}</Text>
-					<Text>{product.description}</Text>
 				</View>
 				<View style={ThemeStyles.box1}>
 					<View style={styles.addCartButtonContainer}>

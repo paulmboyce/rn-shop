@@ -7,6 +7,7 @@ import {
 	Button,
 	FlatList,
 	Image,
+	TouchableOpacity,
 } from "react-native";
 
 import { useSelector } from "react-redux";
@@ -43,41 +44,46 @@ const ShopScreen = (props) => {
 
 	const renderProduct = ({ index, item }) => {
 		return (
-			<Card
-				key={String(index)}
-				style={{
-					paddingVertical: 5,
-					margin: 20,
-					borderWidth: 1,
-					borderRadius: 3,
-					borderColor: Theme.cancelColor,
-					backgroundColor: "white",
+			<TouchableOpacity
+				onPress={() => {
+					props.navigation.navigate("Product", { productId: item.id });
 				}}
 			>
-				<Image
-					style={styles.listImage}
-					source={{
-						uri: item.image,
+				<Card
+					key={String(index)}
+					style={{
+						paddingVertical: 5,
+						margin: 20,
+						borderWidth: 1,
+						borderRadius: 3,
+						borderColor: Theme.cancelColor,
+						backgroundColor: "white",
 					}}
-				/>
-				<View style={styles.productFooterContainer}>
-					<View style={styles.productFooter}>
-						<View style={{ flex: 1 }}>
-							<Text>
-								{item.title}&nbsp;
-								<Text style={{ fontWeight: "bold" }}>${item.price}</Text>
-							</Text>
+				>
+					<Image
+						style={styles.listImage}
+						source={{
+							uri: item.image,
+						}}
+					/>
+					<View style={styles.productFooterContainer}>
+						<View style={styles.productFooter}>
+							<View style={{ flex: 1 }}>
+								<Text style={ThemeStyles.text}>
+									{item.title}&nbsp;
+									<Text style={ThemeStyles.textBold}>${item.price}</Text>
+								</Text>
+							</View>
+							<Button
+								title="VIEW"
+								onPress={() => {
+									props.navigation.navigate("Product", { productId: item.id });
+								}}
+							/>
 						</View>
-						<Button
-							title="VIEW"
-							onPress={() => {
-								console.log(`ACTION: viewProductAction(${item.id})`);
-								props.navigation.navigate("Product", { productId: item.id });
-							}}
-						/>
 					</View>
-				</View>
-			</Card>
+				</Card>
+			</TouchableOpacity>
 		);
 	};
 	const renderFlatList = () => {

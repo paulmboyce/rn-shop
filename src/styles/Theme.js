@@ -20,15 +20,15 @@ const Theme = {
 	backgroundColor: Colors.backgroundColor,
 	headerBackgroundColor: Colors.primaryColor,
 	cancelColor: Colors.cancelColor,
+	shadowColor: Colors.shadow,
+	shadowOffset: { height: 2, width: 0 },
+	shadowOpacity: 0.26,
+	shadowRadius: 5,
+	elevation: 6,
+	shadowBorderRadius: 10,
 };
 
 const ThemeStyles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: Theme.backgroundColor,
-	},
 	screen: {
 		flex: 1,
 		justifyContent: "center",
@@ -71,6 +71,15 @@ const ThemeStyles = StyleSheet.create({
 		color: Theme.secondaryColor,
 		fontSize: 18,
 		paddingVertical: 7,
+	},
+	shadowBorder: {
+		shadowColor: Theme.shadowColor,
+		shadowOffset: Theme.shadowOffset,
+		shadowOpacity: Theme.shadowOpacity,
+		shadowRadius: Theme.shadowRadius,
+		backgroundColor: Theme.backgroundColor,
+		elevation: Theme.elevation,
+		borderRadius: Theme.shadowBorderRadius,
 	},
 });
 

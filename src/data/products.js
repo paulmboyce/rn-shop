@@ -4,4 +4,6 @@
 
 // Later we will fetch dynamically via fetch|axios
 import productList from "./product-list";
-export const PRODUCTS = productList;
+const PRODUCT_DATA = productList;
+
+export default PRODUCT_DATA;

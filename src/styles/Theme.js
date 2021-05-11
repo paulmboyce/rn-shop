@@ -40,6 +40,11 @@ const ThemeStyles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
+	box1left: {
+		flex: 1,
+		justifyContent: "flex-start",
+		alignItems: "center",
+	},
 	box1end: {
 		flex: 1,
 		justifyContent: "flex-end",
@@ -50,8 +55,18 @@ const ThemeStyles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	box2Left: {
+	box2left: {
 		flex: 2,
+		justifyContent: "center",
+		alignItems: "flex-start",
+	},
+	box3: {
+		flex: 3,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	box3left: {
+		flex: 3,
 		justifyContent: "center",
 		alignItems: "flex-start",
 	},
@@ -62,8 +77,16 @@ const ThemeStyles = StyleSheet.create({
 	text: {
 		fontFamily: "OpenSans",
 	},
+	textLarge: {
+		fontFamily: "OpenSans",
+		fontSize: 24,
+	},
 	textBold: {
 		fontFamily: "OpenSansBold",
+	},
+	textBoldLarge: {
+		fontFamily: "OpenSansBold",
+		fontSize: 24,
 	},
 	textTitle: {
 		fontFamily: "OpenSansBold",
@@ -85,6 +108,19 @@ const ThemeStyles = StyleSheet.create({
 		backgroundColor: Theme.backgroundColor,
 		elevation: Theme.elevation,
 		borderRadius: Theme.shadowBorderRadius,
+	},
+	buttonContainer: {
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: Theme.primaryColor,
+		fontFamily: Theme.fontFamily,
+		padding: 8,
+		borderRadius: 5,
+		overflow: "hidden",
+	},
+	button: {
+		fontSize: 18,
+		color: "white",
 	},
 });
 

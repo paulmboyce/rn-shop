@@ -6,10 +6,13 @@ import AppLoading from "expo-app-loading";
 
 import AppNavigator from "./src/navigation/Navigation";
 import reduceProducts from "./src/redux/reducers/ReduceProducts";
+import reduceCarts from "./src/redux/reducers/ReduceCarts";
 import { fetchAssetsAsync } from "./src/utils/loadAsync";
 const reduxStore = createStore(
 	combineReducers({
 		products: reduceProducts,
+		carts: reduceCarts,
+		loggedInUser: () => 1,
 	})
 );
 

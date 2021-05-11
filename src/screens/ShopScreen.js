@@ -42,11 +42,17 @@ const ShopScreen = (props) => {
 		},
 	});
 
+	const showProductScreen = (item) => {
+		props.navigation.navigate("Product", {
+			productId: item.id,
+			title: item.title,
+		});
+	};
 	const renderProduct = ({ index, item }) => {
 		return (
 			<TouchableOpacity
 				onPress={() => {
-					props.navigation.navigate("Product", { productId: item.id });
+					showProductScreen(item);
 				}}
 			>
 				<Card
@@ -77,7 +83,7 @@ const ShopScreen = (props) => {
 							<Button
 								title="VIEW"
 								onPress={() => {
-									props.navigation.navigate("Product", { productId: item.id });
+									showProductScreen(item);
 								}}
 							/>
 						</View>

@@ -68,8 +68,9 @@ const ProductScreen = (props) => {
 };
 
 ProductScreen.navigationOptions = ({ navigation }) => {
+	const title = navigation.getParam("title");
 	return {
-		title: "Product Details",
+		title: title ? title : "Product Details",
 
 		headerRight: () => (
 			<MaterialHeaderButtons>

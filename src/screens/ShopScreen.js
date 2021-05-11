@@ -27,15 +27,17 @@ const ShopScreen = (props) => {
 		listImage: {
 			height: window.width * 0.6,
 			width: window.width * 0.6,
+			marginTop: 15,
 		},
 		productFooterContainer: {
-			width: window.width * 0.6,
+			width: window.width * 0.7,
 		},
 		productFooter: {
 			flexDirection: "row",
+			flex: 1,
 			justifyContent: "space-between",
-			alignItems: "center",
-			width: window.width * 0.6,
+			alignItems: "flex-end",
+			marginTop: 10,
 		},
 	});
 
@@ -60,14 +62,15 @@ const ShopScreen = (props) => {
 					}}
 				/>
 				<View style={styles.productFooterContainer}>
-					<Text>{item.title}</Text>
 					<View style={styles.productFooter}>
-						<Text>
-							<Text style={{ fontWeight: "bold" }}>${item.price}</Text>
-						</Text>
-
+						<View style={{ flex: 1 }}>
+							<Text>
+								{item.title}&nbsp;
+								<Text style={{ fontWeight: "bold" }}>${item.price}</Text>
+							</Text>
+						</View>
 						<Button
-							title="Add to Cart"
+							title="VIEW"
 							onPress={() => {
 								console.log(`ACTION: addToCartAction(${item.id})`);
 							}}

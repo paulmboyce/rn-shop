@@ -36,9 +36,13 @@ const showProductScreen = (navigation, product) => {
 };
 
 const CartScreen = (props) => {
-	const cart = useSelector((state) =>
-		getCartForUser(state.carts, state.loggedInUser)
-	);
+	console.log("RENDER CART..");
+
+	const carts = useSelector((state) => state.carts);
+	const userId = useSelector((state) => state.loggedInUser);
+	const cart = getCartForUser(carts, userId);
+
+	console.log("User CART STATE: ", cart);
 	const allProducts = useSelector((state) => state.products);
 
 	const cartProductIds = cart.items.map((item) => item.productId);

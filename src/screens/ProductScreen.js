@@ -8,7 +8,9 @@ import {
 	Image,
 	ScrollView,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { addToCartAction } from "../redux/actions/CartActions";
 
 import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
@@ -20,7 +22,8 @@ const ProductScreen = (props) => {
 	const product = useSelector((state) =>
 		state.products.find((p) => p.id === productId)
 	);
-
+	const loggedInUser = useSelector((state) => state.loggedInUser);
+	const dispatch = useDispatch();
 	const window = useWindowDimensions();
 
 	const styles = StyleSheet.create({
@@ -64,6 +67,7 @@ const ProductScreen = (props) => {
 							title="Add to cart"
 							onPress={() => {
 								console.log(`ACTION: addToCartAction(${productId})`);
+								dispatch(addToCartAction(productId));
 							}}
 						/>
 					</View>

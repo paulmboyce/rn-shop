@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
+import thunk from "redux-thunk";
 
 import AppNavigator from "./src/navigation/Navigation";
 import reduceProducts from "./src/redux/reducers/ReduceProducts";
@@ -13,7 +14,8 @@ const reduxStore = createStore(
 		products: reduceProducts,
 		carts: reduceCarts,
 		loggedInUser: () => 1,
-	})
+	}),
+	applyMiddleware(thunk)
 );
 
 export default function App() {

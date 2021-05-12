@@ -26,15 +26,25 @@ export const deleteFromCartAction = (productId) => {
 		});
 	};
 };
-export const incrementCartAction = () => {
-	return {
-		type: INCREMENT_QUANTITY,
-		payload: { productId: product.id },
+export const incrementCartAction = (productId) => {
+	return (dispatch, getState) => {
+		dispatch({
+			type: INCREMENT_QUANTITY,
+			payload: {
+				productId: productId,
+				userId: getState().loggedInUser,
+			},
+		});
 	};
 };
-export const decrementCartAction = () => {
-	return {
-		type: DECREMENT_QUANTITY,
-		payload: { productId: product.id },
+export const decrementCartAction = (productId) => {
+	return (dispatch, getState) => {
+		dispatch({
+			type: DECREMENT_QUANTITY,
+			payload: {
+				productId: productId,
+				userId: getState().loggedInUser,
+			},
+		});
 	};
 };

@@ -49,7 +49,6 @@ const reduceCarts = (oldState = defaultCart, action) => {
 
 	switch (type) {
 		case ADD_TO_CART: {
-			console.log("reduceCarts ADD_TO_CART: ", payload);
 			const newState = [...oldState];
 
 			let userCart = newState.find(findCartByUserId);
@@ -75,11 +74,11 @@ const reduceCarts = (oldState = defaultCart, action) => {
 				};
 				userCart.items.push(cartItem);
 			}
-			//			console.log("NEW CART STATE: ", newState);
+
 			return newState;
 		}
+
 		case DELETE_FROM_CART: {
-			console.log("reduceCarts: ", DELETE_FROM_CART);
 			const newState = [...oldState];
 
 			const userCart = newState.find(findCartByUserId);
@@ -87,14 +86,37 @@ const reduceCarts = (oldState = defaultCart, action) => {
 			const index = userCart.items.indexOf(productItem);
 
 			userCart.items.splice(index, 1);
-			console.log("DELETE_FROM_CART", newState);
+
 			return newState;
 		}
-		case INCREMENT_QUANTITY: {
-			console.log("reduceCarts: ", INCREMENT_QUANTITY);
-		}
+
 		case DECREMENT_QUANTITY: {
-			console.log("reduceCarts: ", DECREMENT_QUANTITY);
+			const newState = [...oldState];
+			const userCart = newState.find(findCartByUserId);
+			const productItem = userCart.items.find(findItemByProductId);
+
+			// CASE: Decrement (usual)
+			if (productItem.quantity > 0) {
+				productItem.quantity--;
+			}
+
+			// CASE: Delete if zero
+			if (productItem.quantity === 0) {
+				const index = userCart.items.indexOf(productItem);
+				userCart.items.splice(index, 1);
+			}
+
+			return newState;
+		}
+
+		case INCREMENT_QUANTITY: {
+			const newState = [...oldState];
+			const userCart = newState.find(findCartByUserId);
+			const productItem = userCart.items.find(findItemByProductId);
+
+			productItem.quantity++;
+
+			return newState;
 		}
 
 		default:

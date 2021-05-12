@@ -20,7 +20,11 @@ import ButtonAction from "../components/themed/ButtonAction";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 
-import { deleteFromCartAction } from "../redux/actions/CartActions";
+import {
+	deleteFromCartAction,
+	decrementCartAction,
+	incrementCartAction,
+} from "../redux/actions/CartActions";
 
 const getCartForUser = (carts, loggedInUser) => {
 	let cart = carts.find((cart) => cart.userId === loggedInUser);
@@ -54,9 +58,6 @@ const CartScreen = (props) => {
 	const allProducts = useSelector((state) => state.products);
 
 	const cart = getCartForUser(carts, userId);
-
-	console.log("CART for user: ", cart);
-
 	const cartProductIds = cart.items.map((item) => item.productId);
 	const cartProducts = allProducts.filter((product) =>
 		cartProductIds.includes(product.id)
@@ -67,7 +68,6 @@ const CartScreen = (props) => {
 
 	const renderItems = () => {
 		if (cart.items.length === 0) {
-			console.log("Cart empty...");
 			return (
 				<Text style={ThemeStyles.text}>
 					No items found. Add a product to your cart!
@@ -75,7 +75,6 @@ const CartScreen = (props) => {
 			);
 		}
 
-		console.log("CART PRODUCTs", cartProducts);
 		return cart.items.map((cartItem) => {
 			const cartProduct = getCartProduct(cartProducts, cartItem.productId);
 			return (
@@ -119,18 +118,14 @@ const CartScreen = (props) => {
 									</Text>
 									<ButtonIconSmall
 										onPress={() => {
-											console.log(
-												`ACTION: decrementQuantityAction(${cartItem.productId})`
-											);
+											dispatch(decrementCartAction(cartItem.productId));
 										}}
 									>
 										<MaterialIcons name="remove" size={16} color="black" />
 									</ButtonIconSmall>
 									<ButtonIconSmall
 										onPress={() => {
-											console.log(
-												`ACTION: incrementQuantityAction(${cartItem.productId})`
-											);
+											dispatch(incrementCartAction(cartItem.productId));
 										}}
 									>
 										<MaterialIcons name="add" size={16} color="black" />
@@ -138,9 +133,6 @@ const CartScreen = (props) => {
 									<View style={{ marginLeft: 10 }}>
 										<ButtonActionSmall
 											onPress={() => {
-												console.log(
-													`ACTION: deleteFromCartAction(${cartItem.productId})`
-												);
 												dispatch(deleteFromCartAction(cartItem.productId));
 											}}
 											title="Delete"
@@ -172,7 +164,7 @@ const CartScreen = (props) => {
 			const cartProduct = getCartProduct(cartProducts, item.productId);
 			subTotal += cartProduct.price * item.quantity;
 		});
-		return subTotal;
+		return Number.parseFloat(subTotal).toFixed(2);
 	};
 	const renderItemCount = () => {
 		let count = 0;

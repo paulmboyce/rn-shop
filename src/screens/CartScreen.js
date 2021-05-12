@@ -21,7 +21,17 @@ import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 
 const getCartForUser = (carts, loggedInUser) => {
-	return carts.find((cart) => cart.userId === loggedInUser);
+	let cart = carts.find((cart) => cart.userId === loggedInUser);
+	if (cart === undefined) {
+		console.log("No cart found for user, creating empty cart...");
+		cart = {
+			id: Math.random(),
+			userId: loggedInUser,
+			date: Date.now(),
+			items: [],
+		};
+	}
+	return cart;
 };
 
 const getCartProduct = (cartProducts, productId) => {
@@ -45,10 +55,15 @@ const CartScreen = (props) => {
 
 	console.log("CART for user: ", cart);
 
+	const cartProductIds = cart.items.map((item) => item.productId);
+	const cartProducts = allProducts.filter((product) =>
+		cartProductIds.includes(product.id)
+	);
+
 	const window = useWindowDimensions();
 
 	const renderItems = () => {
-		if (cart === undefined) {
+		if (cart.items.length === 0) {
 			console.log("Cart empty...");
 			return (
 				<Text style={ThemeStyles.text}>
@@ -57,11 +72,7 @@ const CartScreen = (props) => {
 			);
 		}
 
-		const cartProductIds = cart.items.map((item) => item.productId);
-		const cartProducts = allProducts.filter((product) =>
-			cartProductIds.includes(product.id)
-		);
-
+		console.log("CART PRODUCTs", cartProducts);
 		return cart.items.map((cartItem) => {
 			const cartProduct = getCartProduct(cartProducts, cartItem.productId);
 			return (
@@ -150,7 +161,7 @@ const CartScreen = (props) => {
 	const renderTotal = () => {
 		let subTotal = 0;
 
-		if (cart === undefined) {
+		if (cart.items.length === 0) {
 			return subTotal;
 		}
 		cart.items.map((item) => {
@@ -201,7 +212,7 @@ const CartScreen = (props) => {
 					</View>
 				</View>
 				{(() => {
-					if (cart !== undefined) {
+					if (cart.items.length > 0) {
 						return (
 							<View style={ThemeStyles.box1}>
 								<ButtonAction

@@ -27,7 +27,7 @@ const defaultCart = [
 	},
 	{
 		id: 1,
-		userId: 1,
+		userId: 10,
 		date: "2020-03-02T00:00:02.000Z",
 		items: [
 			{
@@ -47,22 +47,32 @@ const reduceCarts = (oldState = defaultCart, action) => {
 
 	switch (type) {
 		case ADD_TO_CART: {
-			console.log("reduceCarts: ", ADD_TO_CART, payload);
+			console.log("reduceCarts ADD_TO_CART: ", payload);
 			const newState = [...oldState];
-			const cart = newState.find((cart) => cart.userId === payload.userId);
 
-			let item = cart.items.find(
-				(item) => item.productId === payload.productId
-			);
+			let userCart = newState.find((cart) => cart.userId === payload.userId);
 
-			if (item) {
-				item.quantity++;
+			if (!userCart) {
+				userCart = {
+					id: Math.random(),
+					userId: payload.userId,
+					date: Date.now(),
+					items: [],
+				};
+				newState.push(userCart);
+			}
+
+			const findByProductId = (item) => item.productId === payload.productId;
+			let cartItem = userCart.items.find(findByProductId);
+
+			if (cartItem) {
+				cartItem.quantity++;
 			} else {
-				item = {
+				cartItem = {
 					productId: payload.productId,
 					quantity: 1,
 				};
-				cart.items.push(item);
+				userCart.items.push(cartItem);
 			}
 			//			console.log("NEW CART STATE: ", newState);
 			return newState;

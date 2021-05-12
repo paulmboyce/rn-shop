@@ -37,21 +37,31 @@ const showProductScreen = (navigation, product) => {
 
 const CartScreen = (props) => {
 	console.log("RENDER CART..");
-
 	const carts = useSelector((state) => state.carts);
 	const userId = useSelector((state) => state.loggedInUser);
-	const cart = getCartForUser(carts, userId);
-
-	console.log("User CART STATE: ", cart);
 	const allProducts = useSelector((state) => state.products);
 
-	const cartProductIds = cart.items.map((item) => item.productId);
-	const cartProducts = allProducts.filter((product) =>
-		cartProductIds.includes(product.id)
-	);
+	const cart = getCartForUser(carts, userId);
+
+	console.log("CART for user: ", cart);
 
 	const window = useWindowDimensions();
+
 	const renderItems = () => {
+		if (cart === undefined) {
+			console.log("Cart empty...");
+			return (
+				<Text style={ThemeStyles.text}>
+					No items found. Add a product to your cart!
+				</Text>
+			);
+		}
+
+		const cartProductIds = cart.items.map((item) => item.productId);
+		const cartProducts = allProducts.filter((product) =>
+			cartProductIds.includes(product.id)
+		);
+
 		return cart.items.map((cartItem) => {
 			const cartProduct = getCartProduct(cartProducts, cartItem.productId);
 			return (
@@ -139,6 +149,10 @@ const CartScreen = (props) => {
 
 	const renderTotal = () => {
 		let subTotal = 0;
+
+		if (cart === undefined) {
+			return subTotal;
+		}
 		cart.items.map((item) => {
 			const cartProduct = getCartProduct(cartProducts, item.productId);
 			subTotal += cartProduct.price * item.quantity;
@@ -147,6 +161,11 @@ const CartScreen = (props) => {
 	};
 	const renderItemCount = () => {
 		let count = 0;
+
+		if (cart === undefined) {
+			return count;
+		}
+
 		cart.items.map((item) => {
 			count += item.quantity;
 		});
@@ -181,17 +200,28 @@ const CartScreen = (props) => {
 						</Text>
 					</View>
 				</View>
-				<View style={ThemeStyles.box1}>
-					<ButtonAction
-						style={{
-							width: window.width * 0.9,
-							paddingVertical: 10,
-							marginBottom: 10,
-						}}
-						title={"Proceed to checkout (" + renderItemCount() + " items)"}
-						onPress={() => console.log("ACTION: startCheckoutAction(cart)")}
-					/>
-				</View>
+				{(() => {
+					if (cart !== undefined) {
+						return (
+							<View style={ThemeStyles.box1}>
+								<ButtonAction
+									style={{
+										width: window.width * 0.9,
+										paddingVertical: 10,
+										marginBottom: 10,
+									}}
+									title={
+										"Proceed to checkout (" + renderItemCount() + " items)"
+									}
+									onPress={() =>
+										console.log("ACTION: startCheckoutAction(cart)")
+									}
+								/>
+							</View>
+						);
+					}
+				})()}
+
 				<View style={ThemeStyles.box2end}>{renderItems()}</View>
 			</View>
 		</ScrollView>

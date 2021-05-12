@@ -33,6 +33,7 @@ const ProductScreen = (props) => {
 			marginTop: 30,
 			marginBottom: 50,
 			width: window.width * 0.9,
+			paddingHorizontal: 3,
 		},
 		addCartButtonContainerTop: {
 			flexDirection: "row",
@@ -40,6 +41,7 @@ const ProductScreen = (props) => {
 			alignItems: "center",
 			width: window.width * 0.9,
 			paddingBottom: 20,
+			paddingHorizontal: 3,
 		},
 	});
 

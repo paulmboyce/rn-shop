@@ -79,14 +79,14 @@ const CartScreen = (props) => {
 									style={{
 										flex: 1,
 										flexDirection: "row",
-										justifyContent: "space-between",
+										justifyContent: "flex-start",
 										alignItems: "center",
 									}}
 								>
 									<Text style={ThemeStyles.text}>
 										Quantity&nbsp;
 										<Text style={ThemeStyles.textBold}>
-											{cartItem.quantity}&nbsp;&nbsp;
+											{cartItem.quantity}&nbsp;
 										</Text>
 									</Text>
 									<ButtonIconSmall
@@ -96,7 +96,7 @@ const CartScreen = (props) => {
 											);
 										}}
 									>
-										<MaterialIcons name="remove" size={18} color="black" />
+										<MaterialIcons name="remove" size={16} color="black" />
 									</ButtonIconSmall>
 									<ButtonIconSmall
 										onPress={() => {
@@ -105,9 +105,9 @@ const CartScreen = (props) => {
 											);
 										}}
 									>
-										<MaterialIcons name="add" size={18} color="black" />
+										<MaterialIcons name="add" size={16} color="black" />
 									</ButtonIconSmall>
-									<View style={{ marginLeft: 25 }}>
+									<View style={{ marginLeft: 10 }}>
 										<ButtonActionSmall
 											onPress={() => {
 												console.log(
@@ -117,6 +117,7 @@ const CartScreen = (props) => {
 											title="Delete"
 											buttonStyle={{
 												paddingVertical: 0,
+												paddingHorizontal: 3,
 												backgroundColor: "white",
 												borderWidth: 0.5,
 												overflow: "hidden",

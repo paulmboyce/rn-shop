@@ -4,19 +4,26 @@ import { StyleSheet } from "react-native";
    see https://css-tricks.com/8-digit-hex-codes/
  */
 const Colors = {
-	primaryColor: "#e91e63",
-	primaryColor80Transparent: "#e91e63" + "CC",
+	primaryColor: "#009a9a", // "#e91e63",
 	secondaryColor: "#a41ee9",
-	secondaryColor80Transparent: "#a41ee9" + "CC",
+	actionColor: "#FF9900", // SEE: https://brandpalettes.com/amazon-color-codes/
 	backgroundColor: "white",
 	cancelColor: "#ccc",
 };
 
+const TransparentColors = {
+	primaryColor80: Colors.primaryColor + "CC",
+	secondaryColor80: Colors.secondaryColor + "CC",
+	actionColor80: Colors.actionColor + "CC",
+};
+
 const Theme = {
 	primaryColor: Colors.primaryColor,
-	primaryColor80Transparent: Colors.primaryColor80Transparent,
+	primaryColor80Transparent: TransparentColors.primaryColor80,
 	secondaryColor: Colors.secondaryColor,
-	secondaryColor80Transparent: Colors.secondaryColor80Transparent,
+	secondaryColor80Transparent: TransparentColors.secondaryColor80,
+	actionColor: Colors.actionColor,
+	actionColor80Transparent: TransparentColors.actionColor80,
 	backgroundColor: Colors.backgroundColor,
 	headerBackgroundColor: Colors.primaryColor,
 	cancelColor: Colors.cancelColor,
@@ -112,7 +119,7 @@ const ThemeStyles = StyleSheet.create({
 	buttonContainer: {
 		justifyContent: "center",
 		alignItems: "center",
-		backgroundColor: Theme.primaryColor,
+		backgroundColor: Theme.actionColor,
 		fontFamily: Theme.fontFamily,
 		padding: 8,
 		borderRadius: 5,
@@ -120,7 +127,7 @@ const ThemeStyles = StyleSheet.create({
 	},
 	button: {
 		fontSize: 18,
-		color: "white",
+		color: "black",
 	},
 });
 

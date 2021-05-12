@@ -15,7 +15,7 @@ import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import Card from "../components/Card";
-import ButtonPrimary from "../components/themed/ButtonPrimary";
+import ButtonAction from "../components/themed/ButtonAction";
 
 const getCartForUser = (carts, loggedInUser) => {
 	return carts.find((cart) => cart.userId === loggedInUser);
@@ -47,7 +47,6 @@ const CartScreen = (props) => {
 	const renderItems = () => {
 		return cart.items.map((item) => {
 			const cartProduct = getCartProduct(cartProducts, item.productId);
-			console.log("cartProduct", cartProduct);
 			return (
 				<TouchableOpacity
 					key={item.productId}
@@ -89,7 +88,6 @@ const CartScreen = (props) => {
 		cart.items.map((item) => {
 			const cartProduct = getCartProduct(cartProducts, item.productId);
 			subTotal += cartProduct.price * item.quantity;
-			console.log("subTotal", subTotal);
 		});
 		return subTotal;
 	};
@@ -130,13 +128,13 @@ const CartScreen = (props) => {
 					</View>
 				</View>
 				<View style={ThemeStyles.box1}>
-					<ButtonPrimary
+					<ButtonAction
 						style={{
 							width: window.width * 0.9,
 							paddingVertical: 10,
 							marginBottom: 10,
 						}}
-						title={"Proceed to Checkout (" + renderItemCount() + ") items"}
+						title={"Proceed to Checkout (" + renderItemCount() + " items)"}
 						onPress={() => console.log("ACTION: startCheckoutAction(cart)")}
 					/>
 				</View>

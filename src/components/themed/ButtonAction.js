@@ -14,7 +14,7 @@ if (Platform.OS === "android" && Platform.Version >= 21) {
 	ButtonTouchable = TouchableNativeFeedback;
 }
 
-const ButtonPrimary = (props) => {
+const ButtonAction = (props) => {
 	const content = props.children || props.title || "";
 	return (
 		<ButtonTouchable {...props}>
@@ -27,4 +27,4 @@ const ButtonPrimary = (props) => {
 	);
 };
 
-export default ButtonPrimary;
+export default ButtonAction;

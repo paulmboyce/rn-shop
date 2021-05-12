@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
+import ButtonAction from "../components/themed/ButtonAction";
 
 const ProductScreen = (props) => {
 	const productId = props.navigation.getParam("productId");
@@ -54,8 +55,8 @@ const ProductScreen = (props) => {
 				</View>
 				<View style={ThemeStyles.box1}>
 					<View style={styles.addCartButtonContainer}>
-						<Button
-							title="ADD TO CART"
+						<ButtonAction
+							title="Add to cart"
 							onPress={() => {
 								console.log(`ACTION: addToCartAction(${productId})`);
 							}}

@@ -44,13 +44,15 @@ const defaultCart = [
 
 const reduceCarts = (oldState = defaultCart, action) => {
 	const { type, payload } = action;
+	const findItemByProductId = (item) => item.productId === payload.productId;
+	const findCartByUserId = (cart) => cart.userId === payload.userId;
 
 	switch (type) {
 		case ADD_TO_CART: {
 			console.log("reduceCarts ADD_TO_CART: ", payload);
 			const newState = [...oldState];
 
-			let userCart = newState.find((cart) => cart.userId === payload.userId);
+			let userCart = newState.find(findCartByUserId);
 
 			if (!userCart) {
 				userCart = {
@@ -62,8 +64,7 @@ const reduceCarts = (oldState = defaultCart, action) => {
 				newState.push(userCart);
 			}
 
-			const findByProductId = (item) => item.productId === payload.productId;
-			let cartItem = userCart.items.find(findByProductId);
+			let cartItem = userCart.items.find(findItemByProductId);
 
 			if (cartItem) {
 				cartItem.quantity++;
@@ -79,6 +80,15 @@ const reduceCarts = (oldState = defaultCart, action) => {
 		}
 		case DELETE_FROM_CART: {
 			console.log("reduceCarts: ", DELETE_FROM_CART);
+			const newState = [...oldState];
+
+			const userCart = newState.find(findCartByUserId);
+			const productItem = userCart.items.find(findItemByProductId);
+			const index = userCart.items.indexOf(productItem);
+
+			userCart.items.splice(index, 1);
+			console.log("DELETE_FROM_CART", newState);
+			return newState;
 		}
 		case INCREMENT_QUANTITY: {
 			console.log("reduceCarts: ", INCREMENT_QUANTITY);

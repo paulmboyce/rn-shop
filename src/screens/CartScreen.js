@@ -9,7 +9,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import MaterialHeaderButtons from "../navigation/HeaderButtons";
@@ -19,6 +19,8 @@ import Card from "../components/Card";
 import ButtonAction from "../components/themed/ButtonAction";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
+
+import { deleteFromCartAction } from "../redux/actions/CartActions";
 
 const getCartForUser = (carts, loggedInUser) => {
 	let cart = carts.find((cart) => cart.userId === loggedInUser);
@@ -61,6 +63,7 @@ const CartScreen = (props) => {
 	);
 
 	const window = useWindowDimensions();
+	const dispatch = useDispatch();
 
 	const renderItems = () => {
 		if (cart.items.length === 0) {
@@ -136,8 +139,9 @@ const CartScreen = (props) => {
 										<ButtonActionSmall
 											onPress={() => {
 												console.log(
-													`ACTION: deleteCartItemAction(${cartItem.productId})`
+													`ACTION: deleteFromCartAction(${cartItem.productId})`
 												);
+												dispatch(deleteFromCartAction(cartItem.productId));
 											}}
 											title="Delete"
 											buttonStyle={{
@@ -234,6 +238,27 @@ const CartScreen = (props) => {
 				})()}
 
 				<View style={ThemeStyles.box2end}>{renderItems()}</View>
+
+				{(() => {
+					if (cart.items.length === 0) {
+						return (
+							<View style={ThemeStyles.box1}>
+								<ButtonAction
+									style={{
+										width: window.width * 0.9,
+										paddingVertical: window.height * 0.25,
+										marginBottom: 10,
+									}}
+									title={"Continue shopping >>"}
+									onPress={() => {
+										console.log("ACTION: navigate to home");
+										props.navigation.navigate("Home");
+									}}
+								/>
+							</View>
+						);
+					}
+				})()}
 			</View>
 		</ScrollView>
 	);

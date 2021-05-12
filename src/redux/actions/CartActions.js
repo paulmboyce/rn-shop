@@ -5,7 +5,6 @@ export const INCREMENT_QUANTITY = "INCREMENT_QUANTITY";
 
 export const addToCartAction = (productId) => {
 	return (dispatch, getState) => {
-		console.log("    dispatching acttion...");
 		dispatch({
 			type: ADD_TO_CART,
 			payload: {
@@ -16,10 +15,15 @@ export const addToCartAction = (productId) => {
 	};
 };
 
-export const deleteFromCartAction = () => {
-	return {
-		type: DELETE_FROM_CART,
-		payload: { productId: product.id },
+export const deleteFromCartAction = (productId) => {
+	return (dispatch, getState) => {
+		dispatch({
+			type: DELETE_FROM_CART,
+			payload: {
+				productId: productId,
+				userId: getState().loggedInUser,
+			},
+		});
 	};
 };
 export const incrementCartAction = () => {

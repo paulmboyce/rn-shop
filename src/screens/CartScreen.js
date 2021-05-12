@@ -10,12 +10,15 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import Card from "../components/Card";
 import ButtonAction from "../components/themed/ButtonAction";
+import ButtonActionSmall from "../components/themed/ButtonActionSmall";
+import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 
 const getCartForUser = (carts, loggedInUser) => {
 	return carts.find((cart) => cart.userId === loggedInUser);
@@ -45,11 +48,11 @@ const CartScreen = (props) => {
 
 	const window = useWindowDimensions();
 	const renderItems = () => {
-		return cart.items.map((item) => {
-			const cartProduct = getCartProduct(cartProducts, item.productId);
+		return cart.items.map((cartItem) => {
+			const cartProduct = getCartProduct(cartProducts, cartItem.productId);
 			return (
 				<TouchableOpacity
-					key={item.productId}
+					key={cartItem.productId}
 					onPress={() => {
 						showProductScreen(props.navigation, cartProduct);
 					}}
@@ -66,15 +69,59 @@ const CartScreen = (props) => {
 							</View>
 							<View style={{ ...ThemeStyles.box3left, paddingLeft: 20 }}>
 								<Text style={ThemeStyles.text}>{cartProduct.title}</Text>
-								<Text></Text>
 								<Text style={ThemeStyles.text}>
-									Price per item:&nbsp;
+									Item price:&nbsp;
 									<Text style={ThemeStyles.textBold}>${cartProduct.price}</Text>
 								</Text>
-								<Text style={ThemeStyles.text}>
-									Quantity&nbsp;
-									<Text style={ThemeStyles.textBold}>{item.quantity}</Text>
-								</Text>
+								<Text></Text>
+
+								<View
+									style={{
+										flex: 1,
+										flexDirection: "row",
+										justifyContent: "space-between",
+										alignItems: "center",
+									}}
+								>
+									<Text style={ThemeStyles.text}>
+										Quantity&nbsp;
+										<Text style={ThemeStyles.textBold}>
+											{cartItem.quantity}&nbsp;&nbsp;
+										</Text>
+									</Text>
+									<ButtonIconSmall
+										onPress={() => {
+											console.log(
+												`ACTION: decrementQuantityAction(${cartItem.productId})`
+											);
+										}}
+									>
+										<MaterialIcons name="remove" size={18} color="black" />
+									</ButtonIconSmall>
+									<ButtonIconSmall
+										onPress={() => {
+											console.log(
+												`ACTION: incrementQuantityAction(${cartItem.productId})`
+											);
+										}}
+									>
+										<MaterialIcons name="add" size={18} color="black" />
+									</ButtonIconSmall>
+									<View style={{ marginLeft: 25 }}>
+										<ButtonActionSmall
+											onPress={() => {
+												console.log(
+													`ACTION: deleteCartItemAction(${cartItem.productId})`
+												);
+											}}
+											title="Delete"
+											style={{
+												paddingVertical: 0,
+												backgroundColor: Theme.cancelColor,
+											}}
+										/>
+									</View>
+								</View>
 							</View>
 						</View>
 					</Card>

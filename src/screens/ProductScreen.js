@@ -31,6 +31,15 @@ const ProductScreen = (props) => {
 		},
 		addCartButtonContainer: {
 			marginTop: 30,
+			marginBottom: 50,
+			width: window.width * 0.9,
+		},
+		addCartButtonContainerTop: {
+			flexDirection: "row",
+			justifyContent: "space-between",
+			alignItems: "center",
+			width: window.width * 0.9,
+			paddingBottom: 20,
 		},
 	});
 
@@ -47,11 +56,16 @@ const ProductScreen = (props) => {
 						}}
 					/>
 					<Text style={ThemeStyles.textTitle}>{product.title}</Text>
-					<Text style={ThemeStyles.text}>
-						{product.description}
-						{"  "}
+					<View style={styles.addCartButtonContainerTop}>
 						<Text style={ThemeStyles.textBold}>Price: ${product.price}</Text>
-					</Text>
+						<ButtonAction
+							title="Add to cart"
+							onPress={() => {
+								console.log(`ACTION: addToCartAction(${productId})`);
+							}}
+						/>
+					</View>
+					<Text style={ThemeStyles.textMedium}>{product.description}</Text>
 				</View>
 				<View style={ThemeStyles.box1}>
 					<View style={styles.addCartButtonContainer}>

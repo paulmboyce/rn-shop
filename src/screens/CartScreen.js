@@ -134,7 +134,7 @@ const CartScreen = (props) => {
 							paddingVertical: 10,
 							marginBottom: 10,
 						}}
-						title={"Proceed to Checkout (" + renderItemCount() + " items)"}
+						title={"Proceed to checkout (" + renderItemCount() + " items)"}
 						onPress={() => console.log("ACTION: startCheckoutAction(cart)")}
 					/>
 				</View>

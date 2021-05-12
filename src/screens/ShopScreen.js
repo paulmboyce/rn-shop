@@ -16,7 +16,7 @@ import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import Card from "../components/Card";
-import ButtonAction from "../components/themed/ButtonAction";
+import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 
 const ShopScreen = (props) => {
 	const products = useSelector((state) => {
@@ -81,7 +81,7 @@ const ShopScreen = (props) => {
 									<Text style={ThemeStyles.textBold}>${item.price}</Text>
 								</Text>
 							</View>
-							<ButtonAction
+							<ButtonActionSmall
 								style={{ paddingVertical: 4 }}
 								title="View"
 								onPress={() => {

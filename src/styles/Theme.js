@@ -84,6 +84,10 @@ const ThemeStyles = StyleSheet.create({
 	text: {
 		fontFamily: "OpenSans",
 	},
+	textMedium: {
+		fontFamily: "OpenSans",
+		fontSize: 18,
+	},
 	textLarge: {
 		fontFamily: "OpenSans",
 		fontSize: 24,

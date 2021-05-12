@@ -13,13 +13,19 @@ let ButtonTouchable = TouchableOpacity;
 if (Platform.OS === "android" && Platform.Version >= 21) {
 	ButtonTouchable = TouchableNativeFeedback;
 }
-
+/**
+ *
+ * @param {textStyle} allows to customise the style of the text in the button
+ */
 const ButtonAction = (props) => {
 	const content = props.children || props.title || "";
 	return (
 		<ButtonTouchable {...props}>
 			<View style={{ ...ThemeStyles.buttonContainer, ...props.style }}>
-				<ThemeText {...props} style={{ ...ThemeStyles.button }}>
+				<ThemeText
+					{...props}
+					style={{ ...ThemeStyles.button, ...props.textStyle }}
+				>
 					{content}
 				</ThemeText>
 			</View>

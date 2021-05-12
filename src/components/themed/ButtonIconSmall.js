@@ -7,7 +7,7 @@ const ButtonIconSmall = (props) => {
 	return (
 		<ButtonActionSmall
 			{...props}
-			style={{
+			buttonStyle={{
 				paddingHorizontal: 0,
 				paddingVertical: 0,
 				backgroundColor: Theme.cancelColor,

@@ -16,12 +16,13 @@ if (Platform.OS === "android" && Platform.Version >= 21) {
 /**
  *
  * @param {textStyle} allows to customise the style of the text in the button
+ * @param {buttonStyle} allows to custom the button background
  */
 const ButtonAction = (props) => {
 	const content = props.children || props.title || "";
 	return (
 		<ButtonTouchable {...props}>
-			<View style={{ ...ThemeStyles.buttonContainer, ...props.style }}>
+			<View style={{ ...ThemeStyles.buttonContainer, ...props.buttonStyle }}>
 				<ThemeText
 					{...props}
 					style={{ ...ThemeStyles.button, ...props.textStyle }}

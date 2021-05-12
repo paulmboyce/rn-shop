@@ -115,9 +115,11 @@ const CartScreen = (props) => {
 												);
 											}}
 											title="Delete"
-											style={{
+											buttonStyle={{
 												paddingVertical: 0,
-												backgroundColor: Theme.cancelColor,
+												backgroundColor: "white",
+												borderWidth: 0.5,
+												overflow: "hidden",
 											}}
 										/>
 									</View>

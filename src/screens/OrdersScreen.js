@@ -14,6 +14,8 @@ import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import OrderItem from "../components/OrderItem";
+import ButtonAction from "../components/themed/ButtonAction";
+import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 
 const getProduct = (allProducts, productId) => {
 	return allProducts.find((product) => product.id === productId);
@@ -31,7 +33,13 @@ const OrdersScreen = (props) => {
 	const renderOrderItems = (order) => {
 		return order.items.map(({ productId, quantity }) => {
 			const product = getProduct(allProducts, productId);
-			return <OrderItem product={product} quantity={quantity} />;
+			return (
+				<OrderItem
+					product={product}
+					quantity={quantity}
+					orderId={order.orderId}
+				/>
+			);
 		});
 	};
 	const renderOrder = () => {
@@ -42,8 +50,29 @@ const OrdersScreen = (props) => {
 						Date:&nbsp;
 						{new Date(Number.parseInt(order.date)).toDateString()}
 					</Text>
-					<Text style={ThemeStyles.textMedium}>Order Total: £___</Text>
-					<Text style={ThemeStyles.text}>Order ID:{order.id} </Text>
+					<View
+						style={{
+							flexDirection: "row",
+							justifyContent: "space-between",
+							alignItems: "flex-end",
+						}}
+					>
+						<View style={{ flex: 2 }}>
+							<Text style={ThemeStyles.textMedium}>Order Total: £___</Text>
+						</View>
+						<View style={{ flex: 1 }}>
+							<ButtonActionSmall
+								title="Hide Details"
+								buttonStyle={{
+									paddingVertical: 0,
+									paddingHorizontal: 3,
+									backgroundColor: "white",
+									borderWidth: 0.5,
+									overflow: "hidden",
+								}}
+							/>
+						</View>
+					</View>
 					{renderOrderItems(order)}
 				</View>
 			);
@@ -54,12 +83,14 @@ const OrdersScreen = (props) => {
 			<View style={ThemeStyles.screen}>
 				<Text style={ThemeStyles.textTitle}>My Order History</Text>
 				{renderOrder()}
-				<Button
-					title="Continue Shopping"
-					onPress={() => {
-						props.navigation.navigate("Home");
-					}}
-				/>
+				<View style={styles.buttonContainer}>
+					<ButtonAction
+						title="Continue shopping"
+						onPress={() => {
+							props.navigation.navigate("Home");
+						}}
+					/>
+				</View>
 			</View>
 		</ScrollView>
 	);
@@ -76,6 +107,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "flex-start",
+	},
+	buttonContainer: {
+		paddingVertical: 50,
 	},
 });
 

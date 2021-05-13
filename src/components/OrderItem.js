@@ -4,9 +4,11 @@ import { View, Text, StyleSheet, Image } from "react-native";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
 
-const OrderItem = ({ product, quantity }) => {
+const OrderItem = ({ product, quantity, orderId }) => {
 	return (
 		<View style={styles.orderItem} key={product.id}>
+			<Text style={ThemeStyles.textBold}>Order ID:{orderId} </Text>
+
 			<View
 				style={{
 					flexDirection: "row",
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
 	orderItem: {
 		width: "100%",
 		padding: 5,
-		marginTop: 5,
+		marginTop: 15,
 	},
 });
 export default OrderItem;

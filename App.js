@@ -8,11 +8,13 @@ import thunk from "redux-thunk";
 import AppNavigator from "./src/navigation/Navigation";
 import reduceProducts from "./src/redux/reducers/ReduceProducts";
 import reduceCarts from "./src/redux/reducers/ReduceCarts";
+import reduceOrders from "./src/redux/reducers/ReduceOrders";
 import { fetchAssetsAsync } from "./src/utils/loadAsync";
 const reduxStore = createStore(
 	combineReducers({
 		products: reduceProducts,
 		carts: reduceCarts,
+		orders: reduceOrders,
 		loggedInUser: () => 1,
 	}),
 	applyMiddleware(thunk)

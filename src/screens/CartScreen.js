@@ -24,6 +24,7 @@ import {
 	deleteFromCartAction,
 	decrementCartAction,
 	incrementCartAction,
+	createOrderAction,
 } from "../redux/actions/CartActions";
 
 const getCartForUser = (carts, loggedInUser) => {
@@ -220,9 +221,10 @@ const CartScreen = (props) => {
 									title={
 										"Proceed to checkout (" + renderItemCount() + " items)"
 									}
-									onPress={() =>
-										console.log("ACTION: startCheckoutAction(cart)")
-									}
+									onPress={() => {
+										console.log("ACTION: startCheckoutAction(cart)");
+										dispatch(createOrderAction(cart));
+									}}
 								/>
 							</View>
 						);

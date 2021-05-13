@@ -84,12 +84,35 @@ const ThemeStyles = StyleSheet.create({
 	text: {
 		fontFamily: "OpenSans",
 	},
+	textPrimary: {
+		fontFamily: "OpenSans",
+		color: Theme.primaryColor,
+	},
 	textMedium: {
 		fontFamily: "OpenSans",
 		fontSize: 18,
 	},
-	textLarge: {
+	textMediumPrimary: {
 		fontFamily: "OpenSans",
+		fontSize: 18,
+		color: Theme.primaryColor,
+	},
+	textMediumPrimaryBold: {
+		fontFamily: "OpenSansBold",
+		fontSize: 18,
+		color: Theme.primaryColor,
+	},
+	textMediumCalm: {
+		fontFamily: "OpenSans",
+		fontSize: 18,
+		color: Theme.cancelColor,
+	},
+	textMediumBold: {
+		fontFamily: "OpenSansBold",
+		fontSize: 18,
+	},
+	textLarge: {
+		fontFamily: "OpenSansBold",
 		fontSize: 24,
 	},
 	textBold: {

@@ -12,7 +12,8 @@ import { useSelector } from "react-redux";
 
 import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
-import { ThemeStyles } from "../styles/Theme";
+import { ThemeStyles, Theme } from "../styles/Theme";
+import OrderItem from "../components/OrderItem";
 
 const getProduct = (allProducts, productId) => {
 	return allProducts.find((product) => product.id === productId);
@@ -27,34 +28,23 @@ const OrdersScreen = (props) => {
 	const findOrderByUserId = (order) => order.userId === userId;
 	const userOrders = allOrders.filter(findOrderByUserId);
 
-	console.log("ORDERS for user: ", userOrders);
-
 	const renderOrderItems = (order) => {
 		return order.items.map(({ productId, quantity }) => {
 			const product = getProduct(allProducts, productId);
-			return (
-				<View key={productId}>
-					<Image
-						style={{ width: 50, height: 50 }}
-						source={{ uri: product.image }}
-					/>
-					<Text style={ThemeStyles.Text}>
-						Product {product.title}| Quantity: {quantity}
-					</Text>
-				</View>
-			);
+			return <OrderItem product={product} quantity={quantity} />;
 		});
 	};
 	const renderOrder = () => {
 		return userOrders.map((order) => {
 			return (
-				<View key={order.orderDate}>
-					<Text style={ThemeStyles.Text}>
-						Order Date:{order.date} DD MON YYYY
+				<View style={styles.orderItemContainer} key={order.orderId}>
+					<Text style={ThemeStyles.textMediumPrimaryBold}>
+						Date:&nbsp;
+						{new Date(Number.parseInt(order.date)).toDateString()}
 					</Text>
-					<Text style={ThemeStyles.Text}>Order ID:{order.id} </Text>
+					<Text style={ThemeStyles.textMedium}>Order Total: £___</Text>
+					<Text style={ThemeStyles.text}>Order ID:{order.id} </Text>
 					{renderOrderItems(order)}
-					<Text style={ThemeStyles.Text}>Order Total: £___</Text>
 				</View>
 			);
 		});
@@ -75,7 +65,19 @@ const OrdersScreen = (props) => {
 	);
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	orderItemContainer: {
+		width: "90%",
+		borderWidth: 2,
+		borderRadius: 5,
+		borderColor: Theme.cancelColor,
+		marginVertical: 5,
+		padding: 10,
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "flex-start",
+	},
+});
 
 OrdersScreen.navigationOptions = ({ navigation }) => {
 	return {

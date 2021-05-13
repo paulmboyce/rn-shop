@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -32,17 +32,17 @@ const getCartForUser = (carts, loggedInUser) => {
 	if (cart === undefined) {
 		console.log("No cart found for user, creating empty cart...");
 		cart = {
-			id: Math.random(),
+			id: String(Math.random()),
 			userId: loggedInUser,
-			date: Date.now(),
+			date: String(Date.now()),
 			items: [],
 		};
 	}
 	return cart;
 };
 
-const getCartProduct = (cartProducts, productId) => {
-	return cartProducts.find((product) => product.id === productId);
+const getCartProduct = (allProducts, productId) => {
+	return allProducts.find((product) => product.id === productId);
 };
 
 const showProductScreen = (navigation, product) => {
@@ -52,20 +52,36 @@ const showProductScreen = (navigation, product) => {
 	});
 };
 
+const calculateTotal = (allProducts, cart) => {
+	let subTotal = 0;
+
+	if (cart.items.length === 0) {
+		return subTotal;
+	}
+	cart.items.map((item) => {
+		const cartProduct = getCartProduct(allProducts, item.productId);
+		subTotal += cartProduct.price * item.quantity;
+	});
+	return Number.parseFloat(subTotal).toFixed(2);
+};
+
 const CartScreen = (props) => {
 	console.log("RENDER CART..");
 	const carts = useSelector((state) => state.carts);
 	const userId = useSelector((state) => state.loggedInUser);
 	const allProducts = useSelector((state) => state.products);
 
-	const cart = getCartForUser(carts, userId);
-	const cartProductIds = cart.items.map((item) => item.productId);
-	const cartProducts = allProducts.filter((product) =>
-		cartProductIds.includes(product.id)
-	);
+	const [cartTotal, setCartTotal] = useState(0);
+	const [quantityChanged, setQuantityChanged] = useState(false);
 
+	const cart = getCartForUser(carts, userId);
 	const window = useWindowDimensions();
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log("Set cart total...");
+		setCartTotal(calculateTotal(allProducts, cart));
+	}, [cart, quantityChanged]);
 
 	const renderItems = () => {
 		if (cart.items.length === 0) {
@@ -77,7 +93,7 @@ const CartScreen = (props) => {
 		}
 
 		return cart.items.map((cartItem) => {
-			const cartProduct = getCartProduct(cartProducts, cartItem.productId);
+			const cartProduct = getCartProduct(allProducts, cartItem.productId);
 			return (
 				<TouchableOpacity
 					key={cartItem.productId}
@@ -120,6 +136,7 @@ const CartScreen = (props) => {
 									<ButtonIconSmall
 										onPress={() => {
 											dispatch(decrementCartAction(cartItem.productId));
+											setQuantityChanged((current) => !current);
 										}}
 									>
 										<MaterialIcons name="remove" size={16} color="black" />
@@ -127,6 +144,7 @@ const CartScreen = (props) => {
 									<ButtonIconSmall
 										onPress={() => {
 											dispatch(incrementCartAction(cartItem.productId));
+											setQuantityChanged((current) => !current);
 										}}
 									>
 										<MaterialIcons name="add" size={16} color="black" />
@@ -135,6 +153,7 @@ const CartScreen = (props) => {
 										<ButtonActionSmall
 											onPress={() => {
 												dispatch(deleteFromCartAction(cartItem.productId));
+												setQuantityChanged((current) => !current);
 											}}
 											title="Delete"
 											buttonStyle={{
@@ -155,18 +174,6 @@ const CartScreen = (props) => {
 		});
 	};
 
-	const renderTotal = () => {
-		let subTotal = 0;
-
-		if (cart.items.length === 0) {
-			return subTotal;
-		}
-		cart.items.map((item) => {
-			const cartProduct = getCartProduct(cartProducts, item.productId);
-			subTotal += cartProduct.price * item.quantity;
-		});
-		return Number.parseFloat(subTotal).toFixed(2);
-	};
 	const renderItemCount = () => {
 		let count = 0;
 
@@ -203,9 +210,7 @@ const CartScreen = (props) => {
 			<View style={ThemeStyles.screen}>
 				<View style={ThemeStyles.box1left}>
 					<View style={styles.totalContainer}>
-						<Text style={ThemeStyles.textLarge}>
-							Subtotal: ${renderTotal()}
-						</Text>
+						<Text style={ThemeStyles.textLarge}>Subtotal: ${cartTotal}</Text>
 					</View>
 				</View>
 				{(() => {

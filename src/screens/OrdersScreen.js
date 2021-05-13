@@ -14,9 +14,14 @@ import MaterialHeaderButtons from "../navigation/HeaderButtons";
 import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles } from "../styles/Theme";
 
+const getProduct = (allProducts, productId) => {
+	return allProducts.find((product) => product.id === productId);
+};
+
 const OrdersScreen = (props) => {
 	console.log("RENDER ORDERS SCREEN...");
 	const allOrders = useSelector((state) => state.orders);
+	const allProducts = useSelector((state) => state.products);
 	const userId = useSelector((state) => state.loggedInUser);
 
 	const findOrderByUserId = (order) => order.userId === userId;
@@ -25,15 +30,16 @@ const OrdersScreen = (props) => {
 	console.log("ORDERS for user: ", userOrders);
 
 	const renderOrderItems = (order) => {
-		return order.items.map((orderItem) => {
+		return order.items.map(({ productId, quantity }) => {
+			const product = getProduct(allProducts, productId);
 			return (
-				<View key={orderItem.productId}>
+				<View key={productId}>
 					<Image
 						style={{ width: 50, height: 50 }}
-						source={{ uri: orderItem.image }}
+						source={{ uri: product.image }}
 					/>
 					<Text style={ThemeStyles.Text}>
-						Product {orderItem.productId}| Quantity {orderItem.quantity}
+						Product {product.title}| Quantity: {quantity}
 					</Text>
 				</View>
 			);
@@ -42,7 +48,7 @@ const OrdersScreen = (props) => {
 	const renderOrder = () => {
 		return userOrders.map((order) => {
 			return (
-				<View key={order.id}>
+				<View key={order.orderDate}>
 					<Text style={ThemeStyles.Text}>
 						Order Date:{order.date} DD MON YYYY
 					</Text>

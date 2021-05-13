@@ -3,6 +3,7 @@ import {
 	DECREMENT_QUANTITY,
 	DELETE_FROM_CART,
 	INCREMENT_QUANTITY,
+	CLEAR_CART,
 } from "../actions/CartActions";
 
 const defaultCart = [
@@ -55,9 +56,9 @@ const reduceCarts = (oldState = defaultCart, action) => {
 
 			if (!userCart) {
 				userCart = {
-					id: Math.random(),
+					id: String(Math.random()),
 					userId: payload.userId,
-					date: Date.now(),
+					date: String(Date.now()),
 					items: [],
 				};
 				newState.push(userCart);
@@ -92,6 +93,7 @@ const reduceCarts = (oldState = defaultCart, action) => {
 
 		case DECREMENT_QUANTITY: {
 			const newState = [...oldState];
+
 			const userCart = newState.find(findCartByUserId);
 			const productItem = userCart.items.find(findItemByProductId);
 
@@ -111,6 +113,7 @@ const reduceCarts = (oldState = defaultCart, action) => {
 
 		case INCREMENT_QUANTITY: {
 			const newState = [...oldState];
+
 			const userCart = newState.find(findCartByUserId);
 			const productItem = userCart.items.find(findItemByProductId);
 
@@ -118,6 +121,15 @@ const reduceCarts = (oldState = defaultCart, action) => {
 
 			return newState;
 		}
+
+		case CLEAR_CART:
+			const newState = [...oldState];
+
+			const userCart = newState.find(findCartByUserId);
+			const index = newState.indexOf(userCart);
+			newState.splice(index, 1);
+
+			return newState;
 
 		default:
 			return oldState;

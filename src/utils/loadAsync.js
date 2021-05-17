@@ -6,9 +6,9 @@ const fetchAssetsAsync = () => {
 	return Promise.all([fetchFonts(), ...fetchOnlineImages()]);
 };
 
-const fetchFonts = async () => {
+const fetchFonts = () => {
 	console.log("Fetching fonts...");
-	return await loadFontsAsync({
+	return loadFontsAsync({
 		OpenSans: require("../../assets/fonts/OpenSans-Regular.ttf"),
 		OpenSansBold: require("../../assets/fonts/OpenSans-Bold.ttf"),
 	});

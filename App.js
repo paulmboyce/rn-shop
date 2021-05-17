@@ -5,6 +5,9 @@ import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
 import thunk from "redux-thunk";
 
+/** IMPORTANT: remove composeWithDevTools() for production */
+import { composeWithDevTools } from "redux-devtools-extension";
+
 import AppNavigator from "./src/navigation/Navigation";
 import reduceProducts from "./src/redux/reducers/ReduceProducts";
 import reduceCarts from "./src/redux/reducers/ReduceCarts";
@@ -17,13 +20,17 @@ const reduxStore = createStore(
 		orders: reduceOrders,
 		loggedInUser: () => 1,
 	}),
-	applyMiddleware(thunk)
+	/** IMPORTANT: remove composeWithDevTools() for production */
+	composeWithDevTools(applyMiddleware(thunk))
 );
 
 export default function App() {
 	console.log("Loading app...");
 	const [isCacheLoaded, setIsCacheLoaded] = useState(false);
 
+	console.log(
+		"**IMPORTANT**: [App.js] Remove composeWithDevTools() for production	"
+	);
 	if (!isCacheLoaded) {
 		return (
 			<AppLoading

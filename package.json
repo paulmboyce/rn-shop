@@ -32,7 +32,8 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "commitizen": "^4.2.4",
-    "husky": "^6.0.0"
+    "husky": "^6.0.0",
+    "redux-devtools-extension": "^2.13.9"
   },
   "private": true
 }

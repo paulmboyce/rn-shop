@@ -27,25 +27,19 @@ const OrdersScreen = (props) => {
 	const allProducts = useSelector((state) => state.products);
 	const userId = useSelector((state) => state.loggedInUser);
 
-	const findOrderByUserId = (order) => order.userId === userId;
-	const userOrders = allOrders.filter(findOrderByUserId);
-
 	const renderOrderItems = (order) => {
+		console.log("RNDER ORDER: ", order);
 		return order.items.map(({ productId, quantity }) => {
 			const product = getProduct(allProducts, productId);
 			return (
-				<OrderItem
-					product={product}
-					quantity={quantity}
-					orderId={order.orderId}
-				/>
+				<OrderItem product={product} quantity={quantity} orderId={order.id} />
 			);
 		});
 	};
 	const renderOrder = () => {
-		return userOrders.map((order) => {
+		return allOrders.map((order) => {
 			return (
-				<View style={styles.orderItemContainer} key={order.orderId}>
+				<View style={styles.orderItemContainer} key={order.id}>
 					<Text style={ThemeStyles.textMediumPrimaryBold}>
 						Date:&nbsp;
 						{new Date(Number.parseInt(order.date)).toDateString()}
@@ -58,7 +52,9 @@ const OrdersScreen = (props) => {
 						}}
 					>
 						<View style={{ flex: 2 }}>
-							<Text style={ThemeStyles.textMedium}>Order Total: £___</Text>
+							<Text style={ThemeStyles.textMedium}>
+								Order Total: ${order.total}
+							</Text>
 						</View>
 						<View style={{ flex: 1 }}>
 							<ButtonActionSmall

@@ -63,11 +63,16 @@ export const decrementCartAction = (productId) => {
 export const createOrderAction = (cart) => {
 	return (dispatch, getState) => {
 		console.log("Dispatching cart order: ", cart);
-		cart.orderDate = String(Date.now());
-		cart.orderId = String(Math.random());
 		dispatch({
 			type: CREATE_ORDER,
-			payload: { cart },
+			payload: {
+				order: {
+					items: Object.values(cart.items),
+					date: String(Date.now()),
+					id: String(Math.random()),
+					total: cart.total,
+				},
+			},
 		});
 		dispatch(clearCartAction());
 	};

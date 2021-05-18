@@ -8,12 +8,11 @@ import {
 
 const DEFAULT_CART = {
 	total: 0.0,
-	date: String(Date.now()),
-	items: [],
+	items: {},
 };
 const calculateTotal = (items) => {
 	let subTotal = 0;
-	items.map((item) => {
+	Object.values(items).map((item) => {
 		subTotal += item.price * item.quantity;
 	});
 	return subTotal.toFixed(2);
@@ -21,13 +20,12 @@ const calculateTotal = (items) => {
 
 const reduceCarts = (oldState = DEFAULT_CART, action) => {
 	const { type, payload } = action;
-	const findItemByProductId = (item) => item.productId === payload.productId;
 
 	switch (type) {
 		case ADD_TO_CART: {
 			const newState = { ...oldState };
 
-			let cartItem = newState.items.find(findItemByProductId);
+			let cartItem = newState.items[payload.productId];
 
 			if (cartItem) {
 				cartItem.quantity++;
@@ -37,7 +35,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 					quantity: 1,
 					price: payload.productPrice,
 				};
-				newState.items.push(cartItem);
+				newState.items[payload.productId] = cartItem;
 				newState.total += payload.productPrice;
 			}
 
@@ -47,10 +45,8 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 		case DELETE_FROM_CART: {
 			const newState = { ...oldState };
 
-			const productItem = newState.items.find(findItemByProductId);
-			const index = newState.items.indexOf(productItem);
-
-			newState.items.splice(index, 1);
+			const productItem = newState.items[payload.productId];
+			delete newState.items[payload.productId];
 			newState.total = calculateTotal(newState.items);
 
 			return newState;
@@ -58,7 +54,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 
 		case DECREMENT_QUANTITY: {
 			const newState = { ...oldState };
-			const productItem = newState.items.find(findItemByProductId);
+			const productItem = newState.items[payload.productId];
 
 			// CASE: Decrement (usual)
 			if (productItem.quantity > 0) {
@@ -67,8 +63,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 
 			// CASE: Delete if zero
 			if (productItem.quantity === 0) {
-				const index = newState.items.indexOf(productItem);
-				newState.items.splice(index, 1);
+				delete newState.items[payload.productId];
 			}
 			newState.total = calculateTotal(newState.items);
 
@@ -77,7 +72,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 
 		case INCREMENT_QUANTITY: {
 			const newState = { ...oldState };
-			const productItem = newState.items.find(findItemByProductId);
+			const productItem = newState.items[payload.productId];
 
 			productItem.quantity++;
 			newState.total = calculateTotal(newState.items);
@@ -85,8 +80,12 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			return newState;
 		}
 
-		case CLEAR_CART:
-			return DEFAULT_CART;
+		case CLEAR_CART: {
+			return {
+				total: 0.0,
+				items: {},
+			};
+		}
 
 		default:
 			return oldState;

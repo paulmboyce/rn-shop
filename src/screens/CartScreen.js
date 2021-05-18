@@ -39,17 +39,16 @@ const showProductScreen = (navigation, product) => {
 };
 
 const CartScreen = (props) => {
-	console.log("RENDER CART..");
 	const cart = useSelector((state) => state.cart);
-	console.log("CART: ", cart);
 	const allProducts = useSelector((state) => state.products);
 	const [quantityChanged, setQuantityChanged] = useState(false);
+	const cartItemsArray = Object.values(cart.items);
 
 	const window = useWindowDimensions();
 	const dispatch = useDispatch();
 
 	const renderItems = () => {
-		if (cart.items.length === 0) {
+		if (cartItemsArray.length === 0) {
 			return (
 				<Text style={ThemeStyles.text}>
 					No items found. Add a product to your cart!
@@ -57,7 +56,7 @@ const CartScreen = (props) => {
 			);
 		}
 
-		return cart.items.map((cartItem) => {
+		return cartItemsArray.map((cartItem) => {
 			const cartProduct = getCartProduct(allProducts, cartItem.productId);
 			return (
 				<TouchableOpacity
@@ -146,7 +145,7 @@ const CartScreen = (props) => {
 			return count;
 		}
 
-		cart.items.map((item) => {
+		Object.values(cartItemsArray).map((item) => {
 			count += item.quantity;
 		});
 		return count;
@@ -181,7 +180,7 @@ const CartScreen = (props) => {
 					</View>
 				</View>
 				{(() => {
-					if (cart.items.length > 0) {
+					if (Object.values(cartItemsArray).length > 0) {
 						return (
 							<View style={ThemeStyles.box1}>
 								<ButtonAction
@@ -206,7 +205,7 @@ const CartScreen = (props) => {
 				<View style={ThemeStyles.box2end}>{renderItems()}</View>
 
 				{(() => {
-					if (cart.items.length === 0) {
+					if (Object.values(cartItemsArray).length === 0) {
 						return (
 							<View style={ThemeStyles.box1}>
 								<ButtonAction

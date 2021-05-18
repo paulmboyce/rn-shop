@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -18,11 +18,14 @@ import Card from "../components/Card";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 
 const ShopScreen = (props) => {
-	const products = useSelector((state) => {
-		return state.products;
-	});
+	const products = useSelector((state) => state.products);
+	const cartTotal = useSelector((state) => state.cart.total);
 
 	const window = useWindowDimensions();
+
+	useEffect(() => {
+		props.navigation.setParams({ cartTotal: cartTotal });
+	}, [cartTotal]);
 
 	const styles = StyleSheet.create({
 		listImage: {

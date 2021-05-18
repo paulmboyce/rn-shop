@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -19,9 +19,14 @@ const ProductScreen = (props) => {
 	const product = useSelector((state) =>
 		state.products.find((p) => p.id === productId)
 	);
-	const loggedInUser = useSelector((state) => state.loggedInUser);
+	const cartTotal = useSelector((state) => state.cart.total);
+
 	const dispatch = useDispatch();
 	const window = useWindowDimensions();
+
+	useEffect(() => {
+		props.navigation.setParams({ cartTotal: cartTotal });
+	}, [cartTotal]);
 
 	const styles = StyleSheet.create({
 		productDetailImage: {

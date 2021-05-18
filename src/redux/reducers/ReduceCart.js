@@ -82,7 +82,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 
 		case CLEAR_CART: {
 			return {
-				total: 0.0,
+				total: calculateTotal(oldState.items),
 				items: {},
 			};
 		}

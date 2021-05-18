@@ -1,21 +1,12 @@
 import React from "react";
-import {
-	View,
-	StyleSheet,
-	Text,
-	Button,
-	Image,
-	useWindowDimensions,
-	ScrollView,
-} from "react-native";
+import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 
-import MaterialHeaderButtons from "../navigation/HeaderButtons";
-import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import OrderItem from "../components/OrderItem";
 import ButtonAction from "../components/themed/ButtonAction";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
+import MenuButton from "../navigation/MenuButton";
 
 const getProduct = (allProducts, productId) => {
 	return allProducts.find((product) => product.id === productId);
@@ -32,7 +23,12 @@ const OrdersScreen = (props) => {
 		return order.items.map(({ productId, quantity }) => {
 			const product = getProduct(allProducts, productId);
 			return (
-				<OrderItem product={product} quantity={quantity} orderId={order.id} />
+				<OrderItem
+					key={productId}
+					product={product}
+					quantity={quantity}
+					orderId={order.id}
+				/>
 			);
 		});
 	};
@@ -112,17 +108,7 @@ const styles = StyleSheet.create({
 OrdersScreen.navigationOptions = ({ navigation }) => {
 	return {
 		title: "Order History",
-		headerLeft: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Menu"
-					iconName="menu"
-					onPress={() => {
-						navigation.toggleDrawer();
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
+		headerLeft: () => <MenuButton navigation={navigation} />,
 	};
 };
 

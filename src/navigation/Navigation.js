@@ -1,7 +1,5 @@
 import React from "react";
 import { Button, Platform } from "react-native";
-import MaterialHeaderButtons from "./HeaderButtons";
-import { Item } from "react-navigation-header-buttons";
 
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";

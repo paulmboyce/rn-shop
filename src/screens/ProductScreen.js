@@ -3,7 +3,6 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	Button,
 	useWindowDimensions,
 	Image,
 	ScrollView,
@@ -11,11 +10,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 import { addToCartAction } from "../redux/actions/CartActions";
-
-import MaterialHeaderButtons from "../navigation/HeaderButtons";
-import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
+import CartButton from "../navigation/CartButton";
 
 const ProductScreen = (props) => {
 	const productId = props.navigation.getParam("productId");
@@ -92,19 +89,7 @@ ProductScreen.navigationOptions = ({ navigation }) => {
 	const title = navigation.getParam("title");
 	return {
 		title: title ? title : "Product Details",
-
-		headerRight: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Cart"
-					iconName="shopping-cart"
-					onPress={() => {
-						console.log("GO To CART...");
-						navigation.navigate("Cart");
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
+		headerRight: () => <CartButton navigation={navigation} />,
 	};
 };
 

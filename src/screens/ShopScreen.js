@@ -4,7 +4,6 @@ import {
 	StyleSheet,
 	Text,
 	useWindowDimensions,
-	Button,
 	FlatList,
 	Image,
 	TouchableOpacity,
@@ -12,8 +11,8 @@ import {
 
 import { useSelector } from "react-redux";
 
-import MaterialHeaderButtons from "../navigation/HeaderButtons";
-import { Item } from "react-navigation-header-buttons";
+import MenuButton from "../navigation/MenuButton";
+import CartButton from "../navigation/CartButton";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import Card from "../components/Card";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
@@ -114,29 +113,8 @@ const ShopScreen = (props) => {
 ShopScreen.navigationOptions = ({ navigation }) => {
 	return {
 		title: "Browse Shop",
-		headerLeft: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Menu"
-					iconName="menu"
-					onPress={() => {
-						navigation.toggleDrawer();
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
-		headerRight: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Cart"
-					iconName="shopping-cart"
-					onPress={() => {
-						console.log("GO To CART...");
-						navigation.navigate("Cart");
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
+		headerLeft: () => <MenuButton navigation={navigation} />,
+		headerRight: () => <CartButton navigation={navigation} />,
 	};
 };
 

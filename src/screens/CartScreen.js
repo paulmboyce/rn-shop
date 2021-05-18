@@ -4,7 +4,6 @@ import {
 	StyleSheet,
 	Text,
 	useWindowDimensions,
-	Button,
 	ScrollView,
 	Image,
 	TouchableOpacity,
@@ -12,8 +11,6 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import MaterialHeaderButtons from "../navigation/HeaderButtons";
-import { Item } from "react-navigation-header-buttons";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import Card from "../components/Card";
 import ButtonAction from "../components/themed/ButtonAction";
@@ -26,6 +23,7 @@ import {
 	incrementCartAction,
 	createOrderAction,
 } from "../redux/actions/CartActions";
+import MenuButton from "../navigation/MenuButton";
 
 const getCartProduct = (allProducts, productId) => {
 	return allProducts.find((product) => product.id === productId);
@@ -232,17 +230,7 @@ const CartScreen = (props) => {
 CartScreen.navigationOptions = ({ navigation }) => {
 	return {
 		title: "Cart",
-		headerLeft: () => (
-			<MaterialHeaderButtons>
-				<Item
-					title="Menu"
-					iconName="menu"
-					onPress={() => {
-						navigation.toggleDrawer();
-					}}
-				/>
-			</MaterialHeaderButtons>
-		),
+		headerLeft: () => <MenuButton navigation={navigation} />,
 	};
 };
 export default CartScreen;

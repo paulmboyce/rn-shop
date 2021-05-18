@@ -27,20 +27,6 @@ import {
 	createOrderAction,
 } from "../redux/actions/CartActions";
 
-const getCartForUser = (carts, loggedInUser) => {
-	let cart = carts.find((cart) => cart.userId === loggedInUser);
-	if (cart === undefined) {
-		console.log("No cart found for user, creating empty cart...");
-		cart = {
-			id: String(Math.random()),
-			userId: loggedInUser,
-			date: String(Date.now()),
-			items: [],
-		};
-	}
-	return cart;
-};
-
 const getCartProduct = (allProducts, productId) => {
 	return allProducts.find((product) => product.id === productId);
 };
@@ -52,36 +38,15 @@ const showProductScreen = (navigation, product) => {
 	});
 };
 
-const calculateTotal = (allProducts, cart) => {
-	let subTotal = 0;
-
-	if (cart.items.length === 0) {
-		return subTotal;
-	}
-	cart.items.map((item) => {
-		const cartProduct = getCartProduct(allProducts, item.productId);
-		subTotal += cartProduct.price * item.quantity;
-	});
-	return Number.parseFloat(subTotal).toFixed(2);
-};
-
 const CartScreen = (props) => {
 	console.log("RENDER CART..");
-	const carts = useSelector((state) => state.carts);
-	const userId = useSelector((state) => state.loggedInUser);
+	const cart = useSelector((state) => state.cart);
+	console.log("CART: ", cart);
 	const allProducts = useSelector((state) => state.products);
-
-	const [cartTotal, setCartTotal] = useState(0);
 	const [quantityChanged, setQuantityChanged] = useState(false);
 
-	const cart = getCartForUser(carts, userId);
 	const window = useWindowDimensions();
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		console.log("Set cart total...");
-		setCartTotal(calculateTotal(allProducts, cart));
-	}, [cart, quantityChanged]);
 
 	const renderItems = () => {
 		if (cart.items.length === 0) {
@@ -210,7 +175,9 @@ const CartScreen = (props) => {
 			<View style={ThemeStyles.screen}>
 				<View style={ThemeStyles.box1left}>
 					<View style={styles.totalContainer}>
-						<Text style={ThemeStyles.textLarge}>Subtotal: ${cartTotal}</Text>
+						<Text style={ThemeStyles.textLarge}>
+							Subtotal: ${Number.parseFloat(cart.total).toFixed(2)}
+						</Text>
 					</View>
 				</View>
 				{(() => {

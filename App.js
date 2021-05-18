@@ -10,13 +10,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppNavigator from "./src/navigation/Navigation";
 import reduceProducts from "./src/redux/reducers/ReduceProducts";
-import reduceCarts from "./src/redux/reducers/ReduceCarts";
+import reduceCart from "./src/redux/reducers/ReduceCart";
 import reduceOrders from "./src/redux/reducers/ReduceOrders";
 import { fetchAssetsAsync } from "./src/utils/loadAsync";
 const reduxStore = createStore(
 	combineReducers({
 		products: reduceProducts,
-		carts: reduceCarts,
+		cart: reduceCart,
 		orders: reduceOrders,
 		loggedInUser: () => 1,
 	}),

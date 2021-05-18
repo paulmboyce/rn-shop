@@ -11,7 +11,6 @@ const reduceOrders = (oldState = [], action) => {
 			return newState;
 
 		default: {
-			console.log("Return OLD STATE!!!", oldState);
 			return oldState;
 		}
 	}

@@ -36,9 +36,8 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 					price: payload.productPrice,
 				};
 				newState.items[payload.productId] = cartItem;
-				newState.total += payload.productPrice;
 			}
-
+			newState.total = calculateTotal(newState.items);
 			return newState;
 		}
 
@@ -82,7 +81,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 
 		case CLEAR_CART: {
 			return {
-				total: calculateTotal(oldState.items),
+				total: 0.0,
 				items: {},
 			};
 		}

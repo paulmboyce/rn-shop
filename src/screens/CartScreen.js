@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
 	View,
 	StyleSheet,
 	Text,
 	useWindowDimensions,
 	ScrollView,
-	Image,
 	TouchableOpacity,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import { ThemeStyles, Theme } from "../styles/Theme";
-import Card from "../components/Card";
 import ButtonAction from "../components/themed/ButtonAction";
-import ButtonActionSmall from "../components/themed/ButtonActionSmall";
-import ButtonIconSmall from "../components/themed/ButtonIconSmall";
-
-import {
-	deleteFromCartAction,
-	decrementCartAction,
-	incrementCartAction,
-	createOrderAction,
-} from "../redux/actions/CartActions";
+import CartItem from "../components/CartItem";
+import ContinueShopping from "../components/ContinueShopping";
+import { createOrderAction } from "../redux/actions/CartActions";
 import MenuButton from "../navigation/MenuButton";
 
 const getCartProduct = (allProducts, productId) => {
@@ -39,7 +30,6 @@ const showProductScreen = (navigation, product) => {
 const CartScreen = (props) => {
 	const cart = useSelector((state) => state.cart);
 	const allProducts = useSelector((state) => state.products);
-	const [quantityChanged, setQuantityChanged] = useState(false);
 	const cartItemsArray = Object.values(cart.items);
 
 	const window = useWindowDimensions();
@@ -63,74 +53,7 @@ const CartScreen = (props) => {
 						showProductScreen(props.navigation, cartProduct);
 					}}
 				>
-					<Card style={styles.cartItemContainer}>
-						<View style={styles.cartItem}>
-							<View style={ThemeStyles.box1}>
-								<View style={styles.cartItemImageContainer}>
-									<Image
-										style={styles.cartItemImage}
-										source={{ uri: cartProduct.image }}
-									/>
-								</View>
-							</View>
-							<View style={{ ...ThemeStyles.box3left, paddingLeft: 20 }}>
-								<Text style={ThemeStyles.text}>{cartProduct.title}</Text>
-								<Text style={ThemeStyles.text}>
-									Item price:&nbsp;
-									<Text style={ThemeStyles.textBold}>${cartProduct.price}</Text>
-								</Text>
-								<Text></Text>
-
-								<View
-									style={{
-										flex: 1,
-										flexDirection: "row",
-										justifyContent: "flex-start",
-										alignItems: "center",
-									}}
-								>
-									<Text style={ThemeStyles.text}>
-										Quantity&nbsp;
-										<Text style={ThemeStyles.textBold}>
-											{cartItem.quantity}&nbsp;
-										</Text>
-									</Text>
-									<ButtonIconSmall
-										onPress={() => {
-											dispatch(decrementCartAction(cartItem.productId));
-											setQuantityChanged((current) => !current);
-										}}
-									>
-										<MaterialIcons name="remove" size={16} color="black" />
-									</ButtonIconSmall>
-									<ButtonIconSmall
-										onPress={() => {
-											dispatch(incrementCartAction(cartItem.productId));
-											setQuantityChanged((current) => !current);
-										}}
-									>
-										<MaterialIcons name="add" size={16} color="black" />
-									</ButtonIconSmall>
-									<View style={{ marginLeft: 10 }}>
-										<ButtonActionSmall
-											onPress={() => {
-												dispatch(deleteFromCartAction(cartItem.productId));
-												setQuantityChanged((current) => !current);
-											}}
-											title="Delete"
-											buttonStyle={{
-												paddingVertical: 0,
-												paddingHorizontal: 3,
-												backgroundColor: "white",
-												borderWidth: 0.5,
-												overflow: "hidden",
-											}}
-										/>
-									</View>
-								</View>
-							</View>
-						</View>
-					</Card>
+					<CartItem cartItem={cartItem} cartProduct={cartProduct} />
 				</TouchableOpacity>
 			);
 		});
@@ -138,12 +61,7 @@ const CartScreen = (props) => {
 
 	const renderItemCount = () => {
 		let count = 0;
-
-		if (cart === undefined) {
-			return count;
-		}
-
-		Object.values(cartItemsArray).map((item) => {
+		cartItemsArray.map((item) => {
 			count += item.quantity;
 		});
 		return count;
@@ -153,20 +71,27 @@ const CartScreen = (props) => {
 		totalContainer: {
 			paddingVertical: 10,
 		},
-		cartItemContainer: {
-			minHeight: 10,
-			width: window.width * 0.9,
-		},
-		cartItem: {
-			flexDirection: "row",
-		},
-		cartItemImage: {
-			width: 70,
-			height: 70,
-			paddingVertical: 50,
-		},
 	});
 
+	const renderStartCheckoutButton = () => {
+		if (cartItemsArray.length > 0) {
+			return (
+				<View style={ThemeStyles.box1}>
+					<ButtonAction
+						style={{
+							width: window.width * 0.9,
+							paddingVertical: 10,
+							marginBottom: 10,
+						}}
+						title={"Proceed to checkout (" + renderItemCount() + " items)"}
+						onPress={() => {
+							dispatch(createOrderAction(cart));
+						}}
+					/>
+				</View>
+			);
+		}
+	};
 	return (
 		<ScrollView style={{ backgroundColor: Theme.backgroundColor }}>
 			<View style={ThemeStyles.screen}>
@@ -177,49 +102,13 @@ const CartScreen = (props) => {
 						</Text>
 					</View>
 				</View>
-				{(() => {
-					if (Object.values(cartItemsArray).length > 0) {
-						return (
-							<View style={ThemeStyles.box1}>
-								<ButtonAction
-									style={{
-										width: window.width * 0.9,
-										paddingVertical: 10,
-										marginBottom: 10,
-									}}
-									title={
-										"Proceed to checkout (" + renderItemCount() + " items)"
-									}
-									onPress={() => {
-										console.log("ACTION: startCheckoutAction(cart)");
-										dispatch(createOrderAction(cart));
-									}}
-								/>
-							</View>
-						);
-					}
-				})()}
+				{renderStartCheckoutButton()}
 
 				<View style={ThemeStyles.box2end}>{renderItems()}</View>
 
 				{(() => {
-					if (Object.values(cartItemsArray).length === 0) {
-						return (
-							<View style={ThemeStyles.box1}>
-								<ButtonAction
-									style={{
-										width: window.width * 0.9,
-										paddingVertical: window.height * 0.25,
-										marginBottom: 10,
-									}}
-									title={"Continue shopping >>"}
-									onPress={() => {
-										console.log("ACTION: navigate to home");
-										props.navigation.navigate("Home");
-									}}
-								/>
-							</View>
-						);
+					if (cartItemsArray.length === 0) {
+						return <ContinueShopping navigation={props.navigation} />;
 					}
 				})()}
 			</View>

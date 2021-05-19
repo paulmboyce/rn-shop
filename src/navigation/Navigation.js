@@ -1,15 +1,16 @@
 import React from "react";
-import { Button, Platform } from "react-native";
-
+import { Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
+
 import defaultNavigationOptions from "./DefaultNavigationOptions";
 import ShopScreen from "../screens/ShopScreen";
 import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";
 import OrdersScreen from "../screens/OrdersScreen";
-import { ThemeStyles, Theme } from "../styles/Theme";
+import { Theme } from "../styles/Theme";
 
 const appNavigator = createStackNavigator(
 	{
@@ -22,13 +23,19 @@ const appNavigator = createStackNavigator(
 		Cart: {
 			screen: CartScreen,
 		},
-		Orders: {
-			screen: OrdersScreen,
-		},
 	},
 	{
 		initialRouteName: "Home",
 		defaultNavigationOptions: defaultNavigationOptions,
+		navigationOptions: {
+			drawerIcon: (drawerConfig) => (
+				<Ionicons
+					name={Platform.OS === "ios" ? "ios-home" : "md-home"}
+					size={23}
+					color={drawerConfig.tintColor}
+				/>
+			),
+		},
 	}
 );
 
@@ -41,6 +48,15 @@ const settingsNavigator = createStackNavigator(
 	{
 		initialRouteName: "Orders",
 		defaultNavigationOptions: defaultNavigationOptions,
+		navigationOptions: {
+			drawerIcon: (drawerConfig) => (
+				<Ionicons
+					name={Platform.OS === "ios" ? "ios-list-circle" : "md-list-circle"}
+					size={23}
+					color={drawerConfig.tintColor}
+				/>
+			),
+		},
 	}
 );
 
@@ -60,10 +76,14 @@ const drawerNavigator = createDrawerNavigator(
 		},
 	},
 	{
+		drawerBackgroundColor: Theme.cancelColor,
+		drawerType: "slide",
+		hideStatusBar: "true",
 		contentOptions: {
 			activeTintColor: Theme.primaryColor,
+			activeBackgroundColor: "black",
 			itemsContainerStyle: {
-				marginVertical: 0,
+				marginVertical: 40,
 			},
 			iconContainerStyle: {
 				opacity: 1,

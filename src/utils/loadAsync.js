@@ -17,9 +17,9 @@ const fetchFonts = () => {
 const fetchOnlineImages = () => {
 	console.log("Pre-loading images...");
 	const imageUrls = PRODUCT_DATA.map((product) => product.image);
-	return imageUrls.map(async (url) => {
+	return imageUrls.map((url) => {
 		console.log("--> ", url);
-		return await Image.prefetch(url);
+		return Image.prefetch(url);
 	});
 };
 

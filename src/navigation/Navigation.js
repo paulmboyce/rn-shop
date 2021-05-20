@@ -151,7 +151,7 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
 			screen: cartNavigator,
 			navigationOptions: {
 				tabBarLabel: "Cart",
-				tabBarColor: "linen",
+				tabBarColor: Platform.OS === "ios" ? "#e3fff8" : Theme.primaryColorTone,
 				tabBarIcon: (props) => {
 					return <Badge tintColor={props.tintColor} />;
 				},
@@ -162,8 +162,8 @@ const bottomTabNavigator = createMaterialBottomTabNavigator(
 		initialRouteName: "Home",
 		shifting: true,
 		labeled: true,
-		activeColor: Platform.OS === "ios" ? Theme.primaryColor : "white",
-		inactiveColor: "#3e2465",
+		activeColor: Platform.OS === "ios" ? Theme.secondaryColor : "white",
+		inactiveColor: Platform.OS === "ios" ? Theme.primaryColor : "white",
 		barStyle: {
 			backgroundColor: Platform.OS === "ios" ? "white" : Theme.primaryColor,
 			borderTopWidth: 1,

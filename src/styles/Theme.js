@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native";
  */
 const Colors = {
 	primaryColor: "#009a9a", // "#e91e63",
+	primaryColorTone: "#008181",
 	secondaryColor: "#a41ee9",
 	actionColor: "#FF9900", // SEE: https://brandpalettes.com/amazon-color-codes/
 	backgroundColor: "white",
@@ -13,6 +14,7 @@ const Colors = {
 
 const TransparentColors = {
 	primaryColor80: Colors.primaryColor + "CC",
+	primaryColorTone80: Colors.primaryColorTone + "CC",
 	secondaryColor80: Colors.secondaryColor + "CC",
 	actionColor80: Colors.actionColor + "CC",
 };
@@ -20,6 +22,8 @@ const TransparentColors = {
 const Theme = {
 	primaryColor: Colors.primaryColor,
 	primaryColor80Transparent: TransparentColors.primaryColor80,
+	primaryColorTone: Colors.primaryColorTone,
+	primaryColorTone80Transparent: TransparentColors.primaryColorTone80,
 	secondaryColor: Colors.secondaryColor,
 	secondaryColor80Transparent: TransparentColors.secondaryColor80,
 	actionColor: Colors.actionColor,

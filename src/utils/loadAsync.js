@@ -3,7 +3,8 @@ import { loadAsync as loadFontsAsync } from "expo-font";
 import PRODUCT_DATA from "../data/products";
 
 const fetchAssetsAsync = () => {
-	return Promise.all([fetchFonts(), ...fetchOnlineImages()]);
+	return fetchFonts();
+	//	return Promise.all([fetchFonts(), ...fetchOnlineImages()]);
 };
 
 const fetchFonts = () => {

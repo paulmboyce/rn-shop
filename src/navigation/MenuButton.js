@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { Item } from "react-navigation-header-buttons";
-
+import { DrawerActions } from "react-navigation-drawer";
 import IonHeaderButtons from "./IonHeaderButtons";
 
 const MenuButton = ({ navigation }) => {
@@ -11,7 +11,7 @@ const MenuButton = ({ navigation }) => {
 				title="Menu"
 				iconName={Platform.OS === "ios" ? "ios-menu" : "md-menu"}
 				onPress={() => {
-					navigation.toggleDrawer();
+					navigation.dispatch(DrawerActions.toggleDrawer());
 				}}
 			/>
 		</IonHeaderButtons>

@@ -9,6 +9,7 @@ import {
 const DEFAULT_CART = {
 	total: 0.0,
 	items: {},
+	numItems: 0,
 };
 const calculateTotal = (items) => {
 	let subTotal = 0;
@@ -16,6 +17,14 @@ const calculateTotal = (items) => {
 		subTotal += item.price * item.quantity;
 	});
 	return subTotal.toFixed(2);
+};
+
+const calcNumItems = (items) => {
+	let subTotal = 0;
+	Object.values(items).map((item) => {
+		subTotal += item.quantity;
+	});
+	return subTotal.toFixed(0);
 };
 
 const reduceCarts = (oldState = DEFAULT_CART, action) => {
@@ -38,6 +47,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 				newState.items[payload.productId] = cartItem;
 			}
 			newState.total = calculateTotal(newState.items);
+			newState.numItems = calcNumItems(newState.items);
 			return newState;
 		}
 
@@ -47,6 +57,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			const productItem = newState.items[payload.productId];
 			delete newState.items[payload.productId];
 			newState.total = calculateTotal(newState.items);
+			newState.numItems = calcNumItems(newState.items);
 
 			return newState;
 		}
@@ -65,6 +76,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 				delete newState.items[payload.productId];
 			}
 			newState.total = calculateTotal(newState.items);
+			newState.numItems = calcNumItems(newState.items);
 
 			return newState;
 		}
@@ -75,6 +87,7 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 
 			productItem.quantity++;
 			newState.total = calculateTotal(newState.items);
+			newState.numItems = calcNumItems(newState.items);
 
 			return newState;
 		}

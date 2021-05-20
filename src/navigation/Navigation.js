@@ -1,9 +1,10 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import defaultNavigationOptions from "./DefaultNavigationOptions";
 import ShopScreen from "../screens/ShopScreen";
@@ -11,6 +12,8 @@ import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";
 import OrdersScreen from "../screens/OrdersScreen";
 import { Theme } from "../styles/Theme";
+
+import Badge from "../components/Badge";
 
 const appNavigator = createStackNavigator(
 	{
@@ -60,6 +63,26 @@ const settingsNavigator = createStackNavigator(
 	}
 );
 
+const cartNavigator = createStackNavigator(
+	{
+		Cart: {
+			screen: CartScreen,
+		},
+	},
+	{
+		initialRouteName: "Cart",
+		defaultNavigationOptions: defaultNavigationOptions,
+		navigationOptions: {
+			drawerIcon: (drawerConfig) => (
+				<Ionicons
+					name={Platform.OS === "ios" ? "ios-cart" : "md-cart"}
+					size={23}
+					color={drawerConfig.tintColor}
+				/>
+			),
+		},
+	}
+);
 const drawerNavigator = createDrawerNavigator(
 	{
 		Shop: {
@@ -92,4 +115,61 @@ const drawerNavigator = createDrawerNavigator(
 	}
 );
 
-export default createAppContainer(drawerNavigator);
+const bottomTabNavigator = createMaterialBottomTabNavigator(
+	{
+		Home: {
+			screen: drawerNavigator,
+			navigationOptions: {
+				tabBarLabel: "All Products",
+				tabBarIcon: (props) => (
+					<Ionicons
+						name={Platform.OS === "ios" ? "ios-home" : "md-home"}
+						size={23}
+						color={props.tintColor}
+					/>
+				),
+				tabBarOnPress: (props) => {
+					console.log("Pressed 'My Shopping' tab: ");
+					props.navigation.navigate("Home");
+				},
+			},
+		},
+		Orders: {
+			screen: settingsNavigator,
+			navigationOptions: {
+				tabBarLabel: "My Orders",
+				tabBarIcon: (props) => (
+					<Ionicons
+						name={Platform.OS === "ios" ? "ios-list" : "md-list"}
+						size={23}
+						color={props.tintColor}
+					/>
+				),
+			},
+		},
+		Checkout: {
+			screen: cartNavigator,
+			navigationOptions: {
+				tabBarLabel: "Cart",
+				tabBarColor: "linen",
+				tabBarIcon: (props) => {
+					return <Badge tintColor={props.tintColor} />;
+				},
+			},
+		},
+	},
+	{
+		initialRouteName: "Home",
+		shifting: true,
+		labeled: true,
+		activeColor: Platform.OS === "ios" ? Theme.primaryColor : "white",
+		inactiveColor: "#3e2465",
+		barStyle: {
+			backgroundColor: Platform.OS === "ios" ? "white" : Theme.primaryColor,
+			borderTopWidth: 1,
+			borderTopColor: Theme.cancelColor,
+		},
+	}
+);
+
+export default createAppContainer(bottomTabNavigator);

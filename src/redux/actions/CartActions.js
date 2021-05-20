@@ -74,18 +74,5 @@ export const createOrderAction = (cart) => {
 				},
 			},
 		});
-		dispatch(clearCartAction());
-	};
-};
-
-export const clearCartAction = () => {
-	return (dispatch, getState) => {
-		console.log("Clearing cart...");
-		dispatch({
-			type: CLEAR_CART,
-			payload: {
-				userId: getState().loggedInUser,
-			},
-		});
 	};
 };

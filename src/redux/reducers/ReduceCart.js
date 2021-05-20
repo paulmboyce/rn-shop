@@ -3,7 +3,7 @@ import {
 	DECREMENT_QUANTITY,
 	DELETE_FROM_CART,
 	INCREMENT_QUANTITY,
-	CLEAR_CART,
+	CREATE_ORDER,
 } from "../actions/CartActions";
 
 const DEFAULT_CART = {
@@ -92,10 +92,11 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			return newState;
 		}
 
-		case CLEAR_CART: {
+		case CREATE_ORDER: {
 			return {
 				total: 0.0,
 				items: {},
+				numItems: 0,
 			};
 		}
 

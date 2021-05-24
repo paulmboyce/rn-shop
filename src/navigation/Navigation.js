@@ -91,7 +91,7 @@ const shopAdminNavigator = createStackNavigator(
 		Products: {
 			screen: UserProductsScreen,
 		},
-		Edit: {
+		EditProduct: {
 			screen: EditProductScreen,
 		},
 	},

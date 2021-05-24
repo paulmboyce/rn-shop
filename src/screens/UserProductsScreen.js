@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
 import Product from "../components/Product";
+import MenuButton from "../navigation/MenuButton";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
@@ -22,7 +23,7 @@ const UserProductsScreen = (props) => {
 				data={myProducts}
 				renderItem={({ index, item }) => (
 					<Product
-						key={index}
+						key={String.valueOf(index)}
 						item={item}
 						allowEdit
 						onEdit={handleEditProduct}
@@ -39,6 +40,7 @@ UserProductsScreen.navigationOptions = ({ navigation }) => {
 	const title = navigation.getParam("title");
 	return {
 		title: title ? title : "My Shop Products",
+		headerLeft: () => <MenuButton navigation={navigation} />,
 	};
 };
 export default UserProductsScreen;

@@ -11,6 +11,8 @@ import ShopScreen from "../screens/ShopScreen";
 import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";
 import OrdersScreen from "../screens/OrdersScreen";
+import UserProductsScreen from "../screens/UserProductsScreen";
+import EditProductScreen from "../screens/EditProductScreen";
 import { Theme } from "../styles/Theme";
 
 import Badge from "../components/Badge";
@@ -83,6 +85,32 @@ const cartNavigator = createStackNavigator(
 		},
 	}
 );
+
+const shopAdminNavigator = createStackNavigator(
+	{
+		Products: {
+			screen: UserProductsScreen,
+		},
+		Edit: {
+			screen: EditProductScreen,
+		},
+	},
+	{
+		initialRouteName: "Products",
+		defaultNavigationOptions: defaultNavigationOptions,
+		navigationOptions: {
+			drawerIcon: (drawerConfig) => (
+				<Ionicons
+					name={
+						Platform.OS === "ios" ? "ios-settings-sharp" : "md-settings-sharp"
+					}
+					size={23}
+					color={drawerConfig.tintColor}
+				/>
+			),
+		},
+	}
+);
 const drawerNavigator = createDrawerNavigator(
 	{
 		Shop: {
@@ -91,6 +119,14 @@ const drawerNavigator = createDrawerNavigator(
 				drawerLabel: "Main Shop",
 			},
 		},
+
+		Admin: {
+			screen: shopAdminNavigator,
+			navigationOptions: {
+				drawerLabel: "My Products",
+			},
+		},
+
 		Settings: {
 			screen: settingsNavigator,
 			navigationOptions: {

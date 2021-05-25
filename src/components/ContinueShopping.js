@@ -17,7 +17,7 @@ const ContinueShopping = ({ navigation }) => {
 				title={"Continue shopping >>"}
 				onPress={() => {
 					console.log("ACTION: navigate to home");
-					navigation.navigate("Home");
+					navigation.navigate("Shop");
 				}}
 			/>
 		</View>

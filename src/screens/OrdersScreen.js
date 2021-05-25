@@ -25,7 +25,7 @@ const OrdersScreen = (props) => {
 					<ButtonAction
 						title="Continue shopping"
 						onPress={() => {
-							props.navigation.navigate("Home");
+							props.navigation.navigate("Shop");
 						}}
 					/>
 				</View>

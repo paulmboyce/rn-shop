@@ -13,6 +13,7 @@ import { addToCartAction } from "../redux/actions/CartActions";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import CartButton from "../navigation/CartButton";
+import ProductDisplay from "../components/ProductDisplay";
 
 const ProductScreen = (props) => {
 	const productId = props.navigation.getParam("productId");
@@ -29,26 +30,18 @@ const ProductScreen = (props) => {
 	}, [cartTotal]);
 
 	const styles = StyleSheet.create({
-		productDetailImage: {
-			width: window.width * 0.99,
-			height: window.width * 0.99,
-			marginBottom: 20,
-		},
 		addCartButtonContainer: {
 			marginTop: 30,
 			marginBottom: 50,
 			width: window.width * 0.9,
 			paddingHorizontal: 3,
 		},
-		addCartButtonContainerTop: {
-			flexDirection: "row",
-			justifyContent: "space-between",
-			alignItems: "center",
-			width: window.width * 0.9,
-			paddingBottom: 20,
-			paddingHorizontal: 3,
-		},
 	});
+
+	const onPressAddToCart = (productId) => {
+		console.log(`ACTION: addToCartAction(${product.id})`);
+		dispatch(addToCartAction(product.id));
+	};
 
 	return (
 		<ScrollView
@@ -56,24 +49,10 @@ const ProductScreen = (props) => {
 		>
 			<View style={ThemeStyles.screen}>
 				<View style={ThemeStyles.box2}>
-					<Image
-						style={styles.productDetailImage}
-						source={{
-							uri: product.image,
-						}}
+					<ProductDisplay
+						product={product}
+						onPressAddToCart={onPressAddToCart}
 					/>
-					<Text style={ThemeStyles.textTitle}>{product.title}</Text>
-					<View style={styles.addCartButtonContainerTop}>
-						<Text style={ThemeStyles.textBold}>Price: ${product.price}</Text>
-						<ButtonAction
-							title="Add to cart"
-							onPress={() => {
-								console.log(`ACTION: addToCartAction(${productId})`);
-								dispatch(addToCartAction(productId));
-							}}
-						/>
-					</View>
-					<Text style={ThemeStyles.textMedium}>{product.description}</Text>
 				</View>
 				<View style={ThemeStyles.box1}>
 					<View style={styles.addCartButtonContainer}>

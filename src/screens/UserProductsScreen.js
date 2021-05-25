@@ -10,25 +10,22 @@ const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
 	const myProducts = useSelector((state) => state.products);
 
-	const handleEditProduct = (item) => {
+	const handleEditProduct = (product) => {
 		props.navigation.navigate("EditProduct", {
-			productId: item.id,
-			title: item.title,
+			productId: product.id,
+			title: product.title,
 		});
 	};
 
+	const renderProduct = ({ item }) => {
+		return <Product item={item} allowEdit onClickEdit={handleEditProduct} />;
+	};
 	return (
-		<View style={{ ...ThemeStyles.screen, backgroundColor: Theme.cancelColor }}>
+		<View style={ThemeStyles.screenEdit}>
 			<FlatList
 				data={myProducts}
-				renderItem={({ index, item }) => (
-					<Product
-						key={String.valueOf(index)}
-						item={item}
-						allowEdit
-						onEdit={handleEditProduct}
-					/>
-				)}
+				keyExtractor={(item) => String(item.id)}
+				renderItem={renderProduct}
 			/>
 		</View>
 	);

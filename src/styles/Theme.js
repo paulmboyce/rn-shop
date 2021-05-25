@@ -46,6 +46,12 @@ const ThemeStyles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: Theme.backgroundColor,
 	},
+	screenEdit: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: Theme.cancelColor,
+	},
 	box1: {
 		flex: 1,
 		justifyContent: "center",

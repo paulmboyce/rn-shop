@@ -29,6 +29,7 @@ const EditableText = ({
 				style={style}
 				keyboardType={keyboardType ? keyboardType : "default"}
 				multiline={multiline}
+				onEndEditing={Keyboard.dismiss}
 			></TextInput>
 		);
 	}

@@ -10,6 +10,7 @@ const Colors = {
 	actionColor: "#FF9900", // SEE: https://brandpalettes.com/amazon-color-codes/
 	backgroundColor: "white",
 	cancelColor: "#ccc",
+	textColor: "black",
 };
 
 const TransparentColors = {
@@ -31,6 +32,7 @@ const Theme = {
 	backgroundColor: Colors.backgroundColor,
 	headerBackgroundColor: Colors.primaryColor,
 	cancelColor: Colors.cancelColor,
+	textColor: Colors.textColor,
 	shadowColor: Colors.shadow,
 	shadowOffset: { height: 2, width: 0 },
 	shadowOpacity: 0.26,
@@ -171,7 +173,14 @@ const ThemeStyles = StyleSheet.create({
 	},
 	button: {
 		fontSize: 18,
-		color: "black",
+		color: Theme.textColor,
+	},
+	cancelButton: {
+		fontSize: 18,
+		color: Theme.textColor,
+		backgroundColor: Theme.cancelColor,
+		borderColor: Theme.textColor,
+		borderWidth: 1,
 	},
 });
 

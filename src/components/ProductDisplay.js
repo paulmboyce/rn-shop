@@ -78,8 +78,11 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 
 							<ButtonAction
 								title="Add to cart"
+								buttonStyle={editMode ? ThemeStyles.cancelButton : {}}
 								onPress={() => {
-									onPressAddToCart(product.id);
+									if (!editMode) {
+										onPressAddToCart(product.id);
+									}
 								}}
 							/>
 						</View>

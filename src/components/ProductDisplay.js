@@ -15,6 +15,7 @@ import {
 import { Theme, ThemeStyles } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import EditableText from "../components/themed/EditableText";
+import EditableImage from "./themed/EditableImage";
 
 const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 	const window = useWindowDimensions();
@@ -22,6 +23,7 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 	const [title, setTitle] = useState(product.title);
 	const [price, setPrice] = useState(product.price);
 	const [description, setDescription] = useState(product.description);
+	const [image, setImage] = useState(product.image);
 
 	const styles = StyleSheet.create({
 		productDetailImage: {
@@ -43,22 +45,21 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 		<KeyboardAvoidingView
 			enabled={true}
 			behavior={Platform.OS === "ios" ? "position" : "padding"}
-			keyboardVerticalOffset={50}
+			keyboardVerticalOffset={80}
 		>
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<View>
-					<Image
+					<EditableImage
 						style={styles.productDetailImage}
-						source={{
-							uri: product.image,
-						}}
+						initialValue={image}
+						editMode={editMode}
+						onChangeValue={setImage}
 					/>
 					<EditableText
 						style={ThemeStyles.textTitle}
-						initialValue={product.title}
+						initialValue={title}
 						editMode={editMode}
 						onChangeValue={setTitle}
-						multiline
 					/>
 
 					<View style={styles.addCartButtonContainerTop}>
@@ -68,7 +69,7 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 							<Text style={ThemeStyles.textBold}>Price: $</Text>
 							<EditableText
 								style={ThemeStyles.textBold}
-								initialValue={product.price}
+								initialValue={price}
 								editMode={editMode}
 								onChangeValue={setPrice}
 								keyboardType={"decimal-pad"}
@@ -84,7 +85,7 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 					</View>
 					<EditableText
 						style={ThemeStyles.textMedium}
-						initialValue={product.description}
+						initialValue={description}
 						editMode={editMode}
 						onChangeValue={setDescription}
 						multiline

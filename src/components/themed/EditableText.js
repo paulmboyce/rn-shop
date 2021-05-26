@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Text,
 	TextInput,
@@ -7,6 +7,11 @@ import {
 } from "react-native";
 
 import { ThemeStyles, Theme } from "../../styles/Theme";
+
+const inputActiveStyle = {
+	...ThemeStyles.textMedium,
+	...ThemeStyles.inputTextActive,
+};
 
 const EditableText = ({
 	initialValue,
@@ -18,6 +23,12 @@ const EditableText = ({
 }) => {
 	const [value, setValue] = useState(String(initialValue));
 
+	const [inputStyle, setInputStyle] = useState(style);
+
+	useEffect(() => {
+		console.log("inputStyle changed");
+	}, [inputStyle]);
+
 	if (editMode) {
 		return (
 			<TextInput
@@ -26,10 +37,12 @@ const EditableText = ({
 					setValue(val);
 					onChangeValue(val);
 				}}
-				style={style}
+				style={inputStyle}
 				keyboardType={keyboardType ? keyboardType : "default"}
 				multiline={multiline}
 				onEndEditing={Keyboard.dismiss}
+				onFocus={() => setInputStyle(inputActiveStyle)}
+				onBlur={() => setInputStyle(style)}
 			></TextInput>
 		);
 	}

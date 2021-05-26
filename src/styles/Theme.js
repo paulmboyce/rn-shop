@@ -144,6 +144,13 @@ const ThemeStyles = StyleSheet.create({
 		fontSize: 18,
 		paddingVertical: 7,
 	},
+	inputTextActive: {
+		padding: 4,
+		borderRadius: 5,
+		borderColor: Theme.actionColor,
+		borderWidth: 0.5,
+		backgroundColor: "white",
+	},
 	shadowBorder: {
 		shadowColor: Theme.shadowColor,
 		shadowOffset: Theme.shadowOffset,

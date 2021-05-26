@@ -3,13 +3,12 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	TextInput,
-	Image,
 	useWindowDimensions,
 	KeyboardAvoidingView,
 	Platform,
 	TouchableWithoutFeedback,
 	Keyboard,
+	ScrollView,
 } from "react-native";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
@@ -42,57 +41,59 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 	});
 
 	return (
-		<KeyboardAvoidingView
-			enabled={true}
-			behavior={Platform.OS === "ios" ? "position" : "padding"}
-			keyboardVerticalOffset={80}
-		>
-			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-				<View>
-					<EditableImage
-						style={styles.productDetailImage}
-						initialValue={image}
-						editMode={editMode}
-						onChangeValue={setImage}
-					/>
-					<EditableText
-						style={ThemeStyles.textTitle}
-						initialValue={title}
-						editMode={editMode}
-						onChangeValue={setTitle}
-					/>
+		<ScrollView>
+			<KeyboardAvoidingView
+				enabled={true}
+				behavior={Platform.OS === "ios" ? "position" : "padding"}
+				keyboardVerticalOffset={80}
+			>
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+					<View>
+						<EditableImage
+							style={styles.productDetailImage}
+							initialValue={image}
+							editMode={editMode}
+							onChangeValue={setImage}
+						/>
+						<EditableText
+							style={ThemeStyles.textTitle}
+							initialValue={title}
+							editMode={editMode}
+							onChangeValue={setTitle}
+						/>
 
-					<View style={styles.addCartButtonContainerTop}>
-						<View
-							style={{ flexDirection: "row", justifyContent: "space-around" }}
-						>
-							<Text style={ThemeStyles.textBold}>Price: $</Text>
-							<EditableText
-								style={ThemeStyles.textBold}
-								initialValue={price}
-								editMode={editMode}
-								onChangeValue={setPrice}
-								keyboardType={"decimal-pad"}
+						<View style={styles.addCartButtonContainerTop}>
+							<View
+								style={{ flexDirection: "row", justifyContent: "space-around" }}
+							>
+								<Text style={ThemeStyles.textBold}>Price: $</Text>
+								<EditableText
+									style={ThemeStyles.textBold}
+									initialValue={price}
+									editMode={editMode}
+									onChangeValue={setPrice}
+									keyboardType={"decimal-pad"}
+								/>
+							</View>
+
+							<ButtonAction
+								title="Add to cart"
+								onPress={() => {
+									onPressAddToCart(product.id);
+								}}
 							/>
 						</View>
-
-						<ButtonAction
-							title="Add to cart"
-							onPress={() => {
-								onPressAddToCart(product.id);
-							}}
+						<EditableText
+							style={ThemeStyles.textMedium}
+							initialValue={description}
+							editMode={editMode}
+							onChangeValue={setDescription}
+							multiline
 						/>
 					</View>
-					<EditableText
-						style={ThemeStyles.textMedium}
-						initialValue={description}
-						editMode={editMode}
-						onChangeValue={setDescription}
-						multiline
-					/>
-				</View>
-			</TouchableWithoutFeedback>
-		</KeyboardAvoidingView>
+				</TouchableWithoutFeedback>
+			</KeyboardAvoidingView>
+		</ScrollView>
 	);
 };
 

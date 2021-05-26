@@ -13,12 +13,15 @@ const EditableImage = (props) => {
 	const { initialValue, editMode, onChangeValue } = props;
 	const [value, setValue] = useState(String(initialValue));
 	const [showImage, setShowImage] = useState(true);
-
+	const imageInputRef = useRef();
 	console.log("Render EditableImage: ", value);
 
 	useEffect(() => {
 		console.log("showImage CHANGED, expect rerender... ", showImage);
-	}, [showImage]);
+		if (!showImage) {
+			imageInputRef.current.focus();
+		}
+	}, [showImage, imageInputRef]);
 
 	if (!editMode) {
 		console.log("Not editmode returning normal image...");
@@ -63,6 +66,7 @@ const EditableImage = (props) => {
 			}}
 		>
 			<TextInput
+				ref={imageInputRef}
 				{...props}
 				style={{
 					...ThemeStyles.textMedium,

@@ -14,17 +14,14 @@ const EditableImage = (props) => {
 	const [value, setValue] = useState(String(initialValue));
 	const [showImage, setShowImage] = useState(true);
 	const imageInputRef = useRef();
-	console.log("Render EditableImage: ", value);
 
 	useEffect(() => {
-		console.log("showImage CHANGED, expect rerender... ", showImage);
 		if (!showImage) {
 			imageInputRef.current.focus();
 		}
 	}, [showImage, imageInputRef]);
 
 	if (!editMode) {
-		console.log("Not editmode returning normal image...");
 		return (
 			<Image
 				{...props}
@@ -60,7 +57,7 @@ const EditableImage = (props) => {
 				...props.style,
 				justifyContent: "center",
 				padding: 10,
-				borderColor: "black",
+				borderColor: Theme.blackColor,
 				borderWidth: 1,
 				margin: 2,
 			}}
@@ -76,10 +73,10 @@ const EditableImage = (props) => {
 				value={value}
 				onChangeText={(val) => {
 					setValue(val);
-					onChangeValue(val);
 				}}
 				onEndEditing={() => {
 					Keyboard.dismiss();
+					onChangeValue(value);
 				}}
 				onBlur={() => setShowImage(true)}
 			/>

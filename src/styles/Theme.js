@@ -33,6 +33,7 @@ const Theme = {
 	headerBackgroundColor: Colors.primaryColor,
 	cancelColor: Colors.cancelColor,
 	textColor: Colors.textColor,
+	blackColor: "black",
 	shadowColor: Colors.shadow,
 	shadowOffset: { height: 2, width: 0 },
 	shadowOpacity: 0.26,

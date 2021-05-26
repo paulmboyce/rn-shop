@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -16,13 +16,19 @@ import ButtonAction from "../components/themed/ButtonAction";
 import EditableText from "../components/themed/EditableText";
 import EditableImage from "./themed/EditableImage";
 
-const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
+const ProductDisplay = ({
+	product,
+	onPressAddToCart,
+	editMode,
+	onEditProduct,
+}) => {
 	const window = useWindowDimensions();
 
-	const [title, setTitle] = useState(product.title);
-	const [price, setPrice] = useState(product.price);
-	const [description, setDescription] = useState(product.description);
-	const [image, setImage] = useState(product.image);
+	console.log("RENDER: ProductDisplay ...");
+	const [title, setTitle] = useState("");
+	const [price, setPrice] = useState("");
+	const [description, setDescription] = useState("");
+	const [image, setImage] = useState("");
 
 	const styles = StyleSheet.create({
 		productDetailImage: {
@@ -40,6 +46,30 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 		},
 	});
 
+	useEffect(() => {
+		if (editMode) {
+			onEditProduct({ image: image });
+		}
+	}, [image]);
+
+	useEffect(() => {
+		if (editMode) {
+			onEditProduct({ price: price });
+		}
+	}, [price]);
+
+	useEffect(() => {
+		if (editMode) {
+			onEditProduct({ title: title });
+		}
+	}, [title]);
+
+	useEffect(() => {
+		if (editMode) {
+			onEditProduct({ description: description });
+		}
+	}, [description]);
+
 	return (
 		<ScrollView>
 			<KeyboardAvoidingView
@@ -51,13 +81,13 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 					<View>
 						<EditableImage
 							style={styles.productDetailImage}
-							initialValue={image}
+							initialValue={product.image}
 							editMode={editMode}
 							onChangeValue={setImage}
 						/>
 						<EditableText
 							style={ThemeStyles.textTitle}
-							initialValue={title}
+							initialValue={product.title}
 							editMode={editMode}
 							onChangeValue={setTitle}
 						/>
@@ -69,7 +99,7 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 								<Text style={ThemeStyles.textBold}>Price: $</Text>
 								<EditableText
 									style={ThemeStyles.textBold}
-									initialValue={price}
+									initialValue={product.price}
 									editMode={editMode}
 									onChangeValue={setPrice}
 									keyboardType={"decimal-pad"}
@@ -88,7 +118,7 @@ const ProductDisplay = ({ product, onPressAddToCart, editMode }) => {
 						</View>
 						<EditableText
 							style={ThemeStyles.textMedium}
-							initialValue={description}
+							initialValue={product.description}
 							editMode={editMode}
 							onChangeValue={setDescription}
 							multiline

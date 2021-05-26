@@ -25,9 +25,12 @@ const EditableText = ({
 
 	const [inputStyle, setInputStyle] = useState(style);
 
+	/**
 	useEffect(() => {
 		console.log("inputStyle changed");
 	}, [inputStyle]);
+
+ */
 
 	if (editMode) {
 		return (
@@ -35,12 +38,14 @@ const EditableText = ({
 				value={value}
 				onChangeText={(val) => {
 					setValue(val);
-					onChangeValue(val);
 				}}
 				style={inputStyle}
 				keyboardType={keyboardType ? keyboardType : "default"}
 				multiline={multiline}
-				onEndEditing={Keyboard.dismiss}
+				onEndEditing={() => {
+					Keyboard.dismiss();
+					onChangeValue(value);
+				}}
 				onFocus={() => setInputStyle(inputActiveStyle)}
 				onBlur={() => setInputStyle(style)}
 			></TextInput>

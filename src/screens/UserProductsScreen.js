@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Theme, ThemeStyles } from "../styles/Theme";
 import Product from "../components/Product";
 import MenuButton from "../navigation/MenuButton";
+import AddProductButton from "../navigation/AddProductButton";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
@@ -38,6 +39,7 @@ UserProductsScreen.navigationOptions = ({ navigation }) => {
 	return {
 		title: title ? title : "My Shop Products",
 		headerLeft: () => <MenuButton navigation={navigation} />,
+		headerRight: () => <AddProductButton navigation={navigation} />,
 	};
 };
 export default UserProductsScreen;

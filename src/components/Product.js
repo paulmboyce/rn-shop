@@ -6,10 +6,12 @@ import {
 	StyleSheet,
 	useWindowDimensions,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Card from "../components/Card";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import { ThemeStyles, Theme } from "../styles/Theme";
+import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 
 const Product = ({ item, allowView, onClickView, allowEdit, onClickEdit }) => {
 	const window = useWindowDimensions();
@@ -29,6 +31,7 @@ const Product = ({ item, allowView, onClickView, allowEdit, onClickEdit }) => {
 			alignItems: "flex-end",
 			marginTop: 10,
 		},
+		buttonIcon: { paddingVertical: 4, marginHorizontal: 1 },
 	});
 
 	return (
@@ -66,20 +69,29 @@ const Product = ({ item, allowView, onClickView, allowEdit, onClickEdit }) => {
 						/>
 					)}
 					{allowEdit && (
-						<ButtonActionSmall
-							style={{ paddingVertical: 4 }}
-							title="Edit"
+						<ButtonIconSmall
+							style={styles.buttonIcon}
 							onPress={() => {
 								onClickEdit(item);
 							}}
-						/>
+						>
+							<Ionicons name="create-outline" size={26} color="black" />
+						</ButtonIconSmall>
+					)}
+					{allowEdit && (
+						<ButtonIconSmall
+							style={styles.buttonIcon}
+							onPress={() => {
+								console.log("DELETE ACTION");
+							}}
+						>
+							<Ionicons name="trash-outline" size={26} color="black" />
+						</ButtonIconSmall>
 					)}
 				</View>
 			</View>
 		</Card>
 	);
 };
-
-const styles = StyleSheet.create({});
 
 export default Product;

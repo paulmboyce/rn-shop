@@ -32,7 +32,7 @@ const ProductDisplay = ({
 
 	const styles = StyleSheet.create({
 		productDetailImage: {
-			width: window.width * 0.99,
+			width: "100%",
 			height: window.width * 0.99,
 			marginBottom: 20,
 		},
@@ -75,9 +75,14 @@ const ProductDisplay = ({
 			<KeyboardAvoidingView
 				enabled={true}
 				behavior={Platform.OS === "ios" ? "position" : "padding"}
-				keyboardVerticalOffset={80}
+				keyboardVerticalOffset={-60}
 			>
-				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+				<TouchableWithoutFeedback
+					onPress={() => {
+						console.log("About to dsmiss keyboard...");
+						Keyboard.dismiss;
+					}}
+				>
 					<View>
 						<EditableImage
 							style={styles.productDetailImage}
@@ -85,44 +90,51 @@ const ProductDisplay = ({
 							editMode={editMode}
 							onChangeValue={setImage}
 						/>
-						<EditableText
-							style={ThemeStyles.textTitle}
-							initialValue={product.title}
-							editMode={editMode}
-							onChangeValue={setTitle}
-						/>
+						<View style={{ paddingHorizontal: 10 }}>
+							<EditableText
+								style={ThemeStyles.textTitle}
+								initialValue={product.title}
+								editMode={editMode}
+								onChangeValue={setTitle}
+							/>
 
-						<View style={styles.addCartButtonContainerTop}>
-							<View
-								style={{ flexDirection: "row", justifyContent: "space-around" }}
-							>
-								<Text style={ThemeStyles.textBold}>Price: $</Text>
-								<EditableText
-									style={ThemeStyles.textBold}
-									initialValue={product.price}
-									editMode={editMode}
-									onChangeValue={setPrice}
-									keyboardType={"decimal-pad"}
+							<View style={styles.addCartButtonContainerTop}>
+								<View
+									style={{
+										flexDirection: "row",
+										justifyContent: "space-around",
+									}}
+								>
+									<Text style={ThemeStyles.textBold}>Price: $</Text>
+									<EditableText
+										style={ThemeStyles.textBold}
+										initialValue={product.price}
+										editMode={editMode}
+										onChangeValue={setPrice}
+										keyboardType={"decimal-pad"}
+									/>
+								</View>
+
+								<ButtonAction
+									title="Add to cart"
+									buttonStyle={editMode ? ThemeStyles.cancelButton : {}}
+									onPress={() => {
+										if (!editMode) {
+											onPressAddToCart(product.id);
+										}
+									}}
 								/>
 							</View>
-
-							<ButtonAction
-								title="Add to cart"
-								buttonStyle={editMode ? ThemeStyles.cancelButton : {}}
-								onPress={() => {
-									if (!editMode) {
-										onPressAddToCart(product.id);
-									}
+							<EditableText
+								style={{
+									...ThemeStyles.textMedium,
 								}}
+								initialValue={product.description}
+								editMode={editMode}
+								onChangeValue={setDescription}
+								multiline={true}
 							/>
 						</View>
-						<EditableText
-							style={ThemeStyles.textMedium}
-							initialValue={product.description}
-							editMode={editMode}
-							onChangeValue={setDescription}
-							multiline
-						/>
 					</View>
 				</TouchableWithoutFeedback>
 			</KeyboardAvoidingView>

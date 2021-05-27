@@ -46,21 +46,19 @@ const EditProductScreen = ({ navigation }) => {
 	return (
 		<ScrollView style={styles.scroll}>
 			<View style={ThemeStyles.screenEdit}>
-				<View style={ThemeStyles.box1}>
-					<ProductDisplay
-						product={product}
-						onPressAddToCart={onPressAddToCart}
-						editMode={true}
-						onEditProduct={handleProductChanges}
-					/>
-				</View>
+				<ProductDisplay
+					product={product}
+					onPressAddToCart={onPressAddToCart}
+					editMode={true}
+					onEditProduct={handleProductChanges}
+				/>
 			</View>
 		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
-	scroll: { backgroundColor: Theme.cancelColor, paddingHorizontal: 20 },
+	scroll: { backgroundColor: Theme.cancelColor },
 });
 
 EditProductScreen.navigationOptions = ({ navigation }) => {

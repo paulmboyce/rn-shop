@@ -43,6 +43,7 @@ const EditableText = ({
 				keyboardType={keyboardType ? keyboardType : "default"}
 				multiline={multiline}
 				onEndEditing={() => {
+					console.log("About to dsmiss keyboard...");
 					Keyboard.dismiss();
 					onChangeValue(value);
 				}}

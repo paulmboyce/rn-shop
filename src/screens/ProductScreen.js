@@ -44,9 +44,7 @@ const ProductScreen = (props) => {
 	};
 
 	return (
-		<ScrollView
-			style={{ backgroundColor: Theme.backgroundColor, paddingHorizontal: 20 }}
-		>
+		<ScrollView style={{ backgroundColor: Theme.backgroundColor }}>
 			<View style={ThemeStyles.screen}>
 				<View style={ThemeStyles.box2}>
 					<ProductDisplay

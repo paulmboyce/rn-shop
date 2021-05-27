@@ -75,6 +75,7 @@ const EditableImage = (props) => {
 					setValue(val);
 				}}
 				onEndEditing={() => {
+					console.log("About to dsmiss keyboard...");
 					Keyboard.dismiss();
 					onChangeValue(value);
 				}}

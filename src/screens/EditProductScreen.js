@@ -8,34 +8,28 @@ import SaveButton from "../navigation/SaveButton";
 
 const EditProductScreen = ({ navigation }) => {
 	const productId = navigation.getParam("productId");
-	const product = useSelector((state) =>
-		state.products.find((p) => p.id === productId)
-	);
+	const product = useSelector((state) => state.products[productId]);
+
 	const [editProduct, setEditProduct] = useState(product);
-	console.log("RENDER: EdidProductScreen ...");
 
 	useEffect(() => {
 		navigation.setParams({ title: product.title });
 	}, [product]);
 
 	useEffect(() => {
-		console.log("useEffect() pass onSaveProduct() to Navigation: ");
+		console.log("useEffect() pass onSaveProduct() to Navigation..");
 		navigation.setParams({ onSaveProduct: onSaveProduct });
 	}, [editProduct, onSaveProduct]);
 
 	const onSaveProduct = useCallback(() => {
-		console.log("EditProductScreen.onSaveProduct():", editProduct);
-		//		return editProduct;
+		return editProduct;
 	});
 
 	const handleProductChanges = useCallback((change) => {
-		console.log("CURRENT PRODUCT: ", editProduct);
-		console.log("PRODUCT CHANGE: ", change);
 		setEditProduct((current) => {
 			return { ...current, ...change };
 		});
 		const updatedProduct = { ...editProduct, ...change };
-		console.log("PRODUCT with CHANGEs: ", updatedProduct);
 		return updatedProduct;
 	});
 
@@ -63,11 +57,8 @@ const styles = StyleSheet.create({
 
 EditProductScreen.navigationOptions = ({ navigation }) => {
 	const title = navigation.getParam("title");
-	let onSaveProduct = () => {
-		console.warn("onSaveProduct not found on Navigation!!!");
-	};
-	onSaveProduct = navigation.getParam("onSaveProduct");
-	console.log("onSaveProduct", typeof onSaveProduct);
+	const onSaveProduct = navigation.getParam("onSaveProduct");
+
 	return {
 		title: title ? title : "Editing Product",
 		headerRight: () => (

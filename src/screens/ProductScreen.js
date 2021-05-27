@@ -17,9 +17,7 @@ import ProductDisplay from "../components/ProductDisplay";
 
 const ProductScreen = (props) => {
 	const productId = props.navigation.getParam("productId");
-	const product = useSelector((state) =>
-		state.products.find((p) => p.id === productId)
-	);
+	const product = useSelector((state) => state.products[productId]);
 	const cartTotal = useSelector((state) => state.cart.total);
 
 	const dispatch = useDispatch();

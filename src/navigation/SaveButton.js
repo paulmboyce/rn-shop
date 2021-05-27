@@ -2,12 +2,14 @@ import React from "react";
 import { Platform, Alert } from "react-native";
 import { Item } from "react-navigation-header-buttons";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import IonHeaderButtons from "./IonHeaderButtons";
+import * as productActions from "../redux/actions/ProductActions";
 
 const SaveButton = ({ navigation, saveProduct }) => {
 	let icon = "save";
+	const dispatch = useDispatch();
 
 	const platformIcon = Platform.OS === "ios" ? "ios-" + icon : "md-" + icon;
 
@@ -17,7 +19,7 @@ const SaveButton = ({ navigation, saveProduct }) => {
 				title="Save"
 				iconName={platformIcon}
 				onPress={() => {
-					saveProduct();
+					dispatch(productActions.updateProductAction(saveProduct()));
 				}}
 			/>
 		</IonHeaderButtons>

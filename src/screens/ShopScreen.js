@@ -18,7 +18,7 @@ import { ThemeStyles, Theme } from "../styles/Theme";
 import Product from "../components/Product";
 
 const ShopScreen = (props) => {
-	const products = useSelector((state) => state.products);
+	const products = useSelector((state) => Object.values(state.products));
 	const cartTotal = useSelector((state) => state.cart.total);
 
 	const window = useWindowDimensions();

@@ -24,11 +24,10 @@ const ProductDisplay = ({
 }) => {
 	const window = useWindowDimensions();
 
-	console.log("RENDER: ProductDisplay ...");
-	const [title, setTitle] = useState("");
-	const [price, setPrice] = useState("");
-	const [description, setDescription] = useState("");
-	const [image, setImage] = useState("");
+	const [title, setTitle] = useState(product.title);
+	const [price, setPrice] = useState(product.price);
+	const [description, setDescription] = useState(product.description);
+	const [image, setImage] = useState(product.image);
 
 	const styles = StyleSheet.create({
 		productDetailImage: {
@@ -48,25 +47,25 @@ const ProductDisplay = ({
 
 	useEffect(() => {
 		if (editMode) {
-			onEditProduct({ image: image });
+			onEditProduct({ image });
 		}
 	}, [image]);
 
 	useEffect(() => {
 		if (editMode) {
-			onEditProduct({ price: price });
+			onEditProduct({ price });
 		}
 	}, [price]);
 
 	useEffect(() => {
 		if (editMode) {
-			onEditProduct({ title: title });
+			onEditProduct({ title });
 		}
 	}, [title]);
 
 	useEffect(() => {
 		if (editMode) {
-			onEditProduct({ description: description });
+			onEditProduct({ description });
 		}
 	}, [description]);
 
@@ -86,14 +85,14 @@ const ProductDisplay = ({
 					<View>
 						<EditableImage
 							style={styles.productDetailImage}
-							initialValue={product.image}
+							initialValue={image}
 							editMode={editMode}
 							onChangeValue={setImage}
 						/>
 						<View style={{ paddingHorizontal: 10 }}>
 							<EditableText
 								style={ThemeStyles.textTitle}
-								initialValue={product.title}
+								initialValue={title}
 								editMode={editMode}
 								onChangeValue={setTitle}
 							/>
@@ -108,7 +107,7 @@ const ProductDisplay = ({
 									<Text style={ThemeStyles.textBold}>Price: $</Text>
 									<EditableText
 										style={ThemeStyles.textBold}
-										initialValue={product.price}
+										initialValue={price}
 										editMode={editMode}
 										onChangeValue={setPrice}
 										keyboardType={"decimal-pad"}
@@ -119,9 +118,7 @@ const ProductDisplay = ({
 									title="Add to cart"
 									buttonStyle={editMode ? ThemeStyles.cancelButton : {}}
 									onPress={() => {
-										if (!editMode) {
-											onPressAddToCart(product.id);
-										}
+										onPressAddToCart(product.id);
 									}}
 								/>
 							</View>
@@ -129,7 +126,7 @@ const ProductDisplay = ({
 								style={{
 									...ThemeStyles.textMedium,
 								}}
-								initialValue={product.description}
+								initialValue={description}
 								editMode={editMode}
 								onChangeValue={setDescription}
 								multiline={true}

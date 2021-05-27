@@ -8,7 +8,7 @@ import MenuButton from "../navigation/MenuButton";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
-	const myProducts = useSelector((state) => state.products);
+	const myProducts = useSelector((state) => Object.values(state.products));
 
 	const handleEditProduct = (product) => {
 		props.navigation.navigate("EditProduct", {

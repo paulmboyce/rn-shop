@@ -14,6 +14,7 @@ import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import CartButton from "../navigation/CartButton";
 import ProductDisplay from "../components/ProductDisplay";
+import ContinueShopping from "../components/ContinueShopping";
 
 const ProductScreen = (props) => {
 	const productId = props.navigation.getParam("productId");
@@ -40,6 +41,15 @@ const ProductScreen = (props) => {
 		console.log(`ACTION: addToCartAction(${product.id})`);
 		dispatch(addToCartAction(product.id));
 	};
+
+	if (!product) {
+		return (
+			<View style={ThemeStyles.screen}>
+				<Text style={ThemeStyles.textMedium}>Product could not be found.</Text>
+				<ContinueShopping navigation={props.navigation} />
+			</View>
+		);
+	}
 
 	return (
 		<ScrollView style={{ backgroundColor: Theme.backgroundColor }}>

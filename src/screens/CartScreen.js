@@ -43,14 +43,16 @@ const CartScreen = (props) => {
 		return cartItemsArray.map((cartItem) => {
 			const cartProduct = allProducts[cartItem.productId];
 			return (
-				<TouchableOpacity
-					key={cartItem.productId}
-					onPress={() => {
-						showProductScreen(props.navigation, cartProduct);
-					}}
-				>
-					<CartItem cartItem={cartItem} cartProduct={cartProduct} />
-				</TouchableOpacity>
+				cartProduct && (
+					<TouchableOpacity
+						key={cartItem.productId}
+						onPress={() => {
+							showProductScreen(props.navigation, cartProduct);
+						}}
+					>
+						<CartItem cartItem={cartItem} cartProduct={cartProduct} />
+					</TouchableOpacity>
+				)
 			);
 		});
 	};
@@ -104,7 +106,11 @@ const CartScreen = (props) => {
 
 				{(() => {
 					if (cartItemsArray.length === 0) {
-						return <ContinueShopping navigation={props.navigation} />;
+						return (
+							<View style={ThemeStyles.box1}>
+								<ContinueShopping navigation={props.navigation} />
+							</View>
+						);
 					}
 				})()}
 			</View>

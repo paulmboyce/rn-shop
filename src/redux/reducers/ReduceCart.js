@@ -6,6 +6,8 @@ import {
 	CREATE_ORDER,
 } from "../actions/CartActions";
 
+import { DELETE_PRODUCT } from "../actions/ProductActions";
+
 const DEFAULT_CART = {
 	total: 0.0,
 	items: {},
@@ -51,15 +53,17 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			return newState;
 		}
 
+		// There two cases handled same:
+		case DELETE_PRODUCT:
 		case DELETE_FROM_CART: {
 			const newState = { ...oldState };
-
 			const productItem = newState.items[payload.productId];
-			delete newState.items[payload.productId];
-			newState.total = calculateTotal(newState.items);
-			newState.numItems = calcNumItems(newState.items);
-
-			return newState;
+			if (productItem) {
+				delete newState.items[payload.productId];
+				newState.total = calculateTotal(newState.items);
+				newState.numItems = calcNumItems(newState.items);
+				return newState;
+			}
 		}
 
 		case DECREMENT_QUANTITY: {

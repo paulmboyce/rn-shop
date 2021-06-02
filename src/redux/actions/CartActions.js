@@ -5,14 +5,10 @@ export const INCREMENT_QUANTITY = "INCREMENT_QUANTITY";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const CLEAR_CART = "CLEAR_CART";
 
-const getCartProduct = (products, productId) => {
-	return products.find((product) => product.id === productId);
-};
-
 export const addToCartAction = (productId) => {
 	return (dispatch, getState) => {
 		const products = getState().products;
-		const product = getCartProduct(products, productId);
+		const product = products[productId];
 
 		dispatch({
 			type: ADD_TO_CART,

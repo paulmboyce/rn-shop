@@ -8,10 +8,9 @@ import {
 } from "react-native";
 
 import Card from "../components/Card";
-import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import { ThemeStyles, Theme } from "../styles/Theme";
 
-const Product = ({ item, allowView, onClickView, children }) => {
+const Product = ({ item, children }) => {
 	const window = useWindowDimensions();
 	const styles = StyleSheet.create({
 		listImage: {
@@ -57,15 +56,7 @@ const Product = ({ item, allowView, onClickView, children }) => {
 							<Text style={ThemeStyles.textBold}>${item.price}</Text>
 						</Text>
 					</View>
-					{allowView && (
-						<ButtonActionSmall
-							style={{ paddingVertical: 4 }}
-							title="View"
-							onPress={() => {
-								onClickView(item);
-							}}
-						/>
-					)}
+
 					{children}
 				</View>
 			</View>

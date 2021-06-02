@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import MenuButton from "../navigation/MenuButton";
 import CartButton from "../navigation/CartButton";
 import { ThemeStyles, Theme } from "../styles/Theme";
+import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 
 import Product from "../components/Product";
 
@@ -40,12 +41,15 @@ const ShopScreen = (props) => {
 					showProductScreen(item);
 				}}
 			>
-				<Product
-					key={index}
-					item={item}
-					allowView
-					onClickView={showProductScreen}
-				/>
+				<Product key={index} item={item}>
+					<ButtonActionSmall
+						style={{ paddingVertical: 4 }}
+						title="View"
+						onPress={() => {
+							showProductScreen(item);
+						}}
+					/>
+				</Product>
 			</TouchableOpacity>
 		);
 	};

@@ -6,6 +6,8 @@ import { Theme, ThemeStyles } from "../styles/Theme";
 import Product from "../components/Product";
 import MenuButton from "../navigation/MenuButton";
 import AddProductButton from "../navigation/AddProductButton";
+import ButtonIconSmall from "../components/themed/ButtonIconSmall";
+import { Ionicons } from "@expo/vector-icons";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
@@ -19,7 +21,26 @@ const UserProductsScreen = (props) => {
 	};
 
 	const renderProduct = ({ item }) => {
-		return <Product item={item} allowEdit onClickEdit={handleEditProduct} />;
+		return (
+			<Product item={item}>
+				<ButtonIconSmall
+					style={styles.buttonIcon}
+					onPress={() => {
+						handleEditProduct(item);
+					}}
+				>
+					<Ionicons name="create-outline" size={26} color="black" />
+				</ButtonIconSmall>
+				<ButtonIconSmall
+					style={styles.buttonIcon}
+					onPress={() => {
+						console.log("DELETE ACTION");
+					}}
+				>
+					<Ionicons name="trash-outline" size={26} color="black" />
+				</ButtonIconSmall>
+			</Product>
+		);
 	};
 	return (
 		<View style={ThemeStyles.screenEdit}>

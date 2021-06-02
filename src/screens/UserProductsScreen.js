@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
 import Product from "../components/Product";
@@ -8,11 +8,13 @@ import MenuButton from "../navigation/MenuButton";
 import AddProductButton from "../navigation/AddProductButton";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 import { Ionicons } from "@expo/vector-icons";
+import * as productActions from "../redux/actions/ProductActions";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
 	const myProducts = useSelector((state) => Object.values(state.products));
 
+	const dispatch = useDispatch();
 	const handleEditProduct = (product) => {
 		props.navigation.navigate("EditProduct", {
 			productId: product.id,
@@ -34,7 +36,7 @@ const UserProductsScreen = (props) => {
 				<ButtonIconSmall
 					style={styles.buttonIcon}
 					onPress={() => {
-						console.log("DELETE ACTION");
+						dispatch(productActions.deleteProductAction(item.id));
 					}}
 				>
 					<Ionicons name="trash-outline" size={26} color="black" />

@@ -16,10 +16,6 @@ import ContinueShopping from "../components/ContinueShopping";
 import { createOrderAction } from "../redux/actions/CartActions";
 import MenuButton from "../navigation/MenuButton";
 
-const getCartProduct = (allProducts, productId) => {
-	return allProducts.find((product) => product.id === productId);
-};
-
 const showProductScreen = (navigation, product) => {
 	navigation.navigate("Product", {
 		productId: product.id,
@@ -45,7 +41,7 @@ const CartScreen = (props) => {
 		}
 
 		return cartItemsArray.map((cartItem) => {
-			const cartProduct = getCartProduct(allProducts, cartItem.productId);
+			const cartProduct = allProducts[cartItem.productId];
 			return (
 				<TouchableOpacity
 					key={cartItem.productId}

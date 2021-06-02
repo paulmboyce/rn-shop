@@ -11,13 +11,9 @@ const Order = ({ order }) => {
 	const allProducts = useSelector((state) => state.products);
 	const [showItems, setShowItems] = useState(false);
 
-	const getProduct = (allProducts, productId) => {
-		return allProducts.find((product) => product.id === productId);
-	};
-
 	const renderOrderItems = (order) => {
 		return order.items.map(({ productId, quantity }) => {
-			const product = getProduct(allProducts, productId);
+			const product = allProducts[productId];
 			return (
 				<OrderItem
 					key={productId}

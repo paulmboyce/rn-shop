@@ -19,8 +19,7 @@ const AddProductButton = ({ navigation, saveProduct }) => {
 				title="Add"
 				iconName={platformIcon}
 				onPress={() => {
-					console.log("Navigate to Edit blank product");
-					//					dispatch(productActions.updateProductAction(saveProduct()));
+					navigation.navigate("EditProduct");
 				}}
 			/>
 		</IonHeaderButtons>

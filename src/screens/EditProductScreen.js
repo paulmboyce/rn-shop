@@ -12,7 +12,6 @@ const EditProductScreen = ({ navigation }) => {
 	const productId = navigation.getParam("productId");
 
 	const BLANK_PRODUCT = new Product(
-		null,
 		"New product name",
 		999.99,
 		"Your compelling sales description...",
@@ -22,19 +21,12 @@ const EditProductScreen = ({ navigation }) => {
 
 	let product;
 	if (!productId) {
-		console.log("Make a NEW product....");
 		product = BLANK_PRODUCT;
 	} else {
-		console.log("Get EXISTING product for edit...");
 		product = useSelector((state) => state.products[productId]);
 	}
 
 	const [editProduct, setEditProduct] = useState(product);
-	console.log("PRODUCT: ", editProduct);
-
-	useEffect(() => {
-		navigation.setParams({ title: editProduct.title });
-	}, [editProduct]);
 
 	useEffect(() => {
 		navigation.setParams({ onSaveProduct: onSaveProduct });
@@ -75,11 +67,11 @@ const styles = StyleSheet.create({
 });
 
 EditProductScreen.navigationOptions = ({ navigation }) => {
-	const title = navigation.getParam("title");
+	const hasId = navigation.getParam("productId");
 	const onSaveProduct = navigation.getParam("onSaveProduct");
 
 	return {
-		title: title ? title : "",
+		title: hasId ? "Edit Product" : "Add Product",
 		headerRight: () => (
 			<SaveButton navigation={navigation} saveProduct={onSaveProduct} />
 		),

@@ -16,10 +16,7 @@ const UserProductsScreen = (props) => {
 
 	const dispatch = useDispatch();
 	const handleEditProduct = (product) => {
-		props.navigation.navigate("EditProduct", {
-			productId: product.id,
-			title: product.title,
-		});
+		props.navigation.navigate("EditProduct", { productId: product.id });
 	};
 
 	const renderProduct = ({ item }) => {

@@ -1,14 +1,17 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ProductDisplay from "../components/ProductDisplay";
 import { Theme, ThemeStyles } from "../styles/Theme";
 import SaveButton from "../navigation/SaveButton";
 import Product from "../models/Product";
+import * as productActions from "../redux/actions/ProductActions";
 
 const EditProductScreen = ({ navigation }) => {
 	console.log("Render EditProductScreen...", navigation.state);
+	const dispatch = useDispatch();
+
 	const productId = navigation.getParam("productId");
 
 	const BLANK_PRODUCT = new Product(
@@ -29,19 +32,17 @@ const EditProductScreen = ({ navigation }) => {
 	const [editProduct, setEditProduct] = useState(product);
 
 	useEffect(() => {
-		navigation.setParams({ onSaveProduct: onSaveProduct });
-	}, [editProduct, onSaveProduct]);
+		navigation.setParams({ onPressSave: saveProduct });
+	}, [editProduct, saveProduct]);
 
-	const onSaveProduct = useCallback(() => {
-		return editProduct;
-	});
+	const saveProduct = useCallback(() => {
+		dispatch(productActions.updateProductAction(editProduct));
+	}, [editProduct]);
 
 	const handleProductChanges = useCallback((change) => {
 		setEditProduct((current) => {
 			return { ...current, ...change };
 		});
-		const updatedProduct = { ...editProduct, ...change };
-		return updatedProduct;
 	});
 
 	const onPressAddToCart = () => {
@@ -68,12 +69,12 @@ const styles = StyleSheet.create({
 
 EditProductScreen.navigationOptions = ({ navigation }) => {
 	const hasId = navigation.getParam("productId");
-	const onSaveProduct = navigation.getParam("onSaveProduct");
+	const onPressSave = navigation.getParam("onPressSave");
 
 	return {
 		title: hasId ? "Edit Product" : "Add Product",
 		headerRight: () => (
-			<SaveButton navigation={navigation} saveProduct={onSaveProduct} />
+			<SaveButton navigation={navigation} onPress={onPressSave} />
 		),
 	};
 };

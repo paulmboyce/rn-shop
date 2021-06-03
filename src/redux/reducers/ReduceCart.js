@@ -62,8 +62,8 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 				delete newState.items[payload.productId];
 				newState.total = calculateTotal(newState.items);
 				newState.numItems = calcNumItems(newState.items);
-				return newState;
 			}
+			return newState;
 		}
 
 		case DECREMENT_QUANTITY: {

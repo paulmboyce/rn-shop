@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, isValidElement } from "react";
 import {
 	View,
 	StyleSheet,
@@ -21,6 +21,7 @@ const ProductDisplay = ({
 	onPressAddToCart,
 	editMode,
 	onEditProduct,
+	onValidateChanges,
 }) => {
 	const window = useWindowDimensions();
 
@@ -69,6 +70,45 @@ const ProductDisplay = ({
 		}
 	}, [description]);
 
+	const validateTitle = (title) => {
+		let checks = { valid: true, err: null };
+		if (title.length < 1) {
+			checks = { valid: false, err: "Please enter a title" };
+		}
+		if (title.length > 10) {
+			checks = { valid: false, err: "Max title length is 10 characters" };
+		}
+		onValidateChanges(checks.valid);
+		return checks;
+	};
+
+	const validatePrice = (price) => {
+		let checks = { valid: true, err: null };
+		if (price.length < 1) {
+			checks = { valid: false, err: "Please enter a price" };
+		}
+		if (price <= 0) {
+			checks = { valid: false, err: "Price cannot be zero" };
+		}
+		onValidateChanges(checks.valid);
+		return checks;
+	};
+
+	const validateDescription = (description) => {
+		let checks = { valid: true, err: null };
+		if (description.length < 1) {
+			checks = { valid: false, err: "Please enter a description" };
+		}
+		if (description.length > 100) {
+			checks = {
+				valid: false,
+				err: "Max description length is 100 characters",
+			};
+		}
+		onValidateChanges(checks.valid);
+		return checks;
+	};
+
 	return (
 		<ScrollView>
 			<KeyboardAvoidingView
@@ -96,6 +136,7 @@ const ProductDisplay = ({
 								initialValue={title}
 								editMode={editMode}
 								onChangeValue={setTitle}
+								doValidate={validateTitle}
 							/>
 
 							<View style={styles.addCartButtonContainerTop}>
@@ -112,6 +153,7 @@ const ProductDisplay = ({
 										editMode={editMode}
 										onChangeValue={setPrice}
 										keyboardType="decimal-pad"
+										doValidate={validatePrice}
 									/>
 								</View>
 
@@ -131,6 +173,7 @@ const ProductDisplay = ({
 								editMode={editMode}
 								onChangeValue={setDescription}
 								multiline={true}
+								doValidate={validateDescription}
 							/>
 						</View>
 					</View>

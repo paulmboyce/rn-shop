@@ -1,5 +1,5 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect, useCallback, useState, isValidElement } from "react";
+import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import ProductDisplay from "../components/ProductDisplay";
@@ -9,9 +9,14 @@ import Product from "../models/Product";
 import * as productActions from "../redux/actions/ProductActions";
 
 const EditProductScreen = ({ navigation }) => {
-	console.log("Render EditProductScreen...", navigation.state);
+	console.log("Render EditProductScreen...");
 	const dispatch = useDispatch();
+	const [isValid, setIsValid] = useState(false);
 
+	const setDataValidationStatus = (val) => {
+		console.log("setDataValidationStatus => ", val);
+		setIsValid(val);
+	};
 	const productId = navigation.getParam("productId");
 
 	const BLANK_PRODUCT = new Product(
@@ -36,9 +41,17 @@ const EditProductScreen = ({ navigation }) => {
 	}, [editProduct, saveProduct]);
 
 	const saveProduct = useCallback(() => {
+		console.log("Create saveproduct: ", isValid, editProduct);
+		if (!isValid) {
+			Alert.alert(
+				"Please Fix Errors!",
+				"There are erros in your changes. Please fix errors and try again."
+			);
+			return;
+		}
 		dispatch(productActions.updateProductAction(editProduct));
 		navigation.goBack();
-	}, [editProduct]);
+	}, [editProduct, isValid]);
 
 	const handleProductChanges = useCallback((change) => {
 		setEditProduct((current) => {
@@ -58,6 +71,7 @@ const EditProductScreen = ({ navigation }) => {
 					onPressAddToCart={onPressAddToCart}
 					editMode={true}
 					onEditProduct={handleProductChanges}
+					onValidateChanges={setIsValid}
 				/>
 			</View>
 		</ScrollView>

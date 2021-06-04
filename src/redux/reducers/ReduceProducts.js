@@ -10,13 +10,11 @@ const reduceProducts = (oldState = products, { type, payload }) => {
 	switch (type) {
 		case UPDATE_PRODUCT: {
 			const updatedProduct = payload.product;
-			console.log("update product with: ", updatedProduct);
 			const newState = { ...oldState, [updatedProduct.id]: updatedProduct };
 			return newState;
 		}
 
 		case DELETE_PRODUCT: {
-			console.log("delete product with ID: ", payload.productId);
 			const newState = { ...oldState };
 			delete newState[payload.productId];
 			return newState;

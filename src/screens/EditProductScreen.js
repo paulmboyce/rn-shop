@@ -37,6 +37,7 @@ const EditProductScreen = ({ navigation }) => {
 
 	const saveProduct = useCallback(() => {
 		dispatch(productActions.updateProductAction(editProduct));
+		navigation.goBack();
 	}, [editProduct]);
 
 	const handleProductChanges = useCallback((change) => {

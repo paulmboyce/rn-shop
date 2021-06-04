@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Alert, StyleSheet, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
@@ -33,7 +33,22 @@ const UserProductsScreen = (props) => {
 				<ButtonIconSmall
 					style={styles.buttonIcon}
 					onPress={() => {
-						dispatch(productActions.deleteProductAction(item.id));
+						Alert.alert(
+							`DELETE: ${item.title}?`,
+							`\nClick the OK button to confirm.`,
+							[
+								{
+									text: "Cancel",
+								},
+								{
+									text: "OK",
+									onPress: () => {
+										dispatch(productActions.deleteProductAction(item.id));
+									},
+									style: "destructive",
+								},
+							]
+						);
 					}}
 				>
 					<Ionicons name="trash-outline" size={26} color="black" />

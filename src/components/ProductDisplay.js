@@ -88,6 +88,7 @@ const ProductDisplay = ({
 							initialValue={image}
 							editMode={editMode}
 							onChangeValue={setImage}
+							textContentType="URL"
 						/>
 						<View style={{ paddingHorizontal: 10 }}>
 							<EditableText
@@ -110,7 +111,7 @@ const ProductDisplay = ({
 										initialValue={price}
 										editMode={editMode}
 										onChangeValue={setPrice}
-										keyboardType={"decimal-pad"}
+										keyboardType="decimal-pad"
 									/>
 								</View>
 

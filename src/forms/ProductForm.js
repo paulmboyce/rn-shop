@@ -1,4 +1,4 @@
-const reduceFormAction = (field, value) => {
+const updateFormAction = (field, value) => {
 	return { type: "UPDATE_FORM", payload: { field, value } };
 };
 
@@ -9,7 +9,7 @@ const reduceValues = (state, field, value) => {
 	return newState;
 };
 
-const formReducer = (oldState, action) => {
+const productFormReducer = (oldState, action) => {
 	if (action.type === "UPDATE_FORM") {
 		const payload = action.payload;
 
@@ -82,4 +82,4 @@ const validateDescription = (description) => {
 	return checks;
 };
 
-export { formReducer, reduceFormAction };
+export { productFormReducer, updateFormAction };

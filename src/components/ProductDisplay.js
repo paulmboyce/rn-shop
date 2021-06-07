@@ -15,7 +15,7 @@ import { Theme, ThemeStyles } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import EditableText from "../components/themed/EditableText";
 import EditableImage from "./themed/EditableImage";
-import { formReducer, reduceFormAction } from "../forms/ProductForm";
+import { productFormReducer, updateFormAction } from "../forms/ProductForm";
 
 const ProductDisplay = ({
 	product,
@@ -28,7 +28,7 @@ const ProductDisplay = ({
 
 	const [image, setImage] = useState(product.image);
 
-	const [formState, formDispatch] = useReducer(formReducer, {
+	const [formState, formDispatch] = useReducer(productFormReducer, {
 		values: {
 			title: product.title,
 			description: product.description,
@@ -108,7 +108,7 @@ const ProductDisplay = ({
 								initialValue={formState.values.title}
 								editMode={editMode}
 								onChangeValue={(val) => {
-									formDispatch(reduceFormAction("title", val));
+									formDispatch(updateFormAction("title", val));
 								}}
 								isValid={formState.checks.title.valid}
 								errorMessage={formState.checks.title.err}
@@ -127,7 +127,7 @@ const ProductDisplay = ({
 										initialValue={formState.values.price}
 										editMode={editMode}
 										onChangeValue={(val) => {
-											formDispatch(reduceFormAction("price", val));
+											formDispatch(updateFormAction("price", val));
 										}}
 										keyboardType="decimal-pad"
 										isValid={formState.checks.price.valid}
@@ -150,7 +150,7 @@ const ProductDisplay = ({
 								initialValue={formState.values.description}
 								editMode={editMode}
 								onChangeValue={(val) => {
-									formDispatch(reduceFormAction("description", val));
+									formDispatch(updateFormAction("description", val));
 								}}
 								multiline={true}
 								isValid={formState.checks.description.valid}

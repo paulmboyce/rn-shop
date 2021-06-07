@@ -82,85 +82,83 @@ const ProductDisplay = ({
 	}, [formState.checks]);
 
 	return (
-		<ScrollView>
-			<KeyboardAvoidingView
-				enabled={true}
-				behavior={Platform.OS === "ios" ? "position" : "padding"}
-				keyboardVerticalOffset={120}
+		<KeyboardAvoidingView
+			enabled={true}
+			behavior={Platform.OS === "ios" ? "position" : "padding"}
+			keyboardVerticalOffset={120}
+		>
+			<TouchableWithoutFeedback
+				onPress={() => {
+					console.log("About to dsmiss keyboard...");
+					Keyboard.dismiss;
+				}}
 			>
-				<TouchableWithoutFeedback
-					onPress={() => {
-						console.log("About to dsmiss keyboard...");
-						Keyboard.dismiss;
-					}}
-				>
-					<View>
-						<EditableImage
-							style={styles.productDetailImage}
-							initialValue={image}
+				<View>
+					<EditableImage
+						style={styles.productDetailImage}
+						initialValue={image}
+						editMode={editMode}
+						onChangeValue={setImage}
+						textContentType="URL"
+					/>
+					<View style={{ paddingHorizontal: 10 }}>
+						<EditableText
+							style={ThemeStyles.textTitle}
+							initialValue={formState.values.title}
 							editMode={editMode}
-							onChangeValue={setImage}
-							textContentType="URL"
+							onChangeValue={(val) => {
+								formDispatch(updateFormAction("title", val));
+							}}
+							isValid={formState.checks.title.valid}
+							errorMessage={formState.checks.title.err}
 						/>
-						<View style={{ paddingHorizontal: 10 }}>
-							<EditableText
-								style={ThemeStyles.textTitle}
-								initialValue={formState.values.title}
-								editMode={editMode}
-								onChangeValue={(val) => {
-									formDispatch(updateFormAction("title", val));
+
+						<View style={styles.addCartButtonContainerTop}>
+							<View
+								style={{
+									flexDirection: "row",
+									justifyContent: "space-around",
 								}}
-								isValid={formState.checks.title.valid}
-								errorMessage={formState.checks.title.err}
-							/>
-
-							<View style={styles.addCartButtonContainerTop}>
-								<View
-									style={{
-										flexDirection: "row",
-										justifyContent: "space-around",
+							>
+								<Text style={ThemeStyles.textBold}>Price: $</Text>
+								<EditableText
+									style={ThemeStyles.textBold}
+									initialValue={formState.values.price}
+									editMode={editMode}
+									onChangeValue={(val) => {
+										formDispatch(updateFormAction("price", val));
 									}}
-								>
-									<Text style={ThemeStyles.textBold}>Price: $</Text>
-									<EditableText
-										style={ThemeStyles.textBold}
-										initialValue={formState.values.price}
-										editMode={editMode}
-										onChangeValue={(val) => {
-											formDispatch(updateFormAction("price", val));
-										}}
-										keyboardType="decimal-pad"
-										isValid={formState.checks.price.valid}
-										errorMessage={formState.checks.price.err}
-									/>
-								</View>
-
-								<ButtonAction
-									title="Add to cart"
-									buttonStyle={editMode ? ThemeStyles.cancelButton : {}}
-									onPress={() => {
-										onPressAddToCart(product.id);
-									}}
+									keyboardType="decimal-pad"
+									isValid={formState.checks.price.valid}
+									errorMessage={formState.checks.price.err}
 								/>
 							</View>
-							<EditableText
-								style={{
-									...ThemeStyles.textMedium,
+
+							<ButtonAction
+								title="Add to cart"
+								buttonStyle={editMode ? ThemeStyles.cancelButton : {}}
+								onPress={() => {
+									onPressAddToCart(product.id);
 								}}
-								initialValue={formState.values.description}
-								editMode={editMode}
-								onChangeValue={(val) => {
-									formDispatch(updateFormAction("description", val));
-								}}
-								multiline={true}
-								isValid={formState.checks.description.valid}
-								errorMessage={formState.checks.description.err}
 							/>
 						</View>
+						<EditableText
+							style={{
+								...ThemeStyles.textMedium,
+							}}
+							initialValue={formState.values.description}
+							editMode={editMode}
+							onChangeValue={(val) => {
+								formDispatch(updateFormAction("description", val));
+							}}
+							multiline={true}
+							isValid={formState.checks.description.valid}
+							errorMessage={formState.checks.description.err}
+						/>
 					</View>
-				</TouchableWithoutFeedback>
-			</KeyboardAvoidingView>
-		</ScrollView>
+				</View>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 };
 

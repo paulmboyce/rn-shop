@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, isValidElement } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -73,7 +73,10 @@ const EditProductScreen = ({ navigation }) => {
 					onPressAddToCart={onPressAddToCart}
 					editMode={true}
 					onEditProduct={handleProductChanges}
-					onValidateChanges={setIsValid}
+					onValidateChanges={(val) => {
+						console.log("Called onValidateChanges(): ", val);
+						setIsValid(val);
+					}}
 				/>
 			</View>
 		</ScrollView>

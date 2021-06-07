@@ -21,23 +21,15 @@ const EditableText = ({
 	style,
 	keyboardType,
 	multiline,
-	doValidate,
+	isValid,
+	errorMessage,
 }) => {
 	const [inputStyle, setInputStyle] = useState(style);
 	const [value, setValue] = useState(String(initialValue));
-	const [isValid, setIsValid] = useState();
-	const [advice, setAdvice] = useState("");
-
-	/**
-	useEffect(() => {
-		console.log("inputStyle changed");
-	}, [inputStyle]);
-
- */
 
 	const showValidationErrors = () => {
-		if (doValidate && typeof doValidate === "function" && !isValid) {
-			return <Text style={{ color: "red" }}>{advice}</Text>;
+		if (!isValid) {
+			return <Text style={{ color: "red" }}>{errorMessage}</Text>;
 		}
 	};
 
@@ -56,12 +48,6 @@ const EditableText = ({
 						console.log("About to dsmiss keyboard...");
 						Keyboard.dismiss();
 						onChangeValue(value);
-						if (doValidate && typeof doValidate === "function") {
-							const checks = doValidate(value);
-							console.log("CHECKS: ", checks);
-							setIsValid(checks.valid);
-							setAdvice(checks.err);
-						}
 					}}
 					onFocus={() => setInputStyle(inputActiveStyle)}
 					onBlur={() => setInputStyle(style)}

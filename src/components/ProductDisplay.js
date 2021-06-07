@@ -1,4 +1,4 @@
-import React, { useState, useEffect, isValidElement } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import {
 	View,
 	StyleSheet,
@@ -15,6 +15,7 @@ import { Theme, ThemeStyles } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import EditableText from "../components/themed/EditableText";
 import EditableImage from "./themed/EditableImage";
+import { formReducer, reduceFormAction } from "../forms/ProductForm";
 
 const ProductDisplay = ({
 	product,
@@ -25,10 +26,20 @@ const ProductDisplay = ({
 }) => {
 	const window = useWindowDimensions();
 
-	const [title, setTitle] = useState(product.title);
-	const [price, setPrice] = useState(product.price);
-	const [description, setDescription] = useState(product.description);
 	const [image, setImage] = useState(product.image);
+
+	const [formState, formDispatch] = useReducer(formReducer, {
+		values: {
+			title: product.title,
+			description: product.description,
+			price: product.price,
+		},
+		checks: {
+			title: { valid: true, err: null },
+			description: { valid: true, err: null },
+			price: { valid: true, err: null },
+		},
+	});
 
 	const styles = StyleSheet.create({
 		productDetailImage: {
@@ -54,60 +65,21 @@ const ProductDisplay = ({
 
 	useEffect(() => {
 		if (editMode) {
-			onEditProduct({ price });
+			onEditProduct(formState.values);
 		}
-	}, [price]);
+	}, [formState.values]);
 
 	useEffect(() => {
 		if (editMode) {
-			onEditProduct({ title });
+			for (const field in formState.checks) {
+				if (!formState.checks[field].valid) {
+					onValidateChanges(false);
+					return;
+				}
+			}
+			onValidateChanges(true);
 		}
-	}, [title]);
-
-	useEffect(() => {
-		if (editMode) {
-			onEditProduct({ description });
-		}
-	}, [description]);
-
-	const validateTitle = (title) => {
-		let checks = { valid: true, err: null };
-		if (title.length < 1) {
-			checks = { valid: false, err: "Please enter a title" };
-		}
-		if (title.length > 10) {
-			checks = { valid: false, err: "Max title length is 10 characters" };
-		}
-		onValidateChanges(checks.valid);
-		return checks;
-	};
-
-	const validatePrice = (price) => {
-		let checks = { valid: true, err: null };
-		if (price.length < 1) {
-			checks = { valid: false, err: "Please enter a price" };
-		}
-		if (price <= 0) {
-			checks = { valid: false, err: "Price cannot be zero" };
-		}
-		onValidateChanges(checks.valid);
-		return checks;
-	};
-
-	const validateDescription = (description) => {
-		let checks = { valid: true, err: null };
-		if (description.length < 1) {
-			checks = { valid: false, err: "Please enter a description" };
-		}
-		if (description.length > 100) {
-			checks = {
-				valid: false,
-				err: "Max description length is 100 characters",
-			};
-		}
-		onValidateChanges(checks.valid);
-		return checks;
-	};
+	}, [formState.checks]);
 
 	return (
 		<ScrollView>
@@ -133,10 +105,13 @@ const ProductDisplay = ({
 						<View style={{ paddingHorizontal: 10 }}>
 							<EditableText
 								style={ThemeStyles.textTitle}
-								initialValue={title}
+								initialValue={formState.values.title}
 								editMode={editMode}
-								onChangeValue={setTitle}
-								doValidate={validateTitle}
+								onChangeValue={(val) => {
+									formDispatch(reduceFormAction("title", val));
+								}}
+								isValid={formState.checks.title.valid}
+								errorMessage={formState.checks.title.err}
 							/>
 
 							<View style={styles.addCartButtonContainerTop}>
@@ -149,11 +124,14 @@ const ProductDisplay = ({
 									<Text style={ThemeStyles.textBold}>Price: $</Text>
 									<EditableText
 										style={ThemeStyles.textBold}
-										initialValue={price}
+										initialValue={formState.values.price}
 										editMode={editMode}
-										onChangeValue={setPrice}
+										onChangeValue={(val) => {
+											formDispatch(reduceFormAction("price", val));
+										}}
 										keyboardType="decimal-pad"
-										doValidate={validatePrice}
+										isValid={formState.checks.price.valid}
+										errorMessage={formState.checks.price.err}
 									/>
 								</View>
 
@@ -169,11 +147,14 @@ const ProductDisplay = ({
 								style={{
 									...ThemeStyles.textMedium,
 								}}
-								initialValue={description}
+								initialValue={formState.values.description}
 								editMode={editMode}
-								onChangeValue={setDescription}
+								onChangeValue={(val) => {
+									formDispatch(reduceFormAction("description", val));
+								}}
 								multiline={true}
-								doValidate={validateDescription}
+								isValid={formState.checks.description.valid}
+								errorMessage={formState.checks.description.err}
 							/>
 						</View>
 					</View>

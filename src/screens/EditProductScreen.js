@@ -8,6 +8,16 @@ import SaveButton from "../navigation/SaveButton";
 import Product from "../models/Product";
 import * as productActions from "../redux/actions/ProductActions";
 
+const getProductTemplate = () => {
+	return new Product(
+		"New product name",
+		999.99,
+		"Your compelling sales description...",
+		"unspecified category",
+		"https://kaboompics.com/cache/c/f/6/b/6/cf6b6cacf84b4f782afa3dac17e7f6c138ab9961.jpeg"
+	);
+};
+
 const EditProductScreen = ({ navigation }) => {
 	console.log("Render EditProductScreen...");
 	const dispatch = useDispatch();
@@ -19,17 +29,9 @@ const EditProductScreen = ({ navigation }) => {
 	};
 	const productId = navigation.getParam("productId");
 
-	const BLANK_PRODUCT = new Product(
-		"New product name",
-		999.99,
-		"Your compelling sales description...",
-		"unspecified category",
-		"https://kaboompics.com/cache/c/f/6/b/6/cf6b6cacf84b4f782afa3dac17e7f6c138ab9961.jpeg"
-	);
-
 	let product;
 	if (!productId) {
-		product = BLANK_PRODUCT;
+		product = getProductTemplate();
 	} else {
 		product = useSelector((state) => state.products[productId]);
 	}
@@ -41,11 +43,11 @@ const EditProductScreen = ({ navigation }) => {
 	}, [editProduct, saveProduct]);
 
 	const saveProduct = useCallback(() => {
-		console.log("Create saveproduct: ", isValid, editProduct);
+		console.log("saveProduct(): ", isValid, editProduct);
 		if (!isValid) {
 			Alert.alert(
 				"Please Fix Errors!",
-				"There are erros in your changes. Please fix errors and try again."
+				"There are errors in your changes. Please fix errors and try again."
 			);
 			return;
 		}

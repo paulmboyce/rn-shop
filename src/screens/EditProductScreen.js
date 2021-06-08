@@ -6,7 +6,16 @@ import ProductDisplay from "../components/ProductDisplay";
 import { Theme, ThemeStyles } from "../styles/Theme";
 import SaveButton from "../navigation/SaveButton";
 import Product from "../models/Product";
-import * as productActions from "../redux/actions/ProductActions";
+import {
+	updateProductAction,
+	addProductAction,
+} from "../redux/actions/ProductActions";
+
+const MODE_NEW_PRODUCT = "MODE_NEW_PRODUCT";
+const MODE_EXISTING_PRODUCT = "MODE_EXISTING_PRODUCT";
+const ALERT_TITLE = "Please Fix Errors!";
+const ALERT_MESSAGE =
+	"There are errors in your changes. Please fix errors and try again.";
 
 const getProductTemplate = () => {
 	return new Product(
@@ -27,14 +36,21 @@ const EditProductScreen = ({ navigation }) => {
 		console.log("setDataValidationStatus => ", val);
 		setIsValid(val);
 	};
-	const productId = navigation.getParam("productId");
 
-	let product;
-	if (!productId) {
-		product = getProductTemplate();
-	} else {
-		product = useSelector((state) => state.products[productId]);
-	}
+	const getProduct = (navigation) => {
+		const productId = navigation.getParam("productId");
+		let editMode, product;
+
+		if (!productId) {
+			editMode = MODE_NEW_PRODUCT;
+			product = getProductTemplate();
+		} else {
+			editMode = MODE_EXISTING_PRODUCT;
+			product = useSelector((state) => state.products[productId]);
+		}
+		return { editMode, product };
+	};
+	const { editMode, product } = getProduct(navigation);
 
 	const [editProduct, setEditProduct] = useState(product);
 
@@ -43,17 +59,16 @@ const EditProductScreen = ({ navigation }) => {
 	}, [editProduct, saveProduct]);
 
 	const saveProduct = useCallback(() => {
-		console.log("saveProduct(): ", isValid, editProduct);
 		if (!isValid) {
-			Alert.alert(
-				"Please Fix Errors!",
-				"There are errors in your changes. Please fix errors and try again."
-			);
-			return;
+			return Alert.alert(ALERT_TITLE, ALERT_MESSAGE);
 		}
-		dispatch(productActions.updateProductAction(editProduct));
+
+		let saveAction = updateProductAction;
+		if (editMode === MODE_NEW_PRODUCT) saveAction = addProductAction;
+		dispatch(saveAction(editProduct));
+
 		navigation.goBack();
-	}, [editProduct, isValid]);
+	}, [editProduct, isValid, editMode, dispatch]);
 
 	const handleProductChanges = useCallback((change) => {
 		setEditProduct((current) => {

@@ -8,7 +8,7 @@ import MenuButton from "../navigation/MenuButton";
 import AddProductButton from "../navigation/AddProductButton";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 import { Ionicons } from "@expo/vector-icons";
-import * as productActions from "../redux/actions/ProductActions";
+import { deleteProductAction } from "../redux/actions/ProductActions";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
@@ -43,7 +43,7 @@ const UserProductsScreen = (props) => {
 								{
 									text: "OK",
 									onPress: () => {
-										dispatch(productActions.deleteProductAction(item.id));
+										dispatch(deleteProductAction(item.id));
 									},
 									style: "destructive",
 								},

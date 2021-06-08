@@ -83,9 +83,10 @@ const ProductDisplay = ({
 
 	return (
 		<KeyboardAvoidingView
+			style={{ flex: 1 }}
 			enabled={true}
 			behavior={Platform.OS === "ios" ? "position" : "padding"}
-			keyboardVerticalOffset={120}
+			keyboardVerticalOffset={140}
 		>
 			<TouchableWithoutFeedback
 				onPress={() => {

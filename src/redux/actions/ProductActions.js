@@ -1,10 +1,13 @@
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 
 import {
 	addProductAsync,
 	deleteProductAsync,
 	getProductAsync,
+	getProductsAsync,
 	updateProductAsync,
 } from "../../api/ProductStoreInterface";
 
@@ -20,15 +23,14 @@ const extractFields = (product) => {
 
 const addProductAction = (product) => {
 	return async (dispatch) => {
-		const saveProduct = extractFields(product);
-		const response = await addProductAsync(saveProduct);
+		const response = await addProductAsync(extractFields(product));
 		console.log("response: ", response);
-		saveProduct.id = response.name;
 
 		dispatch({
-			type: UPDATE_PRODUCT,
+			type: CREATE_PRODUCT,
 			payload: {
-				product: saveProduct,
+				id: response.name,
+				product: product,
 			},
 		});
 	};
@@ -36,7 +38,10 @@ const addProductAction = (product) => {
 
 const updateProductAction = (product) => {
 	return async (dispatch) => {
-		const response = await updateProductAsync(product);
+		const response = await updateProductAsync(
+			product.id,
+			extractFields(product)
+		);
 		console.log("response: ", response);
 
 		dispatch({
@@ -60,4 +65,21 @@ const deleteProductAction = (productId) => {
 	};
 };
 
-export { updateProductAction, addProductAction, deleteProductAction };
+const getProductsAction = () => {
+	return async (dispatch) => {
+		const products = await getProductsAsync();
+		console.log("getProductsAction() ==> products: ", products);
+
+		dispatch({
+			type: GET_ALL_PRODUCTS,
+			payload: { products },
+		});
+	};
+};
+
+export {
+	updateProductAction,
+	addProductAction,
+	deleteProductAction,
+	getProductsAction,
+};

@@ -9,20 +9,24 @@ import {
 	TouchableOpacity,
 } from "react-native";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import MenuButton from "../navigation/MenuButton";
 import CartButton from "../navigation/CartButton";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
-
+import { getProductsAction } from "../redux/actions/ProductActions";
 import Product from "../components/Product";
 
 const ShopScreen = (props) => {
 	const products = useSelector((state) => Object.values(state.products));
 	const cartTotal = useSelector((state) => state.cart.total);
 
+	const dispatch = useDispatch();
 	const window = useWindowDimensions();
+	useEffect(() => {
+		dispatch(getProductsAction());
+	}, []);
 
 	useEffect(() => {
 		props.navigation.setParams({ cartTotal: cartTotal });

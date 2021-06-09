@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
 	View,
 	StyleSheet,
@@ -7,6 +7,7 @@ import {
 	FlatList,
 	Image,
 	TouchableOpacity,
+	RefreshControl,
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -18,14 +19,17 @@ import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import { getProductsAction } from "../redux/actions/ProductActions";
 import Product from "../components/Product";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
+import loadInitialProductsToStore from "../utils/InitialProductsStoreLoader";
 
 const ShopScreen = (props) => {
 	const products = useSelector((state) => Object.values(state.products));
 	const cartTotal = useSelector((state) => state.cart.total);
 
+	console.log("Render ShowScreen, STATE.products ==> ", products.length);
 	const dispatch = useDispatch();
-	const window = useWindowDimensions();
+
 	useEffect(() => {
+		console.log("Getting Products...");
 		dispatch(getProductsAction());
 	}, []);
 
@@ -58,14 +62,22 @@ const ShopScreen = (props) => {
 			</TouchableOpacity>
 		);
 	};
+
 	const renderFlatList = () => {
 		return (
 			<FlatList
 				data={products}
 				keyExtractor={(item) => String(item.id)}
 				renderItem={renderProduct}
+				refreshControl={
+					<RefreshControl refreshing={false} onRefresh={onRefresh} />
+				}
 			/>
 		);
+	};
+
+	const onRefresh = () => {
+		dispatch(getProductsAction());
 	};
 
 	return (

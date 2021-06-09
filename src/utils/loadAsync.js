@@ -1,10 +1,11 @@
 import { Image } from "react-native";
 import { loadAsync as loadFontsAsync } from "expo-font";
 import PRODUCT_DATA from "../data/products";
-
+import loadInitialProductsToStoreAsync from "./InitialProductsStoreLoader";
 const fetchAssetsAsync = () => {
-	return fetchFonts();
+	//return fetchFonts();
 	//	return Promise.all([fetchFonts(), ...fetchOnlineImages()]);
+	return Promise.all([fetchFonts(), ...loadInitialProductsToStoreAsync()]);
 };
 
 const fetchFonts = () => {

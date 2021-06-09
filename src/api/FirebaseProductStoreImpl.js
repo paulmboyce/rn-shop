@@ -26,7 +26,6 @@ const getProductsAsync = async () => {
 			return response.json();
 		})
 		.then((responseJson) => {
-			console.log("get all products got This data: ", responseJson);
 			if (responseJson) return responseJson;
 			return {};
 		})

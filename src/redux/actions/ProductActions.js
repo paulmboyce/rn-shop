@@ -13,22 +13,13 @@ import {
 
 import * as ui from "../actions/UiActions";
 
-const extractFields = (product) => {
-	return {
-		title: product.title,
-		price: product.price,
-		description: product.description,
-		category: product.category,
-		image: product.image,
-	};
-};
+import { extractFields } from "../../utils/ProductFields";
 
 const addProductAction = (product) => {
 	return async (dispatch) => {
 		dispatch(ui.showSpinnerAction());
 		const response = await addProductAsync(extractFields(product));
 		dispatch(ui.hideSpinnerAction());
-		console.log("response: ", response);
 
 		dispatch({
 			type: CREATE_PRODUCT,
@@ -48,7 +39,6 @@ const updateProductAction = (product) => {
 			extractFields(product)
 		);
 		dispatch(ui.hideSpinnerAction());
-		console.log("response: ", response);
 
 		dispatch({
 			type: UPDATE_PRODUCT,
@@ -64,7 +54,6 @@ const deleteProductAction = (productId) => {
 		dispatch(ui.showSpinnerAction());
 		const response = await deleteProductAsync(productId);
 		dispatch(ui.hideSpinnerAction());
-		console.log("response: ", response);
 
 		dispatch({
 			type: DELETE_PRODUCT,
@@ -78,7 +67,6 @@ const getProductsAction = () => {
 		dispatch(ui.showSpinnerAction());
 		const products = await getProductsAsync();
 		dispatch(ui.hideSpinnerAction());
-		console.log("getProductsAction() ==> products: ", products);
 
 		dispatch({
 			type: GET_ALL_PRODUCTS,

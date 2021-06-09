@@ -11,6 +11,8 @@ const Colors = {
 	backgroundColor: "white",
 	cancelColor: "#ccc",
 	textColor: "black",
+	errorColor: "red",
+	errorBackgroundColor: "#ffb1b1",
 };
 
 const TransparentColors = {
@@ -34,6 +36,8 @@ const Theme = {
 	cancelColor: Colors.cancelColor,
 	textColor: Colors.textColor,
 	blackColor: "black",
+	errorColor: Colors.errorColor,
+	errorBackgroundColor: Colors.errorBackgroundColor,
 	shadowColor: Colors.shadow,
 	shadowOffset: { height: 2, width: 0 },
 	shadowOpacity: 0.26,
@@ -146,6 +150,16 @@ const ThemeStyles = StyleSheet.create({
 		color: Theme.secondaryColor,
 		fontSize: 18,
 		paddingVertical: 7,
+	},
+	textErrorPrimaryBold: {
+		fontFamily: "OpenSansBold",
+		fontSize: 14,
+		color: Theme.errorColor,
+	},
+	textErrorMediumPrimaryBold: {
+		fontFamily: "OpenSansBold",
+		fontSize: 18,
+		color: Theme.errorColor,
 	},
 	inputTextActive: {
 		padding: 4,

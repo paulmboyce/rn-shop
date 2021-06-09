@@ -9,8 +9,9 @@ import SaveButton from "../navigation/SaveButton";
 import Product from "../models/Product";
 import {
 	updateProductAction,
-	addProductAction,
+	createProductAction,
 } from "../redux/actions/ProductActions";
+import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
 
 const MODE_NEW_PRODUCT = "MODE_NEW_PRODUCT";
 const MODE_EXISTING_PRODUCT = "MODE_EXISTING_PRODUCT";
@@ -66,7 +67,9 @@ const EditProductScreen = ({ navigation }) => {
 		}
 
 		let saveAction = updateProductAction;
-		if (editMode === MODE_NEW_PRODUCT) saveAction = addProductAction;
+		if (editMode === MODE_NEW_PRODUCT) {
+			saveAction = createProductAction;
+		}
 		dispatch(saveAction(editProduct));
 
 		navigation.goBack();
@@ -84,6 +87,7 @@ const EditProductScreen = ({ navigation }) => {
 
 	return (
 		<ScrollView style={styles.scroll}>
+			<ErrorMessageContainer />
 			<PendingActivityIndicator />
 			<View style={ThemeStyles.screenEdit}>
 				<ProductDisplay

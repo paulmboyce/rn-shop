@@ -30,7 +30,7 @@ const getProductsAsync = async () => {
 			return {};
 		})
 		.catch((err) => {
-			console.error("Error in getProductsAsync() fetch call... ", err);
+			console.log("CAUGHT ERROR: Error in getProductsAsync()... ", err);
 			throw err;
 		});
 };
@@ -49,7 +49,7 @@ const deleteProductAsync = async (id) => {
 		})
 
 		.catch((err) => {
-			console.error("Error in fetch call.. ", err);
+			console.log("CAUGHT ERROR: Error in deleteProductAsync()... ", err);
 			throw err;
 		});
 };
@@ -64,7 +64,7 @@ const updateProductAsync = async (id, changes) => {
 		.then((response) => response.json())
 		.then((jsonData) => jsonData)
 		.catch((err) => {
-			console.error("Error in updateProductAsync() fetch call.. ", err);
+			console.log("CAUGHT ERROR: Error in updateProductAsync()... ", err);
 			throw err;
 		});
 };
@@ -79,7 +79,7 @@ const addProductAsync = async (product) => {
 		.then((response) => response.json())
 		.then((jsonData) => jsonData)
 		.catch((err) => {
-			console.error("Error in fetch call.. ", err);
+			console.log("CAUGHT ERROR: Error in addProductAsync()... ", err);
 			throw err;
 		});
 };

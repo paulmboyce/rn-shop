@@ -15,69 +15,82 @@ import * as ui from "../actions/UiActions";
 
 import { extractFields } from "../../utils/ProductFields";
 
-const addProductAction = (product) => {
+const createProductAction = (product) => {
 	return async (dispatch) => {
-		dispatch(ui.showSpinnerAction());
-		const response = await addProductAsync(extractFields(product));
-		dispatch(ui.hideSpinnerAction());
-
-		dispatch({
-			type: CREATE_PRODUCT,
-			payload: {
-				id: response.name,
-				product: product,
-			},
-		});
+		try {
+			dispatch(ui.showSpinnerAction());
+			const response = await addProductAsync(extractFields(product));
+			dispatch({
+				type: CREATE_PRODUCT,
+				payload: {
+					id: response.name,
+					product: product,
+				},
+			});
+		} catch (err) {
+			dispatch(ui.showErrorAction(err.message));
+		} finally {
+			dispatch(ui.hideSpinnerAction());
+		}
 	};
 };
 
 const updateProductAction = (product) => {
 	return async (dispatch) => {
-		dispatch(ui.showSpinnerAction());
-		const response = await updateProductAsync(
-			product.id,
-			extractFields(product)
-		);
-		dispatch(ui.hideSpinnerAction());
-
-		dispatch({
-			type: UPDATE_PRODUCT,
-			payload: {
-				product,
-			},
-		});
+		try {
+			dispatch(ui.showSpinnerAction());
+			await updateProductAsync(product.id, extractFields(product));
+			dispatch({
+				type: UPDATE_PRODUCT,
+				payload: {
+					product,
+				},
+			});
+		} catch (err) {
+			dispatch(ui.showErrorAction(err.message));
+		} finally {
+			dispatch(ui.hideSpinnerAction());
+		}
 	};
 };
 
 const deleteProductAction = (productId) => {
 	return async (dispatch) => {
-		dispatch(ui.showSpinnerAction());
-		const response = await deleteProductAsync(productId);
-		dispatch(ui.hideSpinnerAction());
-
-		dispatch({
-			type: DELETE_PRODUCT,
-			payload: { productId },
-		});
+		try {
+			dispatch(ui.showSpinnerAction());
+			await deleteProductAsync(productId);
+			dispatch({
+				type: DELETE_PRODUCT,
+				payload: { productId },
+			});
+		} catch (err) {
+			dispatch(ui.showErrorAction(err.message));
+		} finally {
+			dispatch(ui.hideSpinnerAction());
+		}
 	};
 };
 
 const getProductsAction = () => {
 	return async (dispatch) => {
-		dispatch(ui.showSpinnerAction());
-		const products = await getProductsAsync();
-		dispatch(ui.hideSpinnerAction());
-
-		dispatch({
-			type: GET_ALL_PRODUCTS,
-			payload: { products },
-		});
+		try {
+			dispatch(ui.showSpinnerAction());
+			const products = await getProductsAsync();
+			dispatch({
+				type: GET_ALL_PRODUCTS,
+				payload: { products },
+			});
+		} catch (err) {
+			dispatch(ui.showErrorAction(err.message));
+		} finally {
+			dispatch(ui.hideSpinnerAction());
+		}
 	};
 };
 
 export {
 	updateProductAction,
-	addProductAction,
+	createProductAction,
 	deleteProductAction,
 	getProductsAction,
 };

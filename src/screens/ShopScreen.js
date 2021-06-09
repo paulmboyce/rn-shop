@@ -8,6 +8,7 @@ import {
 	Image,
 	TouchableOpacity,
 	RefreshControl,
+	Button,
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +20,7 @@ import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import { getProductsAction } from "../redux/actions/ProductActions";
 import Product from "../components/Product";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
-import loadInitialProductsToStore from "../utils/InitialProductsStoreLoader";
+import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
 
 const ShopScreen = (props) => {
 	const products = useSelector((state) => Object.values(state.products));
@@ -64,6 +65,7 @@ const ShopScreen = (props) => {
 	};
 
 	const renderFlatList = () => {
+		console.log("SHOP SCREEN, flatliast: products: ==> ", products);
 		return (
 			<FlatList
 				data={products}
@@ -80,9 +82,23 @@ const ShopScreen = (props) => {
 		dispatch(getProductsAction());
 	};
 
+	const renderRefreshButton = () => {
+		if (products.length < 1) {
+			return (
+				<Button
+					color={Theme.primaryColor}
+					title="Refresh"
+					onPress={onRefresh}
+				/>
+			);
+		}
+	};
+
 	return (
 		<View style={ThemeStyles.screen}>
+			<ErrorMessageContainer />
 			<PendingActivityIndicator />
+			{renderRefreshButton()}
 			<View style={ThemeStyles.box1}>{renderFlatList()}</View>
 		</View>
 	);

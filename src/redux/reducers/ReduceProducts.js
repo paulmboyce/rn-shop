@@ -12,25 +12,24 @@ PRODUCT_DATA.forEach((product) => {
 	products[product.id] = product;
 });
 
-const applyKeysAsIds = (products) => {
+const copyKeysToIdField = (products) => {
 	Object.keys(products).forEach((key) => {
 		products[key].id = key;
 	});
 	return products;
 };
 
-const reduceProducts = (oldState = products, { type, payload }) => {
+const reduceProducts = (oldState = {}, { type, payload }) => {
 	switch (type) {
 		case GET_ALL_PRODUCTS: {
 			if (payload.products) {
-				console.log("GOT PRODUCTS: ", payload.products);
-				const productsWithIds = applyKeysAsIds(payload.products);
-				return { ...oldState, ...productsWithIds };
+				console.log(`Got [${Object.keys(payload.products).length}] products`);
+				const productsWithIds = copyKeysToIdField(payload.products);
+				return { ...productsWithIds };
 			}
 		}
 
 		case CREATE_PRODUCT: {
-			console.log("payload: ", payload);
 			return { ...oldState, [payload.id]: payload.product };
 		}
 

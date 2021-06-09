@@ -19,8 +19,8 @@ const reduxStore = createStore(
 );
 
 export default function App() {
-	console.log("Loading app...");
 	const [isCacheLoaded, setIsCacheLoaded] = useState(false);
+	console.log("Loading app... cache is loaded: ", isCacheLoaded);
 
 	console.log(
 		"**IMPORTANT**: [App.js] Remove composeWithDevTools() for production	"

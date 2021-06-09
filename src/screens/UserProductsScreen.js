@@ -9,6 +9,7 @@ import AddProductButton from "../navigation/AddProductButton";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 import { Ionicons } from "@expo/vector-icons";
 import { deleteProductAction } from "../redux/actions/ProductActions";
+import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");
@@ -58,6 +59,7 @@ const UserProductsScreen = (props) => {
 	};
 	return (
 		<View style={ThemeStyles.screenEdit}>
+			<PendingActivityIndicator />
 			<FlatList
 				data={myProducts}
 				keyExtractor={(item) => String(item.id)}

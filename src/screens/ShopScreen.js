@@ -17,6 +17,7 @@ import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import { getProductsAction } from "../redux/actions/ProductActions";
 import Product from "../components/Product";
+import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 
 const ShopScreen = (props) => {
 	const products = useSelector((state) => Object.values(state.products));
@@ -69,6 +70,7 @@ const ShopScreen = (props) => {
 
 	return (
 		<View style={ThemeStyles.screen}>
+			<PendingActivityIndicator />
 			<View style={ThemeStyles.box1}>{renderFlatList()}</View>
 		</View>
 	);

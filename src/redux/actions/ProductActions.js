@@ -11,6 +11,8 @@ import {
 	updateProductAsync,
 } from "../../api/ProductStoreInterface";
 
+import * as ui from "../actions/UiActions";
+
 const extractFields = (product) => {
 	return {
 		title: product.title,
@@ -23,7 +25,9 @@ const extractFields = (product) => {
 
 const addProductAction = (product) => {
 	return async (dispatch) => {
+		dispatch(ui.showSpinnerAction());
 		const response = await addProductAsync(extractFields(product));
+		dispatch(ui.hideSpinnerAction());
 		console.log("response: ", response);
 
 		dispatch({
@@ -38,10 +42,12 @@ const addProductAction = (product) => {
 
 const updateProductAction = (product) => {
 	return async (dispatch) => {
+		dispatch(ui.showSpinnerAction());
 		const response = await updateProductAsync(
 			product.id,
 			extractFields(product)
 		);
+		dispatch(ui.hideSpinnerAction());
 		console.log("response: ", response);
 
 		dispatch({
@@ -55,7 +61,9 @@ const updateProductAction = (product) => {
 
 const deleteProductAction = (productId) => {
 	return async (dispatch) => {
+		dispatch(ui.showSpinnerAction());
 		const response = await deleteProductAsync(productId);
+		dispatch(ui.hideSpinnerAction());
 		console.log("response: ", response);
 
 		dispatch({
@@ -67,7 +75,9 @@ const deleteProductAction = (productId) => {
 
 const getProductsAction = () => {
 	return async (dispatch) => {
+		dispatch(ui.showSpinnerAction());
 		const products = await getProductsAsync();
+		dispatch(ui.hideSpinnerAction());
 		console.log("getProductsAction() ==> products: ", products);
 
 		dispatch({

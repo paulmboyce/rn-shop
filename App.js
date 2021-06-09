@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
 import thunk from "redux-thunk";
@@ -9,17 +9,11 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppNavigator from "./src/navigation/Navigation";
-import reduceProducts from "./src/redux/reducers/ReduceProducts";
-import reduceCart from "./src/redux/reducers/ReduceCart";
-import reduceOrders from "./src/redux/reducers/ReduceOrders";
 import { fetchAssetsAsync } from "./src/utils/loadAsync";
+import reducers from "./src/redux/reducers";
+
 const reduxStore = createStore(
-	combineReducers({
-		products: reduceProducts,
-		cart: reduceCart,
-		orders: reduceOrders,
-		loggedInUser: () => 1,
-	}),
+	reducers,
 	/** IMPORTANT: remove composeWithDevTools() for production */
 	composeWithDevTools(applyMiddleware(thunk))
 );

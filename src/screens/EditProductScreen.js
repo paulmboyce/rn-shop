@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
+import { View, StyleSheet, ScrollView, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import ProductDisplay from "../components/ProductDisplay";
+import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 import { Theme, ThemeStyles } from "../styles/Theme";
 import SaveButton from "../navigation/SaveButton";
 import Product from "../models/Product";
@@ -31,6 +32,7 @@ const EditProductScreen = ({ navigation }) => {
 	console.log("Render EditProductScreen...");
 	const dispatch = useDispatch();
 	const [isValid, setIsValid] = useState(false);
+	const ui = useSelector((state) => state.ui);
 
 	const setDataValidationStatus = (val) => {
 		console.log("setDataValidationStatus => ", val);
@@ -82,6 +84,7 @@ const EditProductScreen = ({ navigation }) => {
 
 	return (
 		<ScrollView style={styles.scroll}>
+			<PendingActivityIndicator />
 			<View style={ThemeStyles.screenEdit}>
 				<ProductDisplay
 					product={editProduct}

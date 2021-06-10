@@ -11,11 +11,13 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import AppNavigator from "./src/navigation/Navigation";
 import { fetchAssetsAsync } from "./src/utils/loadAsync";
 import reducers from "./src/redux/reducers";
+import { UiMiddleware } from "./src/redux/middleware/UiMiddleware";
+import { LoggerMiddleware } from "./src/redux/middleware/LoggerMiddleware";
 
 const reduxStore = createStore(
 	reducers,
 	/** IMPORTANT: remove composeWithDevTools() for production */
-	composeWithDevTools(applyMiddleware(thunk))
+	composeWithDevTools(applyMiddleware(thunk, LoggerMiddleware, UiMiddleware))
 );
 
 export default function App() {

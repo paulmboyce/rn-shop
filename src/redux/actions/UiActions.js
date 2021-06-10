@@ -15,14 +15,9 @@ export const hideSpinnerAction = () => {
 export const showErrorAction = (message) => {
 	return (dispatch) => {
 		dispatch({ type: SHOW_ERROR, payload: { message } });
-		setTimeout(() => dispatch(hideErrorAction()));
 	};
 };
 
-const hideErrorAction = () => {
-	return (dispatch) => {
-		setTimeout(() => {
-			dispatch({ type: HIDE_ERROR });
-		}, 5000);
-	};
+export const hideErrorAction = () => {
+	return { type: HIDE_ERROR };
 };

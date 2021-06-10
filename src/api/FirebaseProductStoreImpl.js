@@ -14,74 +14,59 @@ const buildFirebaseUrl = (dataLocation) => {
 	return FIREBASE_BASE_URL + dataLocation + FIREBASE_ENDING;
 };
 
-const getProductAsync = async (id) => {};
-const getProductsAsync = async () => {
-	return fetch(buildFirebaseUrl(PRODUCTS_COLLECTION), {
-		method: METHOD_GET,
-	})
+const useFirebaseApi = ({ method, headers, collection = "", bodyData }) => {
+	const options = { method: method, headers: headers };
+	if (bodyData) options.body = JSON.stringify(bodyData);
+	if (headers) options.headers = headers;
+
+	return fetch(buildFirebaseUrl(collection), options)
 		.then((response) => {
 			if (!response.ok) {
-				throw new Error("getProductsAsync() -> Read from Firebase failed.");
+				throw new Error("useFirebaseApi() -> Did not respond 200 OK");
 			}
 			return response.json();
 		})
-		.then((responseJson) => {
-			if (responseJson) return responseJson;
-			return {};
-		})
+		.then((jsonData) => jsonData)
 		.catch((err) => {
-			console.log("CAUGHT ERROR: Error in getProductsAsync()... ", err);
+			console.log("Error in useFirebaseApi()... ", err);
 			throw err;
 		});
+};
+
+const getProductAsync = async (id) => {};
+const getProductsAsync = async () => {
+	return useFirebaseApi({
+		method: METHOD_GET,
+		collection: PRODUCTS_COLLECTION,
+	});
 };
 
 const deleteProductAsync = async (id) => {
 	console.log("About to DELETE product, with ID: ", id);
-	return fetch(buildFirebaseUrl(PRODUCTS_COLLECTION + `/${id}`), {
+	return useFirebaseApi({
 		method: METHOD_DELETE,
-	})
-		.then((response) => {
-			let status = { status: false, message: "Delete from Firebase failed." };
-			if (response.ok) {
-				status = { status: true, message: "Delete from Firebase succeeded OK" };
-			}
-			return status;
-		})
-
-		.catch((err) => {
-			console.log("CAUGHT ERROR: Error in deleteProductAsync()... ", err);
-			throw err;
-		});
+		collection: PRODUCTS_COLLECTION + `/${id}`,
+	});
 };
 
 const updateProductAsync = async (id, changes) => {
 	console.log("About to UPDATE product: ", changes);
-	return fetch(buildFirebaseUrl(PRODUCTS_COLLECTION + `/${id}`), {
+	return useFirebaseApi({
 		method: METHOD_PUT,
 		headers: HEADER_CONTENT_TYPE_APPLN_JSON,
-		body: JSON.stringify(changes),
-	})
-		.then((response) => response.json())
-		.then((jsonData) => jsonData)
-		.catch((err) => {
-			console.log("CAUGHT ERROR: Error in updateProductAsync()... ", err);
-			throw err;
-		});
+		collection: PRODUCTS_COLLECTION + `/${id}`,
+		bodyData: changes,
+	});
 };
 
 const addProductAsync = async (product) => {
 	console.log("About to CREATE product: ", product);
-	return fetch(buildFirebaseUrl(PRODUCTS_COLLECTION), {
+	return useFirebaseApi({
 		method: METHOD_POST,
 		headers: HEADER_CONTENT_TYPE_APPLN_JSON,
-		body: JSON.stringify(product),
-	})
-		.then((response) => response.json())
-		.then((jsonData) => jsonData)
-		.catch((err) => {
-			console.log("CAUGHT ERROR: Error in addProductAsync()... ", err);
-			throw err;
-		});
+		collection: PRODUCTS_COLLECTION,
+		bodyData: product,
+	});
 };
 
 export {

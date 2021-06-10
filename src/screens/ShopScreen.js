@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -32,6 +32,17 @@ const ShopScreen = (props) => {
 	useEffect(() => {
 		console.log("Getting Products...");
 		dispatch(getProductsAction());
+	}, []);
+
+	useEffect(() => {
+		// This listener to refresh a screen managed by Navigation Drawer,
+		// BECAUSE drawer screens are cached and so do not rerender on navigation.
+		const focusListener = props.navigation.addListener("willFocus", () => {
+			console.log("Refreshing Products...");
+			dispatch(getProductsAction());
+		});
+
+		return focusListener.remove;
 	}, []);
 
 	useEffect(() => {

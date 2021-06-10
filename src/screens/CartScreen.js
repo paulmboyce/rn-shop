@@ -13,7 +13,7 @@ import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import CartItem from "../components/CartItem";
 import ContinueShopping from "../components/ContinueShopping";
-import { createOrderAction } from "../redux/actions/CartActions";
+import { createOrderAction } from "../redux/actions/OrderActions";
 import MenuButton from "../navigation/MenuButton";
 
 const showProductScreen = (navigation, product) => {

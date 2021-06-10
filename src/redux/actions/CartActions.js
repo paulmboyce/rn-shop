@@ -2,7 +2,6 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DECREMENT_QUANTITY = "DECREMENT_QUANTITY";
 export const INCREMENT_QUANTITY = "INCREMENT_QUANTITY";
-export const CREATE_ORDER = "CREATE_ORDER";
 export const CLEAR_CART = "CLEAR_CART";
 
 export const addToCartAction = (productId) => {
@@ -51,23 +50,6 @@ export const decrementCartAction = (productId) => {
 			payload: {
 				productId: productId,
 				userId: getState().loggedInUser,
-			},
-		});
-	};
-};
-
-export const createOrderAction = (cart) => {
-	return (dispatch, getState) => {
-		console.log("Dispatching cart order: ", cart);
-		dispatch({
-			type: CREATE_ORDER,
-			payload: {
-				order: {
-					items: Object.values(cart.items),
-					date: String(Date.now()),
-					id: String(Math.random()),
-					total: cart.total,
-				},
 			},
 		});
 	};

@@ -5,7 +5,6 @@ const reduceOrders = (oldState = [], action) => {
 
 	switch (type) {
 		case CREATE_ORDER:
-			console.log("Entered CREATE_ORDER ==>", payload.order);
 			const newState = [...oldState];
 			newState.push(payload.order);
 			return newState;

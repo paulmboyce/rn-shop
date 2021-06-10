@@ -65,7 +65,6 @@ const ShopScreen = (props) => {
 	};
 
 	const renderFlatList = () => {
-		console.log("SHOP SCREEN, flatliast: products: ==> ", products);
 		return (
 			<FlatList
 				data={products}

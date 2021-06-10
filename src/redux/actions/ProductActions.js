@@ -24,7 +24,7 @@ const createProductAction = (product) => {
 				type: CREATE_PRODUCT,
 				payload: {
 					id: response.name,
-					product: product,
+					product: { ...product, id: response.name },
 				},
 			});
 		} catch (err) {

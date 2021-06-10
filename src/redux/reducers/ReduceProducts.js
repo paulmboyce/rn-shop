@@ -24,6 +24,8 @@ const reduceProducts = (oldState = {}, { type, payload }) => {
 		case GET_ALL_PRODUCTS: {
 			if (payload.products) {
 				console.log(`Got [${Object.keys(payload.products).length}] products`);
+				// TODO: Remove copyKeysToIdField.
+				// This is only used for loaded test data which does not get the ID field set.
 				const productsWithIds = copyKeysToIdField(payload.products);
 				return { ...productsWithIds };
 			}

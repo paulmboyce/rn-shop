@@ -1,37 +1,13 @@
-const FIREBASE_BASE_URL =
-	"https://rn-shop-c3f27-default-rtdb.europe-west1.firebasedatabase.app/";
-const FIREBASE_ENDING = ".json";
+import {
+	useFirebaseApi,
+	METHOD_DELETE,
+	METHOD_GET,
+	METHOD_POST,
+	METHOD_PUT,
+} from "./CallFirebaseApi";
 
 const PRODUCTS_COLLECTION = "products";
 const HEADER_CONTENT_TYPE_APPLN_JSON = { "Content-Type": "application/json" };
-const METHOD_POST = "POST";
-const METHOD_PUT = "PUT";
-const METHOD_GET = "GET";
-const METHOD_DELETE = "DELETE";
-
-// Firebase urls always end with .json
-const buildFirebaseUrl = (dataLocation) => {
-	return FIREBASE_BASE_URL + dataLocation + FIREBASE_ENDING;
-};
-
-const useFirebaseApi = ({ method, headers, collection = "", bodyData }) => {
-	const options = { method: method, headers: headers };
-	if (bodyData) options.body = JSON.stringify(bodyData);
-	if (headers) options.headers = headers;
-
-	return fetch(buildFirebaseUrl(collection), options)
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error("useFirebaseApi() -> Did not respond 200 OK");
-			}
-			return response.json();
-		})
-		.then((jsonData) => jsonData)
-		.catch((err) => {
-			console.log("Error in useFirebaseApi()... ", err);
-			throw err;
-		});
-};
 
 const getProductAsync = async (id) => {};
 const getProductsAsync = async () => {

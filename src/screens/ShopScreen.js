@@ -26,27 +26,27 @@ const ShopScreen = (props) => {
 	const products = useSelector((state) => Object.values(state.products));
 	const cartTotal = useSelector((state) => state.cart.total);
 
-	console.log("Render ShowScreen, STATE.products ==> ", products.length);
+	const { navigation } = props;
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		console.log("Getting Products...");
 		dispatch(getProductsAction());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		// This listener to refresh a screen managed by Navigation Drawer,
 		// BECAUSE drawer screens are cached and so do not rerender on navigation.
-		const focusListener = props.navigation.addListener("willFocus", () => {
+		const focusListener = navigation.addListener("willFocus", () => {
 			console.log("Refreshing Products...");
 			dispatch(getProductsAction());
 		});
 
 		return focusListener.remove;
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
-		props.navigation.setParams({ cartTotal: cartTotal });
+		navigation.setParams({ cartTotal: cartTotal });
 	}, [cartTotal]);
 
 	const showProductScreen = (item) => {

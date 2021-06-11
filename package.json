@@ -23,7 +23,10 @@
     "eject": "expo eject",
     "prepare": "husky install",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:watchNoCoverage": "jest --watch --coverage=false",
+    "test:watchAll": "jest --watchAll",
+    "test:updateSnapshots": "jest -u --coverage=false"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",

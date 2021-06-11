@@ -78,7 +78,7 @@ const getProductsAction = () => {
 			const products = await getProductsAsync();
 			dispatch({
 				type: GET_ALL_PRODUCTS,
-				payload: { products },
+				payload: { products: products ? products : [] },
 			});
 		} catch (err) {
 			dispatch(ui.showErrorAction(err.message));

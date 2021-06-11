@@ -29,6 +29,13 @@ const getProductTemplate = () => {
 	);
 };
 
+const getSaveAction = (editMode) => {
+	if (editMode === MODE_NEW_PRODUCT) {
+		return createProductAction;
+	}
+	return updateProductAction;
+};
+
 const EditProductScreen = ({ navigation }) => {
 	console.log("Render EditProductScreen...");
 	const dispatch = useDispatch();
@@ -58,22 +65,18 @@ const EditProductScreen = ({ navigation }) => {
 	const [editProduct, setEditProduct] = useState(product);
 
 	useEffect(() => {
-		navigation.setParams({ onPressSave: saveProduct });
-	}, [editProduct, saveProduct]);
-
-	const saveProduct = useCallback(() => {
-		if (!isValid) {
-			return Alert.alert(ALERT_TITLE, ALERT_MESSAGE);
-		}
-
-		let saveAction = updateProductAction;
-		if (editMode === MODE_NEW_PRODUCT) {
-			saveAction = createProductAction;
-		}
-		dispatch(saveAction(editProduct));
-
-		navigation.goBack();
-	}, [editProduct, isValid, editMode, dispatch]);
+		//Pass latest values to navigation.
+		navigation.setParams({
+			onPressSave: () => {
+				if (!isValid) {
+					return Alert.alert(ALERT_TITLE, ALERT_MESSAGE);
+				} else {
+					dispatch(getSaveAction(editMode)(editProduct));
+					navigation.goBack();
+				}
+			},
+		});
+	}, [editProduct, isValid, editMode]);
 
 	const handleProductChanges = useCallback((change) => {
 		setEditProduct((current) => {

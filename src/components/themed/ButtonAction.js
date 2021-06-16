@@ -23,10 +23,7 @@ const ButtonAction = (props) => {
 	return (
 		<ButtonTouchable {...props}>
 			<View style={{ ...ThemeStyles.buttonContainer, ...props.buttonStyle }}>
-				<ThemeText
-					{...props}
-					style={{ ...ThemeStyles.button, ...props.textStyle }}
-				>
+				<ThemeText style={{ ...ThemeStyles.button, ...props.textStyle }}>
 					{content}
 				</ThemeText>
 			</View>

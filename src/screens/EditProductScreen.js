@@ -6,7 +6,7 @@ import ProductDisplay from "../components/ProductDisplay";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 import { Theme, ThemeStyles } from "../styles/Theme";
 import SaveButton from "../navigation/SaveButton";
-import Product from "../models/Product";
+import Product from "../_core/entities/Product";
 import {
 	updateProductAction,
 	createProductAction,

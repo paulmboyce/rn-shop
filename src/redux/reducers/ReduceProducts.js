@@ -5,7 +5,6 @@ import {
 	DELETE_PRODUCT,
 	GET_ALL_PRODUCTS,
 } from "../actions/ProductActions";
-import Product from "../../models/Product";
 
 const products = {};
 PRODUCT_DATA.forEach((product) => {

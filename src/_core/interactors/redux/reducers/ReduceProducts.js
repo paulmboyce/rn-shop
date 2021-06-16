@@ -1,4 +1,4 @@
-import PRODUCT_DATA from "../../_io/view/mobile/data/products";
+import PRODUCT_DATA from "../../../../_io/view/mobile/data/products";
 import {
 	CREATE_PRODUCT,
 	UPDATE_PRODUCT,

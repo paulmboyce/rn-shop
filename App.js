@@ -10,9 +10,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppNavigator from "./src/_io/view/mobile/navigation/Navigation";
 import { fetchAssetsAsync } from "./src/_io/view/mobile/utils/loadAsync";
-import reducers from "./src/redux/reducers";
-import { UiMiddleware } from "./src/redux/middleware/UiMiddleware";
-import { LoggerMiddleware } from "./src/redux/middleware/LoggerMiddleware";
+import reducers from "./src/_core/interactors/redux/reducers";
+import { UiMiddleware } from "./src/_core/interactors/redux/middleware/UiMiddleware";
+import { LoggerMiddleware } from "./src/_core/interactors/redux/middleware/LoggerMiddleware";
 
 const middleware = [thunk, UiMiddleware];
 

@@ -18,8 +18,8 @@ import {
 	deleteFromCartAction,
 	decrementCartAction,
 	incrementCartAction,
-} from "../../../../redux/actions/CartActions";
-import { createOrderAction } from "../../../../redux/actions/OrderActions";
+} from "../../../../_core/interactors/redux/actions/CartActions";
+import { createOrderAction } from "../../../../_core/interactors/redux/actions/OrderActions";
 
 const showProductScreen = (navigation, product) => {
 	navigation.navigate("Product", {

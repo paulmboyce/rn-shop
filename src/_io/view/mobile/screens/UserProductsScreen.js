@@ -10,7 +10,7 @@ import AddProductButton from "../navigation/AddProductButton";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
-import { deleteProductAction } from "../../../../redux/actions/ProductActions";
+import { deleteProductAction } from "../../../../_core/interactors/redux/actions/ProductActions";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");

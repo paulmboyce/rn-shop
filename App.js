@@ -14,10 +14,17 @@ import reducers from "./src/redux/reducers";
 import { UiMiddleware } from "./src/redux/middleware/UiMiddleware";
 import { LoggerMiddleware } from "./src/redux/middleware/LoggerMiddleware";
 
+const middleware = [thunk, UiMiddleware];
+
+console.log("NODE_ENV is:  [", process.env.NODE_ENV, "]");
+if (process.env.NODE_ENV !== "production") {
+	middleware.push(LoggerMiddleware);
+}
+
 const reduxStore = createStore(
 	reducers,
 	/** IMPORTANT: remove composeWithDevTools() for production */
-	composeWithDevTools(applyMiddleware(thunk, LoggerMiddleware, UiMiddleware))
+	composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export default function App() {

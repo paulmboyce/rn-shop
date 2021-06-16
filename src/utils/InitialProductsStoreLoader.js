@@ -7,7 +7,6 @@ import { extractFields } from "./ProductFields";
 const loadInitialProductsToStoreAsync = () => {
 	const loadTestData = Constants.manifest.extra.APP_CONFIG_LOAD_TEST_DATA;
 
-	console.log("NODE_ENV is:  [", process.env.NODE_ENV, "]");
 	console.log(
 		"To load test data, set APP_CONFIG_LOAD_TEST_DATA {true} in app.config.js"
 	);

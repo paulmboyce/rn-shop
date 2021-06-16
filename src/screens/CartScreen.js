@@ -16,6 +16,12 @@ import ContinueShopping from "../components/ContinueShopping";
 import { createOrderAction } from "../redux/actions/OrderActions";
 import MenuButton from "../navigation/MenuButton";
 
+import {
+	deleteFromCartAction,
+	decrementCartAction,
+	incrementCartAction,
+} from "../redux/actions/CartActions";
+
 const showProductScreen = (navigation, product) => {
 	navigation.navigate("Product", {
 		productId: product.id,
@@ -30,6 +36,12 @@ const CartScreen = (props) => {
 
 	const window = useWindowDimensions();
 	const dispatch = useDispatch();
+
+	const cartItemBehaviours = {
+		increment: (productId) => dispatch(incrementCartAction(productId)),
+		decrement: (productId) => dispatch(decrementCartAction(productId)),
+		delete: (productId) => dispatch(decrementCartAction(productId)),
+	};
 
 	const renderItems = () => {
 		if (cartItemsArray.length === 0) {
@@ -50,7 +62,11 @@ const CartScreen = (props) => {
 							showProductScreen(props.navigation, cartProduct);
 						}}
 					>
-						<CartItem cartItem={cartItem} cartProduct={cartProduct} />
+						<CartItem
+							behaviours={cartItemBehaviours}
+							cartItem={cartItem}
+							cartProduct={cartProduct}
+						/>
 					</TouchableOpacity>
 				)
 			);

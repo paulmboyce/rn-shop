@@ -7,21 +7,14 @@ import {
 	useWindowDimensions,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
 
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
 import Card from "./Card";
 import { ThemeStyles, Theme } from "../styles/Theme";
-import {
-	deleteFromCartAction,
-	decrementCartAction,
-	incrementCartAction,
-} from "../redux/actions/CartActions";
 
-const CartItem = ({ cartProduct, cartItem }) => {
+const CartItem = ({ cartProduct, cartItem, behaviours }) => {
 	const window = useWindowDimensions();
-	const dispatch = useDispatch();
 
 	const styles = StyleSheet.create({
 		cartItemContainer: {
@@ -51,11 +44,10 @@ const CartItem = ({ cartProduct, cartItem }) => {
 				</View>
 				<View style={{ ...ThemeStyles.box3left, paddingLeft: 20 }}>
 					<Text style={ThemeStyles.text}>{cartProduct.title}</Text>
-					<Text style={ThemeStyles.text}>
-						Item price:&nbsp;
+					<View style={{ flexDirection: "row", marginBottom: 20 }}>
+						<Text style={ThemeStyles.text}>Item price:&nbsp;</Text>
 						<Text style={ThemeStyles.textBold}>${cartProduct.price}</Text>
-					</Text>
-					<Text></Text>
+					</View>
 
 					<View
 						style={{
@@ -65,40 +57,60 @@ const CartItem = ({ cartProduct, cartItem }) => {
 							alignItems: "center",
 						}}
 					>
-						<Text style={ThemeStyles.text}>
-							Quantity&nbsp;
-							<Text style={ThemeStyles.textBold}>
-								{cartItem.quantity}&nbsp;
+						<View
+							style={{
+								width: "40%",
+								flexDirection: "row",
+								justifyContent: "align-left",
+								alignItems: "center",
+								marginRight: 5,
+							}}
+						>
+							<Text style={ThemeStyles.text}>
+								Quantity
+								<Text style={ThemeStyles.textBold}> {cartItem.quantity}</Text>
 							</Text>
-						</Text>
-						<ButtonIconSmall
-							onPress={() => {
-								dispatch(decrementCartAction(cartItem.productId));
+						</View>
+						<View
+							style={{
+								width: "40%",
+								flexDirection: "row",
+								justifyContent: "align-right",
+								alignItems: "center",
+								marginRight: 20,
 							}}
 						>
-							<MaterialIcons name="remove" size={16} color="black" />
-						</ButtonIconSmall>
-						<ButtonIconSmall
-							onPress={() => {
-								dispatch(incrementCartAction(cartItem.productId));
-							}}
-						>
-							<MaterialIcons name="add" size={16} color="black" />
-						</ButtonIconSmall>
-						<View style={{ marginLeft: 10 }}>
-							<ButtonActionSmall
+							<ButtonIconSmall
+								testID="decrementButton"
 								onPress={() => {
-									dispatch(deleteFromCartAction(cartItem.productId));
+									behaviours.decrement(cartItem.productId);
 								}}
-								title="Delete"
-								buttonStyle={{
-									paddingVertical: 0,
-									paddingHorizontal: 3,
-									backgroundColor: "white",
-									borderWidth: 0.5,
-									overflow: "hidden",
+							>
+								<MaterialIcons name="remove" size={16} color="black" />
+							</ButtonIconSmall>
+							<ButtonIconSmall
+								testID="incrementButton"
+								onPress={() => {
+									behaviours.increment(cartItem.productId);
 								}}
-							/>
+							>
+								<MaterialIcons name="add" size={16} color="black" />
+							</ButtonIconSmall>
+							<View style={{ marginLeft: 10 }}>
+								<ButtonActionSmall
+									onPress={() => {
+										behaviours.delete(cartItem.productId);
+									}}
+									title="Delete"
+									buttonStyle={{
+										paddingVertical: 0,
+										paddingHorizontal: 3,
+										backgroundColor: "white",
+										borderWidth: 0.5,
+										overflow: "hidden",
+									}}
+								/>
+							</View>
 						</View>
 					</View>
 				</View>

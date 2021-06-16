@@ -1,6 +1,6 @@
 import { Image } from "react-native";
 import { loadAsync as loadFontsAsync } from "expo-font";
-import PRODUCT_DATA from "../data/products";
+import PRODUCT_DATA from "../_io/view/mobile/data/products";
 import loadInitialProductsToStoreAsync from "./InitialProductsStoreLoader";
 const fetchAssetsAsync = () => {
 	//return fetchFonts();

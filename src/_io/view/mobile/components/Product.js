@@ -7,7 +7,7 @@ import {
 	useWindowDimensions,
 } from "react-native";
 
-import Card from "../components/Card";
+import Card from "./Card";
 import { ThemeStyles, Theme } from "../styles/Theme";
 
 const Product = ({ item, children }) => {

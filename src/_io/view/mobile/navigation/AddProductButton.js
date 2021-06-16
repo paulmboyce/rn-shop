@@ -5,9 +5,8 @@ import { Item } from "react-navigation-header-buttons";
 import { useSelector, useDispatch } from "react-redux";
 
 import IonHeaderButtons from "./IonHeaderButtons";
-import * as productActions from "../redux/actions/ProductActions";
 
-const AddProductButton = ({ navigation, saveProduct }) => {
+const AddProductButton = ({ navigation }) => {
 	let icon = "add-circle-outline";
 	const dispatch = useDispatch();
 

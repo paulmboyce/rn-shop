@@ -3,7 +3,6 @@ import { Text } from "react-native";
 import { render, fireEvent } from "@testing-library/react-native";
 
 import ButtonAction from "./ButtonAction";
-import { decrementCartAction } from "../../redux/actions/CartActions";
 
 describe("Button display", () => {
 	test("it renders the title", () => {

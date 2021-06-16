@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 
-import OrderItem from "../components/OrderItem";
+import OrderItem from "./OrderItem";
 import { ThemeStyles, Theme } from "../styles/Theme";
-import ButtonActionSmall from "../components/themed/ButtonActionSmall";
+import ButtonActionSmall from "./themed/ButtonActionSmall";
 
 const Order = ({ order }) => {
 	console.log("RENDER ORDER: ", order);

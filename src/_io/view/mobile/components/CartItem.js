@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import ButtonActionSmall from "../components/themed/ButtonActionSmall";
-import ButtonIconSmall from "../components/themed/ButtonIconSmall";
+import ButtonActionSmall from "./themed/ButtonActionSmall";
+import ButtonIconSmall from "./themed/ButtonIconSmall";
 import Card from "./Card";
 import { ThemeStyles, Theme } from "../styles/Theme";
 

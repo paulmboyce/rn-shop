@@ -6,12 +6,12 @@ import ProductDisplay from "../components/ProductDisplay";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 import { Theme, ThemeStyles } from "../styles/Theme";
 import SaveButton from "../navigation/SaveButton";
-import Product from "../_core/entities/Product";
+import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
 import {
 	updateProductAction,
 	createProductAction,
-} from "../redux/actions/ProductActions";
-import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
+} from "../../../../redux/actions/ProductActions";
+import Product from "../../../../_core/entities/Product";
 
 const MODE_NEW_PRODUCT = "MODE_NEW_PRODUCT";
 const MODE_EXISTING_PRODUCT = "MODE_EXISTING_PRODUCT";

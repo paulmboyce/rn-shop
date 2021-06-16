@@ -1,4 +1,4 @@
-import Product from "../_core/entities/Product";
+import Product from "../../../../_core/entities/Product";
 
 const productList = [
 	new Product(

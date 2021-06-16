@@ -12,8 +12,8 @@ import {
 } from "react-native";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
-import ButtonAction from "../components/themed/ButtonAction";
-import EditableText from "../components/themed/EditableText";
+import ButtonAction from "./themed/ButtonAction";
+import EditableText from "./themed/EditableText";
 import EditableImage from "./themed/EditableImage";
 import { productFormReducer, updateFormAction } from "../forms/ProductForm";
 

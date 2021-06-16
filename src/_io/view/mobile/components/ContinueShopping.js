@@ -2,7 +2,7 @@ import React from "react";
 import { View, useWindowDimensions } from "react-native";
 
 import { ThemeStyles } from "../styles/Theme";
-import ButtonAction from "../components/themed/ButtonAction";
+import ButtonAction from "./themed/ButtonAction";
 
 const ContinueShopping = ({ navigation }) => {
 	const window = useWindowDimensions();

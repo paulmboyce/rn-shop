@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addToCartAction } from "../redux/actions/CartActions";
+import { addToCartAction } from "../../../../redux/actions/CartActions";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonAction from "../components/themed/ButtonAction";
 import CartButton from "../navigation/CartButton";

@@ -17,7 +17,7 @@ import MenuButton from "../navigation/MenuButton";
 import CartButton from "../navigation/CartButton";
 import { ThemeStyles, Theme } from "../styles/Theme";
 import ButtonActionSmall from "../components/themed/ButtonActionSmall";
-import { getProductsAction } from "../redux/actions/ProductActions";
+import { getProductsAction } from "../../../../redux/actions/ProductActions";
 import Product from "../components/Product";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";

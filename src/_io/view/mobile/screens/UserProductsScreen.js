@@ -1,16 +1,16 @@
 import React from "react";
 import { View, Alert, StyleSheet, FlatList } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { Ionicons } from "@expo/vector-icons";
 
 import { Theme, ThemeStyles } from "../styles/Theme";
 import Product from "../components/Product";
 import MenuButton from "../navigation/MenuButton";
 import AddProductButton from "../navigation/AddProductButton";
 import ButtonIconSmall from "../components/themed/ButtonIconSmall";
-import { Ionicons } from "@expo/vector-icons";
-import { deleteProductAction } from "../redux/actions/ProductActions";
 import PendingActivityIndicator from "../components/themed/PendingActivityIndicator";
 import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
+import { deleteProductAction } from "../../../../redux/actions/ProductActions";
 
 const UserProductsScreen = (props) => {
 	console.log("TODO: filter this to show a subset...");

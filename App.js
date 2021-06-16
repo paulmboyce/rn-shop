@@ -8,7 +8,7 @@ import thunk from "redux-thunk";
 /** IMPORTANT: remove composeWithDevTools() for production */
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import AppNavigator from "./src/navigation/Navigation";
+import AppNavigator from "./src/_io/view/mobile/navigation/Navigation";
 import { fetchAssetsAsync } from "./src/utils/loadAsync";
 import reducers from "./src/redux/reducers";
 import { UiMiddleware } from "./src/redux/middleware/UiMiddleware";

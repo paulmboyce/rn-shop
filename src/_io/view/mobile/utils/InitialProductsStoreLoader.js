@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 
-import PRODUCT_DATA from "../_io/view/mobile/data/products";
-import { addProductAsync } from "../api/ProductStoreInterface";
+import PRODUCT_DATA from "../data/products";
+import { addProductAsync } from "../../../api/ProductStoreInterface";
 import { extractFields } from "./ProductFields";
 
 const loadInitialProductsToStoreAsync = () => {

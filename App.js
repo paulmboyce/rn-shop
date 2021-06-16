@@ -9,7 +9,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppNavigator from "./src/_io/view/mobile/navigation/Navigation";
-import { fetchAssetsAsync } from "./src/utils/loadAsync";
+import { fetchAssetsAsync } from "./src/_io/view/mobile/utils/loadAsync";
 import reducers from "./src/redux/reducers";
 import { UiMiddleware } from "./src/redux/middleware/UiMiddleware";
 import { LoggerMiddleware } from "./src/redux/middleware/LoggerMiddleware";

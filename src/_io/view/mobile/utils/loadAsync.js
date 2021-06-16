@@ -1,6 +1,6 @@
 import { Image } from "react-native";
 import { loadAsync as loadFontsAsync } from "expo-font";
-import PRODUCT_DATA from "../_io/view/mobile/data/products";
+import PRODUCT_DATA from "../data/products";
 import loadInitialProductsToStoreAsync from "./InitialProductsStoreLoader";
 const fetchAssetsAsync = () => {
 	//return fetchFonts();
@@ -11,8 +11,8 @@ const fetchAssetsAsync = () => {
 const fetchFonts = () => {
 	console.log("Fetching fonts...");
 	return loadFontsAsync({
-		OpenSans: require("../../assets/fonts/OpenSans-Regular.ttf"),
-		OpenSansBold: require("../../assets/fonts/OpenSans-Bold.ttf"),
+		OpenSans: require("../../../../../assets/fonts/OpenSans-Regular.ttf"),
+		OpenSansBold: require("../../../../../assets/fonts/OpenSans-Bold.ttf"),
 	});
 };
 

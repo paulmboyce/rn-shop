@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
 
-import AppNavigator from "./src/_io/view/mobile/navigation/Navigation";
-import { fetchAssetsAsync } from "./src/_io/view/mobile/utils/loadAsync";
+import AppNavigator from "./src/_io/views/mobile/navigation/Navigation";
+import { fetchAssetsAsync } from "./src/_io/views/mobile/utils/loadAsync";
 import { reduxStore } from "./src/_io/frameworks";
 
 export default function App() {

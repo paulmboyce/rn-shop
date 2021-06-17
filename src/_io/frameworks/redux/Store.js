@@ -3,13 +3,15 @@ import thunk from "redux-thunk";
 /** IMPORTANT: remove composeWithDevTools() for production */
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import { reducers } from "../../../_adapters/controllers/redux";
-import { UiMiddleware } from "../../../_adapters/controllers/redux/middleware/UiMiddleware";
-import { LoggerMiddleware } from "../../../_adapters/controllers/redux/middleware/LoggerMiddleware";
-
-const middleware = [thunk, UiMiddleware];
+import {
+	reducers,
+	UiMiddleware,
+	LoggerMiddleware,
+} from "../../../_adapters/controllers/redux";
 
 console.log("NODE_ENV is:  [", process.env.NODE_ENV, "]");
+
+const middleware = [thunk, UiMiddleware];
 if (process.env.NODE_ENV !== "production") {
 	middleware.push(LoggerMiddleware);
 }

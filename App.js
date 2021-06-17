@@ -1,31 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
-import thunk from "redux-thunk";
-
-/** IMPORTANT: remove composeWithDevTools() for production */
-import { composeWithDevTools } from "redux-devtools-extension";
 
 import AppNavigator from "./src/_io/view/mobile/navigation/Navigation";
 import { fetchAssetsAsync } from "./src/_io/view/mobile/utils/loadAsync";
-import reducers from "./src/_adapters/controllers/redux/reducers";
-import { UiMiddleware } from "./src/_adapters/controllers/redux/middleware/UiMiddleware";
-import { LoggerMiddleware } from "./src/_adapters/controllers/redux/middleware/LoggerMiddleware";
-
-const middleware = [thunk, UiMiddleware];
-
-console.log("NODE_ENV is:  [", process.env.NODE_ENV, "]");
-if (process.env.NODE_ENV !== "production") {
-	middleware.push(LoggerMiddleware);
-}
-
-const reduxStore = createStore(
-	reducers,
-	/** IMPORTANT: remove composeWithDevTools() for production */
-	composeWithDevTools(applyMiddleware(...middleware))
-);
+import reduxStore from "./src/_io/frameworks/redux/Store";
 
 export default function App() {
 	const [isCacheLoaded, setIsCacheLoaded] = useState(false);

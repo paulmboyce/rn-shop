@@ -7,7 +7,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import defaultNavigationOptions from "./DefaultNavigationOptions";
-import ShopScreen from "../screens/ShopScreen";
+import ShopScreenPresenter from "../presenters/ShopScreenPresenter";
 import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";
 import OrdersScreen from "../screens/OrdersScreen";
@@ -20,7 +20,7 @@ import Badge from "../components/Badge";
 const appNavigator = createStackNavigator(
 	{
 		Home: {
-			screen: ShopScreen,
+			screen: ShopScreenPresenter,
 		},
 		Product: {
 			screen: ProductScreen,

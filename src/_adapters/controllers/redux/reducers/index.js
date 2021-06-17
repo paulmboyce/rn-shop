@@ -13,4 +13,4 @@ const reducers = combineReducers({
 	ui: reduceUi,
 });
 
-export default reducers;
+export { reducers };

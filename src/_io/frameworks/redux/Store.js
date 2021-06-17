@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 /** IMPORTANT: remove composeWithDevTools() for production */
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import reducers from "../../../_adapters/controllers/redux/reducers";
+import { reducers } from "../../../_adapters/controllers/redux";
 import { UiMiddleware } from "../../../_adapters/controllers/redux/middleware/UiMiddleware";
 import { LoggerMiddleware } from "../../../_adapters/controllers/redux/middleware/LoggerMiddleware";
 
@@ -20,4 +20,4 @@ const reduxStore = createStore(
 	composeWithDevTools(applyMiddleware(...middleware))
 );
 
-export default reduxStore;
+export { reduxStore };

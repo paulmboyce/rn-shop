@@ -5,7 +5,7 @@ import AppLoading from "expo-app-loading";
 
 import AppNavigator from "./src/_io/view/mobile/navigation/Navigation";
 import { fetchAssetsAsync } from "./src/_io/view/mobile/utils/loadAsync";
-import reduxStore from "./src/_io/frameworks/redux/Store";
+import { reduxStore } from "./src/_io/frameworks";
 
 export default function App() {
 	const [isCacheLoaded, setIsCacheLoaded] = useState(false);

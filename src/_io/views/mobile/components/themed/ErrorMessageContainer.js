@@ -9,8 +9,6 @@ const ErrorMessageContainer = (props) => {
 
 	if (!message) return null;
 
-	console.log("GOT ERR MESAGE AS: ", message);
-
 	return (
 		<View style={styles.container}>
 			<Text style={ThemeStyles.textErrorPrimaryBold}>{message}</Text>

@@ -10,14 +10,8 @@ import {
 const middlewares = [thunk, LoggerMiddleware, UiMiddleware];
 
 function buildStore(initialState) {
-	if (!initialState) {
-		initialState = {
-			products: {},
-			cart: {},
-			orders: [],
-			loggedInUser: 1,
-			ui: {},
-		};
+	if (initialState) {
+		console.log("Test set initialState as: ==> ", initialState);
 	}
 
 	const store = createStore(

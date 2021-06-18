@@ -10,7 +10,11 @@ const PendingActivityIndicator = (props) => {
 	if (ui.pending) {
 		return (
 			<View style={{ ...styles.default }}>
-				<ActivityIndicator size="large" color={Theme.primaryColor} />
+				<ActivityIndicator
+					size="large"
+					color={Theme.primaryColor}
+					testID="id.ActivityIndicator"
+				/>
 			</View>
 		);
 	}

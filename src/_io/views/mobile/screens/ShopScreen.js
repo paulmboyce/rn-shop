@@ -5,6 +5,7 @@ import {
 	TouchableOpacity,
 	RefreshControl,
 	Button,
+	Text,
 } from "react-native";
 
 import MenuButton from "../navigation/MenuButton";
@@ -22,7 +23,6 @@ const ShopScreen = ({
 	dispatchGetProductsAction,
 }) => {
 	useEffect(() => {
-		console.log("Getting Products...");
 		dispatchGetProductsAction();
 	}, []);
 

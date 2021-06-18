@@ -5,16 +5,23 @@ import ShopScreen from "../screens/ShopScreen";
 import { getProductsAction } from "../../../../_adapters/controllers";
 
 const ShopScreenPresenter = ({ navigation }) => {
-	// Get all the data, and prepare it for rendering
-	const products = useSelector((state) => Object.values(state.products));
+	const dispatch = useDispatch();
+
+	// Get data:
+	let products = useSelector((state) => state.products);
 	const cartTotal = useSelector((state) => state.cart.total);
 
-	const dispatch = useDispatch();
+	// "Pre"-pare data for rendering:
+	productsArray = Object.values(products);
+	// Prefix price with currency
+	productsArray.forEach((p) => {
+		p.price = "$" + p.price;
+	});
 
 	return (
 		<ShopScreen
 			navigation={navigation}
-			products={products}
+			products={productsArray}
 			cartTotal={cartTotal}
 			dispatchGetProductsAction={() => dispatch(getProductsAction())}
 		/>

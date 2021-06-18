@@ -121,7 +121,7 @@ const ProductDisplay = ({
 									justifyContent: "space-around",
 								}}
 							>
-								<Text style={ThemeStyles.textBold}>Price: $</Text>
+								<Text style={ThemeStyles.textBold}>Price: </Text>
 								<EditableText
 									style={ThemeStyles.textBold}
 									initialValue={formState.values.price}

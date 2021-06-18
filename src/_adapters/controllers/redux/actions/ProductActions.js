@@ -9,11 +9,11 @@ import {
 	getProductAsync,
 	getProductsAsync,
 	updateProductAsync,
-} from "../../../../_io/apis/ProductStoreInterface";
+} from "../../../../_outer/apis/ProductStoreInterface";
 
 import * as ui from "./UiActions";
 
-import { extractFields } from "../../../../_io/views/mobile/utils/ProductFields";
+import { extractFields } from "../../../../_outer/views/mobile/utils/ProductFields";
 
 const createProductAction = (product) => {
 	return async (dispatch) => {

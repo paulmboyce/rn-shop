@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import AppLoading from "expo-app-loading";
 
-import AppNavigator from "./src/_io/views/mobile/navigation/Navigation";
-import { fetchAssetsAsync } from "./src/_io/views/mobile/utils/loadAsync";
-import { reduxStore } from "./src/_io/frameworks";
+import AppNavigator from "./src/_outer/views/mobile/navigation/Navigation";
+import { fetchAssetsAsync } from "./src/_outer/views/mobile/utils/loadAsync";
+import { reduxStore } from "./src/_outer/frameworks";
 
 export default function App() {
 	const [isCacheLoaded, setIsCacheLoaded] = useState(false);

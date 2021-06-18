@@ -15,7 +15,7 @@ const ShopScreenPresenter = ({ navigation }) => {
 	productsArray = Object.values(products);
 	// Prefix price with currency
 	productsArray.forEach((p) => {
-		p.price = "$" + p.price;
+		p.priceInCurrency = "$" + p.price;
 	});
 
 	return (

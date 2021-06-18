@@ -52,7 +52,7 @@ const Product = ({ item, children }) => {
 				<View style={styles.productFooter}>
 					<View style={{ flex: 1 }}>
 						<Text style={ThemeStyles.text}>{item.title}</Text>
-						<Text style={ThemeStyles.textBold}>{item.price}</Text>
+						<Text style={ThemeStyles.textBold}>{item.priceInCurrency}</Text>
 					</View>
 
 					{children}

@@ -39,13 +39,15 @@ describe("Test rendering content/elements", () => {
 			{
 				id: 1,
 				title: "Product 1 Title",
-				price: "$69.79",
+				price: 69.79,
+				priceInCurrency: "$" + 69.79,
 				image: "{NOT TESTED}",
 			},
 			{
 				id: 2,
 				title: "Product 2 Title",
-				price: "$1234567.89",
+				price: 1234567.89,
+				priceInCurrency: "$" + 1234567.89,
 				image: "{NOT TESTED}",
 			},
 		];

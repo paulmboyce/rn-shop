@@ -2,7 +2,7 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react-native";
 
 // Overrides @testing-library/react-native render
-//import { renderWithRedux as render } from "../utils/test/ReduxWrapper";
+//import { renderWithRedux as render } from "../../../../utils/test/ReduxWrapper";
 
 // testee:
 import CartItem from "./CartItem";

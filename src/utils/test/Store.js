@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import reducers from "../../_adapters/controllers/redux/reducers";
-import { UiMiddleware } from "../../_adapters/controllers/redux/middleware/UiMiddleware";
-import { LoggerMiddleware } from "../../_adapters/controllers/redux/middleware/LoggerMiddleware";
+import {
+	reducers,
+	UiMiddleware,
+	LoggerMiddleware,
+} from "../../_adapters/controllers";
 
 const middlewares = [thunk, LoggerMiddleware, UiMiddleware];
 

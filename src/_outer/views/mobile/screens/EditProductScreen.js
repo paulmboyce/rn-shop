@@ -10,7 +10,7 @@ import ErrorMessageContainer from "../components/themed/ErrorMessageContainer";
 import {
 	updateProductAction,
 	createProductAction,
-} from "../../../../_adapters/controllers/redux/actions/ProductActions";
+} from "../../../../_middle/controllers/redux/actions/ProductActions";
 import Product from "../../../../_core/entities/Product";
 
 const MODE_NEW_PRODUCT = "MODE_NEW_PRODUCT";

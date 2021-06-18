@@ -7,7 +7,7 @@ import {
 	reducers,
 	UiMiddleware,
 	LoggerMiddleware,
-} from "../../../_adapters/controllers/redux";
+} from "../../../_middle/controllers/redux";
 
 console.log("NODE_ENV is:  [", process.env.NODE_ENV, "]");
 

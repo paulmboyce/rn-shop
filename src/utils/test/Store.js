@@ -5,7 +5,7 @@ import {
 	reducers,
 	UiMiddleware,
 	LoggerMiddleware,
-} from "../../_adapters/controllers";
+} from "../../_middle/controllers";
 
 const middlewares = [thunk, LoggerMiddleware, UiMiddleware];
 

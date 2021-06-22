@@ -8,6 +8,7 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 
 import defaultNavigationOptions from "./DefaultNavigationOptions";
 import ShopScreenPresenter from "../presenters/ShopScreenPresenter";
+import ShopScreen from "../screens/ShopScreen";
 import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";
 import OrdersScreen from "../screens/OrdersScreen";
@@ -20,7 +21,12 @@ import Badge from "../components/Badge";
 const appNavigator = createStackNavigator(
 	{
 		Home: {
-			screen: ShopScreenPresenter,
+			screen: ({ navigation }) => (
+				<ShopScreenPresenter
+					navigation={navigation}
+					screenComponent={ShopScreen}
+				/>
+			),
 		},
 		Product: {
 			screen: ProductScreen,

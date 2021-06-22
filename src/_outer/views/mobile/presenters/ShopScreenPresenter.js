@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import ShopScreen from "../screens/ShopScreen";
 import { getProductsAction } from "../../../../_middle/controllers";
 
-const ShopScreenPresenter = ({ navigation }) => {
+const ShopScreenPresenter = ({ navigation, screenComponent: ShopScreen }) => {
 	const dispatch = useDispatch();
 
 	// Get data:

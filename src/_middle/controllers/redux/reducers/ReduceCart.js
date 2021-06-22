@@ -4,30 +4,26 @@ import {
 	INCREMENT_QUANTITY,
 	DECREMENT_QUANTITY,
 	CREATE_ORDER,
+	DELETE_PRODUCT,
 } from "../actions/ActionTypes";
 
-import { DELETE_PRODUCT } from "../actions/ProductActions";
+import { CartInteractor } from "../../../../_core/usecases/CartInteractor";
 
 const DEFAULT_CART = {
 	total: 0.0,
 	items: {},
 	numItems: 0,
 };
-const calculateTotal = (items) => {
-	let subTotal = 0;
-	Object.values(items).map((item) => {
-		subTotal += item.price * item.quantity;
-	});
-	return subTotal.toFixed(2);
-};
 
-const calcNumItems = (items) => {
-	let subTotal = 0;
-	Object.values(items).map((item) => {
-		subTotal += item.quantity;
-	});
-	return subTotal.toFixed(0);
-};
+function calcCartTotals(items = { key: "", value: { price: 0, quantity: 0 } }) {
+	const cartItems = Object.values(items);
+	const cartInteractor = new CartInteractor();
+
+	return {
+		total: cartInteractor.calculateTotal(cartItems),
+		numItems: cartInteractor.calcNumItems(cartItems),
+	};
+}
 
 const reduceCarts = (oldState = DEFAULT_CART, action) => {
 	const { type, payload } = action;
@@ -48,8 +44,11 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 				};
 				newState.items[payload.productId] = cartItem;
 			}
-			newState.total = calculateTotal(newState.items);
-			newState.numItems = calcNumItems(newState.items);
+
+			const { total, numItems } = calcCartTotals(Object.values(newState.items));
+			newState.total = total;
+			newState.numItems = numItems;
+
 			return newState;
 		}
 
@@ -60,9 +59,12 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			const productItem = newState.items[payload.productId];
 			if (productItem) {
 				delete newState.items[payload.productId];
-				newState.total = calculateTotal(newState.items);
-				newState.numItems = calcNumItems(newState.items);
+
+				const { total, numItems } = calcCartTotals(newState.items);
+				newState.total = total;
+				newState.numItems = numItems;
 			}
+
 			return newState;
 		}
 
@@ -70,17 +72,18 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			const newState = { ...oldState };
 			const productItem = newState.items[payload.productId];
 
-			// CASE: Decrement (usual)
 			if (productItem.quantity > 0) {
 				productItem.quantity--;
 			}
 
-			// CASE: Delete if zero
+			// SPECIAL CASE: Delete if zero
 			if (productItem.quantity === 0) {
 				delete newState.items[payload.productId];
 			}
-			newState.total = calculateTotal(newState.items);
-			newState.numItems = calcNumItems(newState.items);
+
+			const { total, numItems } = calcCartTotals(newState.items);
+			newState.total = total;
+			newState.numItems = numItems;
 
 			return newState;
 		}
@@ -90,8 +93,10 @@ const reduceCarts = (oldState = DEFAULT_CART, action) => {
 			const productItem = newState.items[payload.productId];
 
 			productItem.quantity++;
-			newState.total = calculateTotal(newState.items);
-			newState.numItems = calcNumItems(newState.items);
+
+			const { total, numItems } = calcCartTotals(newState.items);
+			newState.total = total;
+			newState.numItems = numItems;
 
 			return newState;
 		}

@@ -39,7 +39,7 @@ const CartScreen = (props) => {
 	const cartItemBehaviours = {
 		increment: (productId) => dispatch(incrementCartAction(productId)),
 		decrement: (productId) => dispatch(decrementCartAction(productId)),
-		delete: (productId) => dispatch(decrementCartAction(productId)),
+		delete: (productId) => dispatch(deleteFromCartAction(productId)),
 	};
 
 	const renderItems = () => {

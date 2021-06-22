@@ -1,0 +1,5 @@
+Move InitialProductsStoreLoader down to Gateways.
+
+Use a Controller Action to trigger this on App Load.
+
+In fact, this is better because the product doesn't need to *wait* at the loading screen for products to load.

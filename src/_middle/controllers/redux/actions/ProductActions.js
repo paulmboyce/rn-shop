@@ -9,7 +9,7 @@ import {
 	getProductAsync,
 	getProductsAsync,
 	updateProductAsync,
-} from "../../../../_outer/apis/ProductStoreInterface";
+} from "../../../gateways/apis/ProductStoreInterface";
 
 import * as ui from "./UiActions";
 

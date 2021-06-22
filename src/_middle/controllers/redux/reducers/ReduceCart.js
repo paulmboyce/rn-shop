@@ -1,10 +1,10 @@
 import {
 	ADD_TO_CART,
-	DECREMENT_QUANTITY,
 	DELETE_FROM_CART,
 	INCREMENT_QUANTITY,
+	DECREMENT_QUANTITY,
 	CREATE_ORDER,
-} from "../actions/CartActions";
+} from "../actions/ActionTypes";
 
 import { DELETE_PRODUCT } from "../actions/ProductActions";
 

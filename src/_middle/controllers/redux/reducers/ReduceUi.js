@@ -3,7 +3,7 @@ import {
 	HIDE_SPINNER,
 	SHOW_ERROR,
 	HIDE_ERROR,
-} from "../actions/UiActions";
+} from "../actions/ActionTypes";
 
 const initState = {
 	pending: false,

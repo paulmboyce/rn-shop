@@ -7,11 +7,12 @@ import {
 	reducers,
 	UiMiddleware,
 	LoggerMiddleware,
+	UserIdMiddleware,
 } from "../../../_middle/controllers/redux";
 
 console.log("NODE_ENV is:  [", process.env.NODE_ENV, "]");
 
-const middleware = [thunk, UiMiddleware];
+const middleware = [thunk, UiMiddleware, UserIdMiddleware];
 if (process.env.NODE_ENV !== "production") {
 	middleware.push(LoggerMiddleware);
 }

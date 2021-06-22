@@ -1,4 +1,4 @@
-import { CREATE_ORDER } from "../actions/OrderActions";
+import { CREATE_ORDER } from "../actions/ActionTypes";
 
 const reduceOrders = (oldState = [], action) => {
 	const { type, payload } = action;

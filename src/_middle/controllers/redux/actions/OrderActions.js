@@ -1,4 +1,4 @@
-export const CREATE_ORDER = "CREATE_ORDER";
+import { CREATE_ORDER } from "../actions/ActionTypes";
 
 export const createOrderAction = (cart) => {
 	return (dispatch, getState) => {

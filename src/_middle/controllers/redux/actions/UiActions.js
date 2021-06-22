@@ -1,8 +1,9 @@
-export const SHOW_SPINNER = "SHOW_SPINNER";
-export const HIDE_SPINNER = "HIDE_SPINNER";
-
-export const SHOW_ERROR = "SHOW_ERROR";
-export const HIDE_ERROR = "HIDE_ERROR";
+import {
+	SHOW_ERROR,
+	HIDE_ERROR,
+	SHOW_SPINNER,
+	HIDE_SPINNER,
+} from "../actions/ActionTypes";
 
 export const showSpinnerAction = () => {
 	return { type: SHOW_SPINNER };

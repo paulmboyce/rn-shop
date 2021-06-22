@@ -4,7 +4,7 @@ import {
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
 	GET_ALL_PRODUCTS,
-} from "../actions/ProductActions";
+} from "../actions/ActionTypes";
 
 const products = {};
 PRODUCT_DATA.forEach((product) => {

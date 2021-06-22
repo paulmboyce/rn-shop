@@ -1,7 +1,9 @@
-export const CREATE_PRODUCT = "CREATE_PRODUCT";
-export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
-export const DELETE_PRODUCT = "DELETE_PRODUCT";
-export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+import {
+	CREATE_PRODUCT,
+	UPDATE_PRODUCT,
+	DELETE_PRODUCT,
+	GET_ALL_PRODUCTS,
+} from "../actions/ActionTypes";
 
 import {
 	addProductAsync,

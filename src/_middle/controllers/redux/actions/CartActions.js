@@ -1,20 +1,19 @@
-export const ADD_TO_CART = "ADD_TO_CART";
-export const DELETE_FROM_CART = "DELETE_FROM_CART";
-export const DECREMENT_QUANTITY = "DECREMENT_QUANTITY";
-export const INCREMENT_QUANTITY = "INCREMENT_QUANTITY";
-export const CLEAR_CART = "CLEAR_CART";
+import {
+	ADD_TO_CART,
+	DELETE_FROM_CART,
+	INCREMENT_QUANTITY,
+	DECREMENT_QUANTITY,
+} from "./ActionTypes";
 
 export const addToCartAction = (productId) => {
 	return (dispatch, getState) => {
-		const products = getState().products;
-		const product = products[productId];
+		const price = getProductPrice(getState(), productId);
 
 		dispatch({
 			type: ADD_TO_CART,
 			payload: {
 				productId,
-				productPrice: product.price,
-				userId: getState().loggedInUser,
+				productPrice: price,
 			},
 		});
 	};
@@ -26,7 +25,6 @@ export const deleteFromCartAction = (productId) => {
 			type: DELETE_FROM_CART,
 			payload: {
 				productId: productId,
-				userId: getState().loggedInUser,
 			},
 		});
 	};
@@ -37,7 +35,6 @@ export const incrementCartAction = (productId) => {
 			type: INCREMENT_QUANTITY,
 			payload: {
 				productId: productId,
-				userId: getState().loggedInUser,
 			},
 		});
 	};
@@ -54,3 +51,7 @@ export const decrementCartAction = (productId) => {
 		});
 	};
 };
+
+function getProductPrice(state, productId) {
+	return state.products[productId].price;
+}

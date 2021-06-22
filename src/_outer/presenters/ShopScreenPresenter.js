@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getProductsAction } from "../../../../_middle/controllers";
+import { getProductsAction } from "../../_middle/controllers";
 
 const ShopScreenPresenter = ({ navigation, screenComponent: ShopScreen }) => {
 	const dispatch = useDispatch();

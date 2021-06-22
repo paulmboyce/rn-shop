@@ -7,7 +7,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import defaultNavigationOptions from "./DefaultNavigationOptions";
-import ShopScreenPresenter from "../presenters/ShopScreenPresenter";
+import ShopScreenPresenter from "../../../presenters/ShopScreenPresenter";
 import ShopScreen from "../screens/ShopScreen";
 import ProductScreen from "../screens/ProductScreen";
 import CartScreen from "../screens/CartScreen";

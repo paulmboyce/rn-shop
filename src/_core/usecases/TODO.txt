@@ -1,1 +1,19 @@
-Lets see of we can pull in some services here from the Actions...??
+Lets see of we can pull in some services here from the Reducers...??
+
+Basically:
+
+- Actions:
+  - map to Controllers
+  - thought they may also "get" data from state or IO/Database etc
+- Reducers:
+  - map to Use Cases
+  - receive Action Type "commands" 
+  - with data in payloads 
+  - ... so they can ... "perform the Use Cases"
+
+  More:
+  ========
+1. Now we have CartInteractor, it "should" deal with entities?
+2. It should update STATE to data store (via Gateway)
+
+Lets get ProductInteractor and OrderInteractor...

@@ -1,3 +1,5 @@
+import { Price } from "../entities/Price";
+
 class CartInteractor {
 	constructor() {
 		console.log("[USE CASES]: New CartInteractor instantiated.");
@@ -8,7 +10,7 @@ class CartInteractor {
 			subTotal += item.price * item.quantity;
 		});
 		console.log("[USE CASES]: CartInteractor returning calculateTotal()...");
-		return subTotal.toFixed(2);
+		return Price.roundTwoDecimalPlaces(subTotal);
 	};
 
 	calcNumItems = (items = [{ quantity: 0 }]) => {
@@ -17,7 +19,7 @@ class CartInteractor {
 			subTotal += item.quantity;
 		});
 		console.log("[USE CASES]: CartInteractor returning calcNumItems()...");
-		return subTotal.toFixed(0);
+		return Math.round(subTotal);
 	};
 }
 

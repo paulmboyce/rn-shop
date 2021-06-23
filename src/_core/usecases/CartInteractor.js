@@ -1,4 +1,4 @@
-import { Price } from "../entities/Price";
+import { roundTwoDecimalPlaces } from "../entities/utils/Round";
 
 class CartInteractor {
 	constructor() {
@@ -10,7 +10,7 @@ class CartInteractor {
 			subTotal += item.price * item.quantity;
 		});
 		console.log("[USE CASES]: CartInteractor returning calculateTotal()...");
-		return Price.roundTwoDecimalPlaces(subTotal);
+		return roundTwoDecimalPlaces(subTotal);
 	};
 
 	calcNumItems = (items = [{ quantity: 0 }]) => {

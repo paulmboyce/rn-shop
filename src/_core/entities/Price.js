@@ -1,19 +1,17 @@
+import { roundTwoDecimalPlaces } from "./utils/Round";
+
 class Price {
 	constructor(value = 0, currency = "") {
 		this.price = value;
 		this.currency = currency;
 	}
 
-	get currency() {
+	get getCurrency() {
 		return this.currency;
 	}
 
-	get price() {
-		return this.roundTwoDecimalPlaces(this.price);
-	}
-
-	static roundTwoDecimalPlaces(val) {
-		return Math.round((val + Number.EPSILON) * 100) / 100;
+	get getPrice() {
+		return roundTwoDecimalPlaces(this.price);
 	}
 }
 
